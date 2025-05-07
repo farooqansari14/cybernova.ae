@@ -1,2 +1,0 @@
-# cybernova.ae
-website 
