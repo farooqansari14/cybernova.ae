@@ -22,6 +22,11 @@
             padding: 0;
         }
 
+        html {
+            scroll-behavior: smooth; /* Enable smooth scrolling */
+            font-size: 120%; /* Increase font size by 20% */
+        }
+
         body {
             font-family: var(--font-sans);
             color: var(--text-primary);
@@ -41,6 +46,10 @@
             border-bottom: 1px solid var(--border-color);
             display: flex;
             align-items: center;
+            position: sticky;
+            top: 0;
+            background-color: var(--background);
+            z-index: 1000;
         }
 
         .nav-container {
@@ -51,10 +60,14 @@
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-primary);
+            display: flex;
+            align-items: center;
             text-decoration: none;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
         }
 
         .nav-links {
@@ -63,12 +76,35 @@
             align-items: center;
         }
 
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
         .nav-links a {
             color: var(--text-secondary);
             text-decoration: none;
-            font-size: 0.9rem;
             font-weight: 500;
-            transition: color 0.2s ease;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
         }
 
         .nav-links a:hover {
@@ -83,11 +119,13 @@
             border-radius: var(--radius);
             font-weight: 500;
             text-decoration: none;
-            transition: background-color 0.2s ease;
+            transition: all 0.3s ease;
         }
 
         .btn:hover {
             background-color: #0060df;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .btn-secondary {
@@ -114,6 +152,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            animation: fadeIn 1s ease-in-out;
         }
 
         .hero p {
@@ -121,12 +160,14 @@
             color: var(--text-secondary);
             max-width: 640px;
             margin: 0 auto 2rem;
+            animation: fadeIn 1s ease-in-out 0.3s both;
         }
 
         .hero-buttons {
             display: flex;
             gap: 1rem;
             justify-content: center;
+            animation: fadeIn 1s ease-in-out 0.6s both;
         }
 
         /* Features Section */
@@ -153,7 +194,7 @@
 
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
         }
 
@@ -171,7 +212,7 @@
         }
 
         .feature-icon {
-            font-size: 2rem;
+            font-size: 2.5rem;
             margin-bottom: 1rem;
             color: var(--primary);
         }
@@ -182,7 +223,6 @@
 
         .feature-card p {
             color: var(--text-secondary);
-            font-size: 0.95rem;
         }
 
         /* Vision Section */
@@ -203,7 +243,7 @@
             font-size: 1.1rem;
         }
 
-        /* Why Us Section */
+        /* Why Us Section - Changed from table to cards */
         .why-us {
             padding: 6rem 0;
             background-color: var(--background-secondary);
@@ -215,24 +255,33 @@
             text-align: center;
         }
 
-        .feature-table {
-            width: 100%;
-            border-collapse: collapse;
+        .why-us-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
         }
 
-        .feature-table th {
-            text-align: left;
-            padding: 1rem;
-            border-bottom: 2px solid var(--primary);
+        .why-us-card {
+            background-color: white;
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .feature-table td {
-            padding: 1rem;
-            border-bottom: 1px solid var(--border-color);
+        .why-us-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
         }
 
-        .feature-table tr:hover {
-            background-color: rgba(0, 112, 243, 0.05);
+        .why-us-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .why-us-card p {
+            color: var(--text-secondary);
         }
 
         /* CTA Section */
@@ -279,26 +328,106 @@
         .footer-links a {
             color: var(--text-secondary);
             text-decoration: none;
-            font-size: 0.9rem;
+            transition: color 0.3s ease;
         }
 
         .footer-links a:hover {
             color: var(--primary);
         }
 
-        /* Responsive */
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Page Transitions */
+        .page-transition {
+            transition: opacity 0.3s ease;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            html {
+                font-size: 110%;
+            }
+            
+            .hero h1 {
+                font-size: 3rem;
+            }
+        }
+
         @media (max-width: 768px) {
+            html {
+                font-size: 100%;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                right: 0;
+                background-color: var(--background);
+                flex-direction: column;
+                padding: 2rem 0;
+                gap: 1.5rem;
+                border-bottom: 1px solid var(--border-color);
+                transform: translateY(-150%);
+                transition: transform 0.3s ease;
+                z-index: 100;
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+            }
+            
             .hero h1 {
                 font-size: 2.5rem;
             }
+            
+            .hero-buttons,
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .hero-buttons a,
+            .cta-buttons a {
+                width: 100%;
+                max-width: 250px;
+                margin-bottom: 1rem;
+            }
+        }
 
-            .features-grid {
+        @media (max-width: 480px) {
+            html {
+                font-size: 90%; /* Adjust base font size for very small screens */
+            }
+            
+            .features-grid,
+            .why-us-grid {
                 grid-template-columns: 1fr;
             }
-
+            
             .footer-container {
                 flex-direction: column;
                 gap: 1.5rem;
+                text-align: center;
+            }
+            
+            .footer-links {
+                flex-wrap: wrap;
+                justify-content: center;
             }
         }
     </style>
@@ -307,7 +436,10 @@
     <!-- Header & Navigation -->
     <header>
         <div class="container nav-container">
-            <a href="index.html" class="logo">Cybernova</a>
+            <a href="index.html" class="logo">
+                <img src="/api/placeholder/150/40" alt="Cybernova Logo">
+            </a>
+            <button class="mobile-menu-btn">☰</button>
             <nav class="nav-links">
                 <a href="index.html">Home</a>
                 <a href="about.html">About Us</a>
@@ -371,32 +503,28 @@
         </div>
     </section>
 
-    <!-- Why Us Section -->
+    <!-- Why Us Section - Changed from table to cards -->
     <section class="why-us">
         <div class="container">
             <h2>Why Cybernova?</h2>
-            <table class="feature-table">
-                <tr>
-                    <th>Feature</th>
-                    <th>What It Means for You</th>
-                </tr>
-                <tr>
-                    <td>Decentralized by Design</td>
-                    <td>No single point of failure or manipulation</td>
-                </tr>
-                <tr>
-                    <td>Custom-Built Platforms</td>
-                    <td>Tailored to your sector's real-world needs</td>
-                </tr>
-                <tr>
-                    <td>GCC & Global Focus</td>
-                    <td>Designed with regional realities in mind</td>
-                </tr>
-                <tr>
-                    <td>Ready to Scale</td>
-                    <td>Built for pilots, cities, or national rollout</td>
-                </tr>
-            </table>
+            <div class="why-us-grid">
+                <div class="why-us-card">
+                    <h3>Decentralized by Design</h3>
+                    <p>No single point of failure or manipulation, ensuring your systems remain resilient and secure against attacks.</p>
+                </div>
+                <div class="why-us-card">
+                    <h3>Custom-Built Platforms</h3>
+                    <p>Tailored to your sector's real-world needs, leveraging blockchain technology that solves specific problems.</p>
+                </div>
+                <div class="why-us-card">
+                    <h3>GCC & Global Focus</h3>
+                    <p>Designed with regional realities in mind, ensuring compliance and cultural fit within any context.</p>
+                </div>
+                <div class="why-us-card">
+                    <h3>Ready to Scale</h3>
+                    <p>Built for pilots, cities, or national rollout with infrastructure that can grow as your adoption increases.</p>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -424,5 +552,43 @@
             </div>
         </div>
     </footer>
+
+    <!-- JavaScript for mobile menu and page transitions -->
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking a link
+        const navLinksList = document.querySelectorAll('.nav-links a');
+        navLinksList.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+        
+        // Page transition for internal links
+        document.addEventListener('DOMContentLoaded', () => {
+            const internalLinks = document.querySelectorAll('a[href^="index"], a[href^="about"], a[href^="projects"], a[href^="contact"]');
+            
+            internalLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (!link.href.includes('#')) {
+                        e.preventDefault();
+                        document.body.classList.add('page-transition');
+                        document.body.style.opacity = 0;
+                        
+                        setTimeout(() => {
+                            window.location.href = link.href;
+                        }, 300);
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
