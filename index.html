@@ -193,9 +193,17 @@
         }
 
         .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            gap: 1.5rem;
+            overflow-x: auto;
+            padding-bottom: 1rem;
+        }
+        
+        .feature-card {
+            flex: 1;
+            min-width: 220px;
         }
 
         .feature-card {
@@ -256,9 +264,17 @@
         }
 
         .why-us-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            gap: 1.5rem;
+            overflow-x: auto;
+            padding-bottom: 1rem;
+        }
+        
+        .why-us-card {
+            flex: 1;
+            min-width: 220px;
         }
 
         .why-us-card {
@@ -351,6 +367,35 @@
         .page-transition {
             transition: opacity 0.3s ease;
         }
+        
+        /* Scroll Buttons for Feature Cards */
+        .scroll-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .scroll-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            background-color: white;
+            color: var(--primary);
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .scroll-btn:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: scale(1.1);
+        }
 
         /* Responsive Design */
         @media (max-width: 992px) {
@@ -409,14 +454,69 @@
             }
         }
 
-        @media (max-width: 480px) {
+        @media (max-width: 768px) {
             html {
-                font-size: 90%; /* Adjust base font size for very small screens */
+                font-size: 100%;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                right: 0;
+                background-color: var(--background);
+                flex-direction: column;
+                padding: 2rem 0;
+                gap: 1.5rem;
+                border-bottom: 1px solid var(--border-color);
+                transform: translateY(-150%);
+                transition: transform 0.3s ease;
+                z-index: 100;
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-buttons,
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .hero-buttons a,
+            .cta-buttons a {
+                width: 100%;
+                max-width: 250px;
+                margin-bottom: 1rem;
             }
             
             .features-grid,
             .why-us-grid {
-                grid-template-columns: 1fr;
+                overflow-x: scroll;
+                -webkit-overflow-scrolling: touch;
+                scroll-snap-type: x mandatory;
+                scroll-padding: 1rem;
+            }
+            
+            .feature-card,
+            .why-us-card {
+                scroll-snap-align: start;
+                min-width: 280px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            html {
+                font-size: 90%; /* Adjust base font size for very small screens */
             }
             
             .footer-container {
@@ -428,6 +528,11 @@
             .footer-links {
                 flex-wrap: wrap;
                 justify-content: center;
+            }
+            
+            .feature-card,
+            .why-us-card {
+                min-width: 260px;
             }
         }
     </style>
@@ -454,7 +559,7 @@
     <section class="hero">
         <div class="container">
             <h1>Unifying Fragmented Systems with Blockchain</h1>
-            <p>Data is powerful when it's connected. Cybernova creates secure, decentralized platforms that eliminate data siloes, reduce inefficiency, and drive trust across complex systems.</p>
+            <p>Data is powerful—when it's connected. Cybernova creates secure, decentralized platforms that eliminate data siloes, reduce inefficiency, and drive trust across complex systems.</p>
             <div class="hero-buttons">
                 <a href="contact.html" class="btn">Let's Talk</a>
                 <a href="#features" class="btn btn-secondary">Explore More</a>
@@ -467,7 +572,7 @@
         <div class="container">
             <div class="features-intro">
                 <h2>What We Do</h2>
-                <p>In every industry healthcare, education, real estate, finance—there's a common, invisible problem: disconnected, isolated data. This fragmentation leads to inefficiencies, duplicated efforts, fraud, and costly delays.</p>
+                <p>In every industry—healthcare, education, real estate, finance—there's a common, invisible problem: disconnected, isolated data. This fragmentation leads to inefficiencies, duplicated efforts, fraud, and costly delays.</p>
                 <p>At Cybernova, we solve this by building blockchain-powered digital infrastructure that unifies data across stakeholders, institutions, and borders—ensuring transparency, control, and interoperability at scale.</p>
             </div>
             <div class="features-grid">
@@ -569,6 +674,49 @@
             link.addEventListener('click', () => {
                 navLinks.classList.remove('active');
             });
+        });
+        
+        // Add horizontal scroll buttons for feature cards on desktop
+        document.addEventListener('DOMContentLoaded', () => {
+            const featuresGrid = document.querySelector('.features-grid');
+            const whyUsGrid = document.querySelector('.why-us-grid');
+            
+            // Helper function to create scroll buttons if needed
+            function addScrollButtons(container, parentElement) {
+                // Only add buttons if content overflows
+                if (container.scrollWidth > container.clientWidth) {
+                    const scrollLeftBtn = document.createElement('button');
+                    scrollLeftBtn.textContent = '←';
+                    scrollLeftBtn.className = 'scroll-btn scroll-left';
+                    scrollLeftBtn.setAttribute('aria-label', 'Scroll left');
+                    
+                    const scrollRightBtn = document.createElement('button');
+                    scrollRightBtn.textContent = '→';
+                    scrollRightBtn.className = 'scroll-btn scroll-right';
+                    scrollRightBtn.setAttribute('aria-label', 'Scroll right');
+                    
+                    scrollLeftBtn.addEventListener('click', () => {
+                        container.scrollBy({ left: -300, behavior: 'smooth' });
+                    });
+                    
+                    scrollRightBtn.addEventListener('click', () => {
+                        container.scrollBy({ left: 300, behavior: 'smooth' });
+                    });
+                    
+                    const buttonContainer = document.createElement('div');
+                    buttonContainer.className = 'scroll-buttons';
+                    buttonContainer.appendChild(scrollLeftBtn);
+                    buttonContainer.appendChild(scrollRightBtn);
+                    
+                    parentElement.appendChild(buttonContainer);
+                }
+            }
+            
+            // Add scroll buttons for features section if window is large enough
+            if (window.innerWidth > 768) {
+                addScrollButtons(featuresGrid, document.querySelector('.features .container'));
+                addScrollButtons(whyUsGrid, document.querySelector('.why-us .container'));
+            }
         });
         
         // Page transition for internal links
