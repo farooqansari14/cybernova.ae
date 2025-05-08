@@ -1,109 +1,4 @@
-
-</head>
-<body>
-    <!-- Header & Navigation -->
-    <header>
-        <div class="container nav-container">
-            <a href="index.html" class="logo">Cybernova</a>
-            <nav class="nav-links">
-                <a href="index.html">Home</a>
-                <a href="about.html">About Us</a>
-                <a href="projects.html">Projects</a>
-                <a href="contact.html" class="btn">Let's Talk</a>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Page Header -->
-    <section class="page-header">
-        <div class="container">
-            <h1>Our Projects</h1>
-            <p>Decentralized solutions to real-world problems</p>
-        </div>
-    </section>
-
-    <!-- Overview Section -->
-    <section class="overview">
-        <div class="container">
-            <div class="overview-content">
-                <h2>🔍 Overview</h2>
-                <p>At Cybernova, we create decentralized digital infrastructure that replaces fragmented, outdated systems with seamless, secure platforms. Each of our flagship projects is tailored to a critical sector, addressing real-world inefficiencies with blockchain backed trust.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects -->
-    <section class="projects">
-        <div class="container">
-            <div class="projects-grid">
-                <!-- Project 1: Raaya -->
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="Raaya Logo" alt="Raaya Healthcare Platform" />
-                    </div>
-                    <div class="project-content">
-                        <div class="project-icon"></div>
-                        <h3>Raaya</h3>
-                        <h4>Decentralizing Healthcare Records</h4>
-                        <p>Raaya unifies patient health records into a single, tamper proof platform accessible across hospitals, clinics, and systems with full patient control.</p>
-                        <p><em>"Healthcare without borders. Records without siloes."</em></p>
-                        <div class="project-buttons">
-                            <a href="raaya.pdf" class="btn" download>Learn More</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 2: Credel -->
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="Credel Logo with Graduation Cap - Cool Blues and Greens (1).png" alt="Credel Certificate Platform" />
-                    </div>
-                    <div class="project-content">
-                        <div class="project-icon"></div>
-                        <h3>Credel</h3>
-                        <h4>Certificate Verification You Can Trust</h4>
-                        <p>Credel verifies academic and professional credentials instantly via blockchain, eliminating the need for manual checks and reducing forgery.</p>
-                        <p><em>"Because proof should never need proof."</em></p>
-                        <div class="project-buttons">
-                            <a href="credel.pdf" class="btn" download>Learn More</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 3: Saraya -->
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="Saraya.png" alt="Saraya Property Platform" />
-                    </div>
-                    <div class="project-content">
-                        <div class="project-icon"></div>
-                        <h3>Saraya</h3>
-                        <h4>Blockchain-Powered Property Infrastructure</h4>
-                        <p>Saraya digitizes real estate ownership by placing property deeds and transaction records on chain, simplifying title verification and transfers.</p>
-                        <p><em>"From paper to permanence."</em></p>
-                        <div class="project-buttons">
-                            <a href="saraya.pdf" class="btn" download>Learn More</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container footer-container">
-            <p>© 2025 Cybernova. All rights reserved.</p>
-            <div class="footer-links">
-                <a href="index.html">Home</a>
-                <a href="about.html">About Us</a>
-                <a href="projects.html">Projects</a>
-                <a href="contact.html">Contact</a>
-            </div>
-        </div>
-    </footer>
-</body>
-</html><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -127,6 +22,11 @@
             padding: 0;
         }
 
+        html {
+            scroll-behavior: smooth; /* Enable smooth scrolling */
+            font-size: 120%; /* Increase font size by 20% */
+        }
+
         body {
             font-family: var(--font-sans);
             color: var(--text-primary);
@@ -146,6 +46,10 @@
             border-bottom: 1px solid var(--border-color);
             display: flex;
             align-items: center;
+            position: sticky;
+            top: 0;
+            background-color: var(--background);
+            z-index: 1000;
         }
 
         .nav-container {
@@ -156,10 +60,14 @@
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-primary);
             text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 40px;
+            width: auto;
         }
 
         .nav-links {
@@ -168,12 +76,36 @@
             align-items: center;
         }
 
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
         .nav-links a {
             color: var(--text-secondary);
             text-decoration: none;
             font-size: 0.9rem;
             font-weight: 500;
-            transition: color 0.2s ease;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
         }
 
         .nav-links a:hover {
@@ -188,11 +120,13 @@
             border-radius: var(--radius);
             font-weight: 500;
             text-decoration: none;
-            transition: background-color 0.2s ease;
+            transition: all 0.3s ease;
         }
 
         .btn:hover {
             background-color: #0060df;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         /* Page Header */
@@ -205,6 +139,10 @@
         .page-header h1 {
             font-size: 3rem;
             margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--primary), #6d28d9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .page-header p {
@@ -228,6 +166,10 @@
         .overview-content h2 {
             font-size: 2.5rem;
             margin-bottom: 1.5rem;
+            background: linear-gradient(to right, var(--primary), #6d28d9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .overview-content p {
@@ -284,6 +226,10 @@
         .project-content h3 {
             font-size: 1.5rem;
             margin-bottom: 0.5rem;
+            background: linear-gradient(to right, var(--primary), #6d28d9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .project-content h4 {
@@ -323,20 +269,233 @@
             color: var(--text-secondary);
             text-decoration: none;
             font-size: 0.9rem;
+            transition: color 0.3s ease;
         }
 
         .footer-links a:hover {
             color: var(--primary);
         }
 
+        /* Page Transitions */
+        .page-transition {
+            transition: opacity 0.3s ease;
+        }
+
         /* Responsive */
+        @media (max-width: 992px) {
+            html {
+                font-size: 110%;
+            }
+            
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+        }
+
         @media (max-width: 768px) {
+            html {
+                font-size: 100%;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                right: 0;
+                background-color: var(--background);
+                flex-direction: column;
+                padding: 2rem 0;
+                gap: 1.5rem;
+                border-bottom: 1px solid var(--border-color);
+                transform: translateY(-150%);
+                transition: transform 0.3s ease;
+                z-index: 100;
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+            }
+            
             .projects-grid {
                 grid-template-columns: 1fr;
             }
-
+            
             .footer-container {
                 flex-direction: column;
                 gap: 1.5rem;
+                text-align: center;
+            }
+            
+            .footer-links {
+                justify-content: center;
             }
         }
+
+        @media (max-width: 480px) {
+            html {
+                font-size: 90%;
+            }
+            
+            .project-image {
+                height: 180px;
+            }
+            
+            .project-content {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <img src="CybernovaAsset_3-removebg-preview.png" alt="Cybernova Logo">
+            </a>
+            <button class="mobile-menu-btn">☰</button>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="projects.html">Projects</a>
+                <a href="contact.html" class="btn">Let's Talk</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Our Projects</h1>
+            <p>Decentralized solutions to real-world problems</p>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section class="overview">
+        <div class="container">
+            <div class="overview-content">
+                <h2><img src="loupe.pngs" alt="Overview Icon" style="vertical-align: middle; margin-right: 10px;"> Overview</h2>
+                <p>At Cybernova, we create decentralized digital infrastructure that replaces fragmented, outdated systems with seamless, secure platforms. Each of our flagship projects is tailored to a critical sector, addressing real-world inefficiencies with blockchain backed trust.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section class="projects">
+        <div class="container">
+            <div class="projects-grid">
+                <!-- Project 1: Raaya -->
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="/api/placeholder/400/200" alt="Raaya Healthcare Platform" />
+                    </div>
+                    <div class="project-content">
+                        <div class="project-icon"></div>
+                        <h3>Raaya</h3>
+                        <h4>Decentralizing Healthcare Records</h4>
+                        <p>Raaya unifies patient health records into a single, tamper proof platform accessible across hospitals, clinics, and systems with full patient control.</p>
+                        <p><em>"Healthcare without borders. Records without siloes."</em></p>
+                        <div class="project-buttons">
+                            <a href="raaya.pdf" class="btn" download>Learn More</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2: Credel -->
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="/api/placeholder/400/200" alt="Credel Certificate Platform" />
+                    </div>
+                    <div class="project-content">
+                        <div class="project-icon"></div>
+                        <h3>Credel</h3>
+                        <h4>Certificate Verification You Can Trust</h4>
+                        <p>Credel verifies academic and professional credentials instantly via blockchain, eliminating the need for manual checks and reducing forgery.</p>
+                        <p><em>"Because proof should never need proof."</em></p>
+                        <div class="project-buttons">
+                            <a href="credel.pdf" class="btn" download>Learn More</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3: Saraya -->
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="/api/placeholder/400/200" alt="Saraya Property Platform" />
+                    </div>
+                    <div class="project-content">
+                        <div class="project-icon"></div>
+                        <h3>Saraya</h3>
+                        <h4>Blockchain-Powered Property Infrastructure</h4>
+                        <p>Saraya digitizes real estate ownership by placing property deeds and transaction records on chain, simplifying title verification and transfers.</p>
+                        <p><em>"From paper to permanence."</em></p>
+                        <div class="project-buttons">
+                            <a href="saraya.pdf" class="btn" download>Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-container">
+            <p>© 2025 Cybernova. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="projects.html">Projects</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for mobile menu and page transitions -->
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking a link
+        const navLinksList = document.querySelectorAll('.nav-links a');
+        navLinksList.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+        
+        // Page transition for internal links
+        document.addEventListener('DOMContentLoaded', () => {
+            const internalLinks = document.querySelectorAll('a[href^="index"], a[href^="about"], a[href^="projects"], a[href^="contact"]');
+            
+            internalLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (!link.href.includes('#')) {
+                        e.preventDefault();
+                        document.body.classList.add('page-transition');
+                        document.body.style.opacity = 0;
+                        
+                        setTimeout(() => {
+                            window.location.href = link.href;
+                        }, 300);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
