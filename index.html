@@ -546,6 +546,29 @@
                 min-width: 260px;
             }
         }
+        
+        /* Gradient Text for All Headers */
+        .hero h1, 
+        .features-intro h2,
+        .vision h2,
+        .why-us h2,
+        .cta h2,
+        .feature-card h3,
+        .why-us-card h3 {
+            background: linear-gradient(to right, var(--primary), #6d28d9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* For feature cards and why-us cards, we need to override the previous color */
+        .feature-card h3 {
+            color: transparent; /* Ensures the gradient shows properly */
+        }
+
+        .why-us-card h3 {
+            color: transparent; /* Override the previous var(--primary) color */
+        }
     </style>
 </head>
 <body>
