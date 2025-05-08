@@ -170,7 +170,7 @@
             animation: fadeIn 1s ease-in-out 0.6s both;
         }
 
-        /* Features Section */
+        /* Features Section - MODIFIED */
         .features {
             padding: 6rem 0;
             background-color: var(--background-secondary);
@@ -203,13 +203,19 @@
         
         .feature-card {
             flex: 1;
-            min-width: 220px;
+            min-width: 180px; /* Reduced width from 220px */
+            height: 180px; /* Set a fixed height */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
         }
 
         .feature-card {
             background-color: white;
             border-radius: var(--radius);
-            padding: 2rem;
+            padding: 1.5rem; /* Reduced padding from 2rem */
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
@@ -219,7 +225,6 @@
             box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
         }
 
-        /* Changed: Feature icon styling now for images instead of text */
         .feature-icon {
             margin-bottom: 1rem;
         }
@@ -230,6 +235,7 @@
             object-fit: contain;
             display: block;
             transition: transform 0.3s ease;
+            margin: 0 auto; /* Center the icon */
         }
 
         .feature-card:hover .feature-icon img {
@@ -237,11 +243,9 @@
         }
 
         .feature-card h3 {
-            margin-bottom: 0.75rem;
-        }
-
-        .feature-card p {
-            color: var(--text-secondary);
+            margin-bottom: 0; /* Removed bottom margin since we're removing the paragraph */
+            font-size: 1.1rem; /* Reduced font size slightly */
+            text-align: center;
         }
 
         /* Vision Section */
@@ -262,7 +266,7 @@
             font-size: 1.1rem;
         }
 
-        /* Why Us Section - Changed from table to cards */
+        /* Why Us Section - MODIFIED */
         .why-us {
             padding: 6rem 0;
             background-color: var(--background-secondary);
@@ -285,13 +289,19 @@
         
         .why-us-card {
             flex: 1;
-            min-width: 220px;
+            min-width: 180px; /* Reduced width from 220px */
+            height: 180px; /* Set a fixed height to match feature cards */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
         }
 
         .why-us-card {
             background-color: white;
             border-radius: var(--radius);
-            padding: 2rem;
+            padding: 1.5rem; /* Reduced padding from 2rem */
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
@@ -301,14 +311,29 @@
             box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
         }
 
-        .why-us-card h3 {
-            color: var(--primary);
+        /* Added icon placeholder for why-us cards */
+        .why-us-icon {
             margin-bottom: 1rem;
-            font-size: 1.2rem;
         }
 
-        .why-us-card p {
-            color: var(--text-secondary);
+        .why-us-icon img {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            display: block;
+            transition: transform 0.3s ease;
+            margin: 0 auto; /* Center the icon */
+        }
+
+        .why-us-card:hover .why-us-icon img {
+            transform: scale(1.1);
+        }
+
+        .why-us-card h3 {
+            margin-bottom: 0; /* Removed margin since we're removing paragraph */
+            font-size: 1.1rem; /* Reduced font size slightly */
+            text-align: center;
+            color: transparent; /* Override the previous var(--primary) color */
         }
 
         /* CTA Section */
@@ -521,7 +546,7 @@
             .feature-card,
             .why-us-card {
                 scroll-snap-align: start;
-                min-width: 280px;
+                min-width: 180px; /* Updated from 280px to 180px */
             }
         }
 
@@ -543,7 +568,7 @@
             
             .feature-card,
             .why-us-card {
-                min-width: 260px;
+                min-width: 160px; /* Updated from 260px to 160px */
             }
         }
         
@@ -601,7 +626,7 @@
         </div>
     </section>
 
-    <!-- Features Section -->
+    <!-- Features Section - MODIFIED -->
     <section class="features" id="features">
         <div class="container">
             <div class="features-intro">
@@ -612,35 +637,31 @@
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <!-- Replace emoji with image -->
                         <img src="link.png" alt="Chain links icon">
                     </div>
                     <h3>Break down data siloes</h3>
-                    <p>We connect isolated systems and create seamless data flows that enable collaboration while maintaining security.</p>
+                    <!-- Paragraph text removed -->
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <!-- Replace emoji with image -->
                         <img src="padlock.png" alt="Lock icon">
                     </div>
                     <h3>Ensure trust without third parties</h3>
-                    <p>Our blockchain solutions create verifiable trust through transparency, immutability, and cryptographic security.</p>
+                    <!-- Paragraph text removed -->
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <!-- Replace emoji with image -->
                         <img src="settings.png" alt="Gear icon">
                     </div>
                     <h3>Automate verification and transactions</h3>
-                    <p>Smart contracts eliminate manual processes, reduce errors, and streamline operations across stakeholders.</p>
+                    <!-- Paragraph text removed -->
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <!-- Replace emoji with image -->
                         <img src="world.png" alt="Globe icon">
                     </div>
                     <h3>Scale across cities, sectors, and nations</h3>
-                    <p>Our infrastructure is designed to grow with your needs, from local pilots to national deployments.</p>
+                    <!-- Paragraph text removed -->
                 </div>
             </div>
         </div>
@@ -654,26 +675,38 @@
         </div>
     </section>
 
-    <!-- Why Us Section - Changed from table to cards -->
+    <!-- Why Us Section - MODIFIED with icons added -->
     <section class="why-us">
         <div class="container">
             <h2>Why Cybernova?</h2>
             <div class="why-us-grid">
                 <div class="why-us-card">
+                    <div class="why-us-icon">
+                        <img src="network.png" alt="Network icon">
+                    </div>
                     <h3>Decentralized by Design</h3>
-                    <p>No single point of failure or manipulation, ensuring your systems remain resilient and secure against attacks.</p>
+                    <!-- Paragraph text removed -->
                 </div>
                 <div class="why-us-card">
+                    <div class="why-us-icon">
+                        <img src="custom.png" alt="Custom build icon">
+                    </div>
                     <h3>Custom-Built Platforms</h3>
-                    <p>Tailored to your sector's real-world needs, leveraging blockchain technology that solves specific problems.</p>
+                    <!-- Paragraph text removed -->
                 </div>
                 <div class="why-us-card">
+                    <div class="why-us-icon">
+                        <img src="globe.png" alt="Global icon">
+                    </div>
                     <h3>GCC & Global Focus</h3>
-                    <p>Designed with regional realities in mind, ensuring compliance and cultural fit within any context.</p>
+                    <!-- Paragraph text removed -->
                 </div>
                 <div class="why-us-card">
+                    <div class="why-us-icon">
+                        <img src="scale.png" alt="Scale icon">
+                    </div>
                     <h3>Ready to Scale</h3>
-                    <p>Built for pilots, cities, or national rollout with infrastructure that can grow as your adoption increases.</p>
+                    <!-- Paragraph text removed -->
                 </div>
             </div>
         </div>
