@@ -197,6 +197,17 @@
         .vm-card p {
             color: var(--text-secondary);
         }
+        
+        /* Added styles for vision and mission icons */
+        .vm-icon {
+            margin-bottom: 1.5rem;
+        }
+        
+        .vm-icon img {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+        }
 
         /* Values */
         .values {
@@ -458,11 +469,17 @@
         <div class="container">
             <div class="vm-grid">
                 <div class="vm-card">
-                    <h2>🧭 Our Vision</h2>
+                    <div class="vm-icon">
+                        <img src="compass.png" alt="Vision Icon" />
+                    </div>
+                    <h2>Our Vision</h2>
                     <p>To become the backbone of transparent digital systems across the globe—connecting siloed data into unified ecosystems that serve people, not bureaucracy.</p>
                 </div>
                 <div class="vm-card">
-                    <h2>🎯 Our Mission</h2>
+                    <div class="vm-icon">
+                        <img src="target.png" alt="Mission Icon" />
+                    </div>
+                    <h2>Our Mission</h2>
                     <p>To eliminate data siloes across critical sectors by delivering blockchain-based infrastructure that enhances transparency, automates trust, and scales seamlessly from local to national levels.</p>
                 </div>
             </div>
