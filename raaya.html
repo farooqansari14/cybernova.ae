@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raaya - Healthcare Records, Reimagined | Cybernova</title>
+    <style>
+        /* Font imports */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fff;
+        }
+        
+        /* Green gradients for headings */
+        .gradient-text {
+            background: linear-gradient(90deg, #004d40 0%, #00796b 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        /* Container and general layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        section {
+            padding: 5rem 0;
+        }
+
+        /* Header & Navigation */
+        header {
+            height: 80px;
+            border-bottom: 1px solid #eaeaea;
+            display: flex;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background-color: #fff;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .nav-links a {
+            color: #444;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #0070f3;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: #0070f3;
+        }
+        
+        /* Cybernova button styles */
+        .cybernova-button {
+            display: inline-block;
+            padding: 10px 22px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: #00796b;
+            background-color: transparent;
+            border: 2px solid #00796b;
+            border-radius: 50px;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .cybernova-button:hover {
+            background-color: #00796b;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 121, 107, 0.3);
+        }
+
+        .cybernova-button:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 121, 107, 0.4);
+        }
+
+        .cybernova-button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 6px rgba(0, 121, 107, 0.2);
+        }
+        
+        /* Hero section */
+        .hero {
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('/api/placeholder/1200/600') center/cover no-repeat;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            color: #555;
+        }
+        
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 0 0.5rem 1rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(90deg, #004d40 0%, #00796b 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 121, 107, 0.4);
+        }
+        
+        .btn-secondary {
+            background-color: white;
+            color: #00796b;
+            border: 2px solid #00796b;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 15px rgba(0, 121, 107, 0.5);
+        }
+        
+        .btn-secondary:hover {
+            background-color: rgba(0, 121, 107, 0.1);
+        }
+        
+        /* Cards */
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            flex: 1 1 300px;
+            max-width: 350px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+        
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: #00796b;
+        }
+        
+        .card h3 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        /* How it works section */
+        .how-it-works {
+            background-color: #f9f9f9;
+        }
+        
+        .split-content {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            margin-top: 3rem;
+        }
+        
+        .visual-content {
+            flex: 1;
+        }
+        
+        .text-content {
+            flex: 1;
+        }
+        
+        .text-content h3 {
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+        
+        /* Features list */
+        .features-list {
+            margin-top: 3rem;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+        }
+        
+        .feature-icon {
+            font-size: 1.5rem;
+            color: #00796b;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .feature-text h4 {
+            margin-bottom: 0.5rem;
+            font-size: 1.25rem;
+        }
+        
+        /* Benefits section */
+        .benefits-columns {
+            display: flex;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .benefit-column {
+            flex: 1;
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .benefit-column h3 {
+            color: #00796b;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+        
+        .benefit-list {
+            list-style-type: none;
+        }
+        
+        .benefit-list li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .benefit-list li:before {
+            content: "✓";
+            color: #00796b;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+        
+        /* Company section */
+        .company {
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+        
+        .company p {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+        
+        /* CTA section */
+        .cta {
+            text-align: center;
+            background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)), url('/api/placeholder/1200/600') center/cover no-repeat;
+            padding: 6rem 0;
+        }
+        
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .cta h2 {
+            margin-bottom: 1rem;
+        }
+        
+        .cta p {
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 992px) {
+            .split-content {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            
+            .benefits-columns {
+                flex-direction: column;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .card {
+                flex: 1 1 100%;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                right: 0;
+                background-color: #fff;
+                flex-direction: column;
+                padding: 2rem 0;
+                gap: 1.5rem;
+                border-bottom: 1px solid #eaeaea;
+                transform: translateY(-150%);
+                transition: transform 0.3s ease;
+                z-index: 100;
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <img src="CybernovaAsset_3-removebg-preview.png" alt="Cybernova Logo">
+            </a>
+            <button class="mobile-menu-btn">☰</button>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="projects.html">Projects</a>
+                <a href="contact.html" class="cybernova-button">Let's Talk</a>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1 class="gradient-text">Healthcare Records, Reimagined.</h1>
+            <p>A secure, interoperable, and patient-first healthcare data platform built on blockchain — giving control back to the people, while streamlining operations for hospitals and insurers alike.</p>
+            <div class="cta-buttons">
+                <a href="#" class="cybernova-button" style="background-color: #00796b; color: white; margin: 0 0.5rem 1rem;">Request a Demo</a>
+                <a href="#how-it-works" class="cybernova-button" style="margin: 0 0.5rem 1rem;">How It Works</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Why Raaya Section -->
+    <section class="why-raaya">
+        <div class="container">
+            <h2 class="section-title gradient-text">Why Healthcare Needs a Smarter Backbone</h2>
+            <div class="cards-container">
+                <div class="card">
+                    <div class="card-icon">🏥</div>
+                    <h3>No More Data Silos</h3>
+                    <p>Unified health records across hospitals, labs, and clinics.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔒</div>
+                    <h3>Patient-Centric Privacy</h3>
+                    <p>Consent-driven data sharing with encryption and blockchain integrity.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">⚡</div>
+                    <h3>Fast, Secure Access</h3>
+                    <p>Eliminate delays, reduce errors, and ensure continuity of care.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- How Raaya Works Section -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <h2 class="section-title gradient-text">How Raaya Works</h2>
+            <div class="split-content">
+                <div class="visual-content">
+                    <img src="/api/placeholder/500/400" alt="Raaya Blockchain Technology Illustration" width="100%">
+                </div>
+                <div class="text-content">
+                    <h3 class="gradient-text">Blockchain Meets Medical Infrastructure</h3>
+                    <p>Raaya links every patient's medical record to a decentralized health ID. Data from multiple providers is stored immutably and accessed only through patient-approved permissions. Every transaction is logged, traceable, and secure — ensuring trust from first check-up to emergency surgery.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Core Features Section -->
+    <section class="core-features">
+        <div class="container">
+            <h2 class="section-title gradient-text">Core Features</h2>
+            <div class="features-list">
+                <div class="feature-item">
+                    <div class="feature-icon">🔗</div>
+                    <div class="feature-text">
+                        <h4>Interoperability Across Systems</h4>
+                        <p>Connect public, private, and rural health institutions.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🧾</div>
+                    <div class="feature-text">
+                        <h4>Tamper-Proof Medical Records</h4>
+                        <p>Every edit is logged and timestamped — nothing is lost, nothing is fake.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📍</div>
+                    <div class="feature-text">
+                        <h4>Location-Based Hospital Integration</h4>
+                        <p>Share records securely across geographies with localized access.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔐</div>
+                    <div class="feature-text">
+                        <h4>Consent-Driven Data Access</h4>
+                        <p>Patients approve who sees what, and when.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🤖</div>
+                    <div class="feature-text">
+                        <h4>AI-Ready Infrastructure (Coming Soon)</h4>
+                        <p>Leverage clean, structured data for insights, predictions, and alerts.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Benefits Section -->
+    <section class="benefits">
+        <div class="container">
+            <h2 class="section-title gradient-text">Benefits for Everyone</h2>
+            <div class="benefits-columns">
+                <div class="benefit-column">
+                    <h3>👤 Patients</h3>
+                    <ul class="benefit-list">
+                        <li>View, control, and share your complete medical history</li>
+                        <li>Avoid repeat tests and paperwork</li>
+                        <li>Get better, faster, more personalized care</li>
+                    </ul>
+                </div>
+                <div class="benefit-column">
+                    <h3>🏥 Healthcare Providers</h3>
+                    <ul class="benefit-list">
+                        <li>Access accurate patient records instantly</li>
+                        <li>Save time and reduce medical errors</li>
+                        <li>Focus on care, not administration</li>
+                    </ul>
+                </div>
+                <div class="benefit-column">
+                    <h3>💼 Insurance Providers</h3>
+                    <ul class="benefit-list">
+                        <li>Verify claims instantly with immutable health data</li>
+                        <li>Prevent fraud with real-time audit trails</li>
+                        <li>Automate approvals and reduce disbursement delays</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Company Section -->
+    <section class="company">
+        <div class="container">
+            <h2 class="section-title gradient-text">Built by Cybernova</h2>
+            <p>Raaya is a flagship module of <strong>Cybernova</strong>, a blockchain-driven platform tackling data fragmentation in healthcare, education, and real estate. We're building decentralized infrastructure for smarter, more connected systems.</p>
+            <img src="/api/placeholder/250/100" alt="Cybernova Logo" style="margin-top: 2rem;">
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container cta-content">
+            <h2 class="section-title gradient-text">Join the Future of Healthcare</h2>
+            <p>Whether you're a government, hospital, or insurer — Raaya is your secure gateway to seamless medical records.</p>
+            <div class="cta-buttons">
+                <a href="#" class="cybernova-button" style="background-color: #00796b; color: white; margin: 0 0.5rem 1rem;">Partner With Us</a>
+                <a href="#" class="cybernova-button" style="margin: 0 0.5rem 1rem;">Book a Presentation</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer style="background-color: #004d40; color: white; padding: 2rem 0; text-align: center;">
+        <div class="container">
+            <p>&copy; 2025 Cybernova. All rights reserved.</p>
+            <div style="margin-top: 1rem;">
+                <a href="#" style="color: white; margin: 0 10px;">Privacy Policy</a>
+                <a href="#" style="color: white; margin: 0 10px;">Terms of Service</a>
+                <a href="#" style="color: white; margin: 0 10px;">Contact Us</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for mobile menu and page transitions -->
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking a link
+        const navLinksList = document.querySelectorAll('.nav-links a');
+        navLinksList.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+        
+        // Page transition for internal links
+        document.addEventListener('DOMContentLoaded', () => {
+            const internalLinks = document.querySelectorAll('a[href^="index"], a[href^="about"], a[href^="projects"], a[href^="contact"]');
+            
+            internalLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (!link.href.includes('#')) {
+                        e.preventDefault();
+                        document.body.classList.add('page-transition');
+                        document.body.style.opacity = 0;
+                        
+                        setTimeout(() => {
+                            window.location.href = link.href;
+                        }, 300);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
