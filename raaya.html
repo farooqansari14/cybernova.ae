@@ -228,10 +228,12 @@
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
         }
         
-        .card-icon {
-            font-size: 3rem;
+        /* Icon styling - Updated to make icons smaller and uniform */
+        .card-icon img {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
             margin-bottom: 1.5rem;
-            color: #00796b;
         }
         
         .card h3 {
@@ -287,10 +289,12 @@
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
         }
         
-        .feature-icon {
-            font-size: 3rem;
+        /* Feature Icon styling - Updated for uniform size */
+        .feature-icon img {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
             margin-bottom: 1.5rem;
-            color: #00796b;
         }
         
         /* Benefits section - converted to cards */
@@ -323,6 +327,15 @@
             margin-bottom: 1.5rem;
             font-size: 1.5rem;
             text-align: center;
+        }
+        
+        /* Updated styling for benefit icons */
+        .benefit-card h3 img {
+            vertical-align: middle;
+            margin-right: 8px;
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
         }
         
         .benefit-list {
@@ -590,7 +603,7 @@
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <img src="/api/placeholder/64/64" alt="Data Access Icon">
+                        <img src="easy-access.png" alt="Data Access Icon">
                     </div>
                     <h3>Consent-Driven Data Access</h3>
                     <p>Patients approve who sees what, and when.</p>
@@ -606,7 +619,7 @@
             <div class="benefits-cards">
                 <div class="benefit-card">
                     <h3>
-                        <img src="/api/placeholder/32/32" alt="Patient Icon" style="vertical-align: middle; margin-right: 8px;"> 
+                        <img src="medical.png" alt="Patient Icon"> 
                         Patients
                     </h3>
                     <ul class="benefit-list">
@@ -617,7 +630,7 @@
                 </div>
                 <div class="benefit-card">
                     <h3>
-                        <img src="/api/placeholder/32/32" alt="Healthcare Provider Icon" style="vertical-align: middle; margin-right: 8px;">
+                        <img src="medical-professional.png" alt="Healthcare Provider Icon">
                         Healthcare Providers
                     </h3>
                     <ul class="benefit-list">
@@ -628,7 +641,7 @@
                 </div>
                 <div class="benefit-card">
                     <h3>
-                        <img src="/api/placeholder/32/32" alt="Insurance Icon" style="vertical-align: middle; margin-right: 8px;">
+                        <img src="offer.png" alt="Insurance Icon">
                         Insurance Providers
                     </h3>
                     <ul class="benefit-list">
