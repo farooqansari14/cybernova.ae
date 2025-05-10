@@ -20,6 +20,7 @@
             line-height: 1.6;
             color: #333;
             background-color: #fff;
+            overflow-x: hidden;
         }
         
         /* Green gradients for headings */
@@ -32,7 +33,7 @@
         }
         
         .section-title {
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
             font-weight: 700;
             margin-bottom: 1.5rem;
             text-align: center;
@@ -40,13 +41,19 @@
         
         /* Container and general layout */
         .container {
+            width: 100%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 1rem;
         }
         
         section {
-            padding: 5rem 0;
+            padding: 4rem 0;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
         }
 
         /* Header & Navigation */
@@ -91,6 +98,8 @@
             border: none;
             font-size: 1.5rem;
             cursor: pointer;
+            padding: 0.5rem;
+            z-index: 1010;
         }
 
         .nav-links a {
@@ -137,6 +146,7 @@
             position: relative;
             overflow: hidden;
             transition: all 0.3s ease;
+            margin: 0.5rem;
         }
 
         .cybernova-button:hover {
@@ -159,59 +169,37 @@
         /* Hero section */
         .hero {
             background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('/api/placeholder/1200/600') center/cover no-repeat;
-            min-height: 80vh;
+            min-height: 60vh;
             display: flex;
             align-items: center;
             text-align: center;
             position: relative;
+            padding: 4rem 0;
         }
         
         .hero-content {
             max-width: 800px;
             margin: 0 auto;
+            padding: 0 1rem;
         }
         
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: clamp(2rem, 7vw, 3.5rem);
             margin-bottom: 1rem;
+            line-height: 1.2;
         }
         
         .hero p {
-            font-size: 1.25rem;
+            font-size: clamp(1rem, 3vw, 1.25rem);
             margin-bottom: 2rem;
             color: #555;
         }
         
-        /* Buttons */
-        .btn {
-            display: inline-block;
-            padding: 0.8rem 1.8rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            margin: 0 0.5rem 1rem;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(90deg, #004d40 0%, #00796b 100%);
-            color: white;
-            box-shadow: 0 4px 15px rgba(0, 121, 107, 0.4);
-        }
-        
-        .btn-secondary {
-            background-color: white;
-            color: #00796b;
-            border: 2px solid #00796b;
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 7px 15px rgba(0, 121, 107, 0.5);
-        }
-        
-        .btn-secondary:hover {
-            background-color: rgba(0, 121, 107, 0.1);
+        .cta-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
         }
         
         /* Cards */
@@ -219,19 +207,20 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 2rem;
+            gap: 1.5rem;
             margin-top: 3rem;
         }
         
         .card {
             background: white;
             border-radius: 12px;
-            padding: 2rem;
-            flex: 1 1 300px;
+            padding: 1.5rem;
+            flex: 1 1 250px;
             max-width: 350px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             transition: all 0.3s ease;
             text-align: center;
+            margin-bottom: 1rem;
         }
         
         .card:hover {
@@ -258,34 +247,39 @@
         .split-content {
             display: flex;
             align-items: center;
-            gap: 4rem;
+            gap: 2rem;
             margin-top: 3rem;
+            flex-direction: column;
         }
         
         .visual-content {
             flex: 1;
+            order: 1;
+            width: 100%;
+            max-width: 500px;
         }
         
         .text-content {
             flex: 1;
+            order: 2;
         }
         
         .text-content h3 {
             margin-bottom: 1.5rem;
-            font-size: 2rem;
+            font-size: clamp(1.5rem, 4vw, 2rem);
         }
         
         /* Features list - converted to cards */
         .feature-card {
             background: white;
             border-radius: 12px;
-            padding: 2rem;
-            flex: 1 1 300px;
+            padding: 1.5rem;
+            flex: 1 1 250px;
             max-width: 350px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             transition: all 0.3s ease;
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
         
         .feature-card:hover {
@@ -304,18 +298,19 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 2rem;
+            gap: 1.5rem;
             margin-top: 3rem;
         }
         
         .benefit-card {
             background: white;
             border-radius: 12px;
-            padding: 2rem;
-            flex: 1 1 300px;
+            padding: 1.5rem;
+            flex: 1 1 250px;
             max-width: 350px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             transition: all 0.3s ease;
+            margin-bottom: 1.5rem;
         }
         
         .benefit-card:hover {
@@ -337,7 +332,7 @@
         .benefit-list li {
             margin-bottom: 1rem;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
         }
         
         .benefit-list li:before {
@@ -345,6 +340,7 @@
             color: #00796b;
             font-weight: bold;
             margin-right: 0.5rem;
+            flex-shrink: 0;
         }
         
         /* Company section */
@@ -355,20 +351,27 @@
         
         .company p {
             max-width: 700px;
+            margin: 0 auto 2rem;
+            font-size: clamp(1rem, 3vw, 1.1rem);
+            padding: 0 1rem;
+        }
+        
+        .company img {
+            max-width: 200px;
             margin: 0 auto;
-            font-size: 1.1rem;
         }
         
         /* CTA section */
         .cta {
             text-align: center;
             background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)), url('/api/placeholder/1200/600') center/cover no-repeat;
-            padding: 6rem 0;
+            padding: 4rem 0;
         }
         
         .cta-content {
             max-width: 700px;
             margin: 0 auto;
+            padding: 0 1rem;
         }
         
         .cta h2 {
@@ -377,40 +380,54 @@
         
         .cta p {
             margin-bottom: 2rem;
-            font-size: 1.1rem;
+            font-size: clamp(1rem, 3vw, 1.1rem);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #004d40;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        footer .container {
+            padding: 0 1rem;
+        }
+        
+        footer a {
+            color: white;
+            margin: 0 10px;
+            display: inline-block;
+            text-decoration: none;
+        }
+        
+        footer .links {
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
         }
         
         /* Responsive design */
-        @media (max-width: 992px) {
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 2rem;
+            }
+            
             .split-content {
-                flex-direction: column;
-                gap: 2rem;
+                flex-direction: row;
             }
             
-            .section-title {
-                font-size: 2rem;
-            }
-            
-            .hero h1 {
-                font-size: 2.5rem;
+            .visual-content {
+                order: 0;
             }
         }
         
         @media (max-width: 768px) {
-            .card, .feature-card, .benefit-card {
-                flex: 1 1 100%;
-            }
-            
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
-            .hero p {
-                font-size: 1rem;
-            }
-            
-            .section-title {
-                font-size: 1.8rem;
+            section {
+                padding: 3rem 0;
             }
             
             .mobile-menu-btn {
@@ -419,22 +436,54 @@
             
             .nav-links {
                 position: fixed;
-                top: 80px;
+                top: 0;
                 left: 0;
                 right: 0;
-                background-color: #fff;
+                bottom: 0;
+                background-color: white;
                 flex-direction: column;
-                padding: 2rem 0;
-                gap: 1.5rem;
-                border-bottom: 1px solid #eaeaea;
-                transform: translateY(-150%);
+                justify-content: center;
+                align-items: center;
+                padding: 2rem;
+                gap: 2rem;
+                transform: translateX(100%);
                 transition: transform 0.3s ease;
-                z-index: 100;
+                z-index: 1000;
             }
             
             .nav-links.active {
-                transform: translateY(0);
+                transform: translateX(0);
             }
+            
+            .nav-links a {
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .cybernova-button {
+                width: 100%;
+                margin: 0.5rem 0;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                width: 100%;
+                padding: 0 1rem;
+            }
+            
+            .hero {
+                min-height: 50vh;
+            }
+            
+            .card, .feature-card, .benefit-card {
+                max-width: 100%;
+            }
+        }
+        
+        /* Animation for page transitions */
+        .page-transition {
+            transition: opacity 0.3s ease;
         }
     </style>
 </head>
@@ -445,7 +494,7 @@
             <a href="index.html" class="logo">
                 <img src="CybernovaAsset_3-removebg-preview.png" alt="Cybernova Logo">
             </a>
-            <button class="mobile-menu-btn">☰</button>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">☰</button>
             <nav class="nav-links">
                 <a href="index.html">Home</a>
                 <a href="about.html">About Us</a>
@@ -461,8 +510,8 @@
             <h1 class="gradient-text">Healthcare Records, Reimagined.</h1>
             <p>A secure, interoperable, and patient-first healthcare data platform built on blockchain — giving control back to the people, while streamlining operations for hospitals and insurers alike.</p>
             <div class="cta-buttons">
-                <a href="#" class="cybernova-button" style="background-color: #00796b; color: white; margin: 0 0.5rem 1rem;">Request a Demo</a>
-                <a href="#how-it-works" class="cybernova-button" style="margin: 0 0.5rem 1rem;">How It Works</a>
+                <a href="#" class="cybernova-button" style="background-color: #00796b; color: white;">Request a Demo</a>
+                <a href="#how-it-works" class="cybernova-button">How It Works</a>
             </div>
         </div>
     </section>
@@ -497,11 +546,11 @@
             <h2 class="section-title gradient-text">How Raaya Works</h2>
             <div class="split-content">
                 <div class="visual-content">
-                    <img src="Raaya Logo" alt="Raaya Blockchain Technology Illustration" width="100%">
+                    <img src="Raaya Logo" alt="Raaya Blockchain Technology Illustration">
                 </div>
                 <div class="text-content">
                     <h3 class="gradient-text">Blockchain Meets Medical Infrastructure</h3>
-                    <p>Raaya links every patient's medical record to a decentralized health ID. Data from multiple providers is stored immutably and accessed only through patient-approved permissions. Every transaction is logged, traceable, and secure — ensuring trust from first check-up to emergency surgery.</p>
+                    <p>Raaya links every patient's medical record to the national ID. Data from multiple providers is stored immutably and accessed only through patient-approved permissions. Every transaction is logged, traceable, and secure — ensuring trust from first check-up to emergency surgery.</p>
                 </div>
             </div>
         </div>
@@ -574,7 +623,7 @@
         <div class="container">
             <h2 class="section-title gradient-text">Built by Cybernova</h2>
             <p>Raaya is a flagship module of <strong>Cybernova</strong>, a blockchain-driven platform tackling data fragmentation in healthcare. We're building decentralized infrastructure for smarter, more connected systems.</p>
-            <img src="CybernovaAsset_3-removebg-preview.png" alt="Cybernova Logo" style="margin-top: 2rem;">
+            <img src="CybernovaAsset_3-removebg-preview.png" alt="Cybernova Logo">
         </div>
     </section>
     
@@ -584,20 +633,20 @@
             <h2 class="section-title gradient-text">Join the Future of Healthcare</h2>
             <p>Whether you're a government, hospital, or insurer — Raaya is your secure gateway to seamless medical records.</p>
             <div class="cta-buttons">
-                <a href="#" class="cybernova-button" style="background-color: #00796b; color: white; margin: 0 0.5rem 1rem;">Partner With Us</a>
-                <a href="#" class="cybernova-button" style="margin: 0 0.5rem 1rem;">Book a Presentation</a>
+                <a href="#" class="cybernova-button" style="background-color: #00796b; color: white;">Partner With Us</a>
+                <a href="#" class="cybernova-button">Book a Presentation</a>
             </div>
         </div>
     </section>
     
     <!-- Footer -->
-    <footer style="background-color: #004d40; color: white; padding: 2rem 0; text-align: center;">
+    <footer>
         <div class="container">
             <p>&copy; 2025 Cybernova. All rights reserved.</p>
-            <div style="margin-top: 1rem;">
-                <a href="#" style="color: white; margin: 0 10px;">Privacy Policy</a>
-                <a href="#" style="color: white; margin: 0 10px;">Terms of Service</a>
-                <a href="#" style="color: white; margin: 0 10px;">Contact Us</a>
+            <div class="links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact Us</a>
             </div>
         </div>
     </footer>
@@ -610,6 +659,8 @@
         
         mobileMenuBtn.addEventListener('click', () => {
             navLinks.classList.toggle('active');
+            // Change menu icon based on state
+            mobileMenuBtn.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
         });
         
         // Close mobile menu when clicking a link
@@ -617,7 +668,18 @@
         navLinksList.forEach(link => {
             link.addEventListener('click', () => {
                 navLinks.classList.remove('active');
+                mobileMenuBtn.textContent = '☰';
             });
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (navLinks.classList.contains('active') && 
+                !e.target.closest('.nav-links') && 
+                !e.target.closest('.mobile-menu-btn')) {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.textContent = '☰';
+            }
         });
         
         // Page transition for internal links
@@ -636,6 +698,32 @@
                         }, 300);
                     }
                 });
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                // Close mobile menu if open
+                navLinks.classList.remove('active');
+                mobileMenuBtn.textContent = '☰';
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    // Offset for fixed header
+                    const headerHeight = document.querySelector('header').offsetHeight;
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
             });
         });
     </script>
