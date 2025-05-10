@@ -275,45 +275,55 @@
             font-size: 2rem;
         }
         
-        /* Features list */
-        .features-list {
-            margin-top: 3rem;
-        }
-        
-        .feature-item {
-            display: flex;
-            align-items: flex-start;
+        /* Features list - converted to cards */
+        .feature-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            flex: 1 1 300px;
+            max-width: 350px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            text-align: center;
             margin-bottom: 2rem;
         }
         
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+        
         .feature-icon {
-            font-size: 1.5rem;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
             color: #00796b;
-            margin-right: 1rem;
-            flex-shrink: 0;
         }
         
-        .feature-text h4 {
-            margin-bottom: 0.5rem;
-            font-size: 1.25rem;
-        }
-        
-        /* Benefits section */
-        .benefits-columns {
+        /* Benefits section - converted to cards */
+        .benefits-cards {
             display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
             gap: 2rem;
             margin-top: 3rem;
         }
         
-        .benefit-column {
-            flex: 1;
+        .benefit-card {
             background: white;
-            padding: 2rem;
             border-radius: 12px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            padding: 2rem;
+            flex: 1 1 300px;
+            max-width: 350px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
         }
         
-        .benefit-column h3 {
+        .benefit-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+        
+        .benefit-card h3 {
             color: #00796b;
             margin-bottom: 1.5rem;
             font-size: 1.5rem;
@@ -377,10 +387,6 @@
                 gap: 2rem;
             }
             
-            .benefits-columns {
-                flex-direction: column;
-            }
-            
             .section-title {
                 font-size: 2rem;
             }
@@ -391,7 +397,7 @@
         }
         
         @media (max-width: 768px) {
-            .card {
+            .card, .feature-card, .benefit-card {
                 flex: 1 1 100%;
             }
             
@@ -505,34 +511,26 @@
     <section class="core-features">
         <div class="container">
             <h2 class="section-title gradient-text">Core Features</h2>
-            <div class="features-list">
-                <div class="feature-item">
-                    <div class="feature-icon">🔗</div>
-                    <div class="feature-text">
-                        <h4>Interoperability Across Systems</h4>
-                        <p>Connect public, private, and rural health institutions.</p>
-                    </div>
+            <div class="cards-container">
+                <div class="feature-card">
+                    <div class="card-icon">🔗</div>
+                    <h3>Interoperability Across Systems</h3>
+                    <p>Connect public, private, and rural health institutions.</p>
                 </div>
-                <div class="feature-item">
-                    <div class="feature-icon">🧾</div>
-                    <div class="feature-text">
-                        <h4>Tamper-Proof Medical Records</h4>
-                        <p>Every edit is logged and timestamped — nothing is lost, nothing is fake.</p>
-                    </div>
+                <div class="feature-card">
+                    <div class="card-icon">🧾</div>
+                    <h3>Tamper-Proof Medical Records</h3>
+                    <p>Every edit is logged and timestamped — nothing is lost, nothing is fake.</p>
                 </div>
-                <div class="feature-item">
-                    <div class="feature-icon">📍</div>
-                    <div class="feature-text">
-                        <h4>Location-Based Hospital Integration</h4>
-                        <p>Share records securely across geographies with localized access.</p>
-                    </div>
+                <div class="feature-card">
+                    <div class="card-icon">📍</div>
+                    <h3>Location-Based Hospital Integration</h3>
+                    <p>Share records securely across geographies with localized access.</p>
                 </div>
-                <div class="feature-item">
-                    <div class="feature-icon">🔐</div>
-                    <div class="feature-text">
-                        <h4>Consent-Driven Data Access</h4>
-                        <p>Patients approve who sees what, and when.</p>
-                    </div>
+                <div class="feature-card">
+                    <div class="card-icon">🔐</div>
+                    <h3>Consent-Driven Data Access</h3>
+                    <p>Patients approve who sees what, and when.</p>
                 </div>
             </div>
         </div>
@@ -542,8 +540,8 @@
     <section class="benefits">
         <div class="container">
             <h2 class="section-title gradient-text">Benefits for Everyone</h2>
-            <div class="benefits-columns">
-                <div class="benefit-column">
+            <div class="benefits-cards">
+                <div class="benefit-card">
                     <h3>👤 Patients</h3>
                     <ul class="benefit-list">
                         <li>View, control, and share your complete medical history</li>
@@ -551,7 +549,7 @@
                         <li>Get better, faster, more personalized care</li>
                     </ul>
                 </div>
-                <div class="benefit-column">
+                <div class="benefit-card">
                     <h3>🏥 Healthcare Providers</h3>
                     <ul class="benefit-list">
                         <li>Access accurate patient records instantly</li>
@@ -559,7 +557,7 @@
                         <li>Focus on care, not administration</li>
                     </ul>
                 </div>
-                <div class="benefit-column">
+                <div class="benefit-card">
                     <h3>💼 Insurance Providers</h3>
                     <ul class="benefit-list">
                         <li>Verify claims instantly with immutable health data</li>
