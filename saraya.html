@@ -23,9 +23,9 @@
             overflow-x: hidden;
         }
         
-        /* Brown gradients for headings */
-        .gradient-text {
-            background: linear-gradient(90deg, #3A2618 0%, #6B4D3C 100%);
+        /* Dark brown gradient for all headings and titles */
+        h1, h2, h3, .section-title, .gradient-text {
+            background: linear-gradient(90deg, #2A1B0F 0%, #5D3F2C 100%);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -143,7 +143,7 @@
             height: 2px;
             bottom: -4px;
             left: 0;
-            background-color: #6B4D3C;
+            background-color: #5D3F2C;
             transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
@@ -152,19 +152,19 @@
         }
 
         .nav-links a:hover {
-            color: #6B4D3C;
+            color: #5D3F2C;
             transform: translateY(-2px);
         }
         
-        /* Cybernova button styles */
+        /* Cybernova button styles - updated to dark brown */
         .cybernova-button {
             display: inline-block;
             padding: 10px 22px;
             font-weight: 500;
             font-size: 0.95rem;
-            color: #6B4D3C;
+            color: #5D3F2C;
             background-color: transparent;
-            border: 2px solid #6B4D3C;
+            border: 2px solid #5D3F2C;
             border-radius: 50px;
             text-decoration: none;
             text-align: center;
@@ -183,7 +183,7 @@
             left: 0;
             width: 0;
             height: 100%;
-            background-color: #6B4D3C;
+            background-color: #5D3F2C;
             transition: width 0.4s ease;
             z-index: -1;
         }
@@ -191,7 +191,7 @@
         .cybernova-button:hover {
             color: white;
             transform: translateY(-3px);
-            box-shadow: 0 7px 15px rgba(107, 77, 60, 0.3);
+            box-shadow: 0 7px 15px rgba(93, 63, 44, 0.3);
         }
         
         .cybernova-button:hover:before {
@@ -200,21 +200,21 @@
 
         .cybernova-button:focus {
             outline: none;
-            box-shadow: 0 0 0 3px rgba(107, 77, 60, 0.4);
+            box-shadow: 0 0 0 3px rgba(93, 63, 44, 0.4);
         }
 
         .cybernova-button:active {
             transform: translateY(-1px);
-            box-shadow: 0 3px 8px rgba(107, 77, 60, 0.2);
+            box-shadow: 0 3px 8px rgba(93, 63, 44, 0.2);
         }
         
         .cybernova-button.filled {
-            background-color: #6B4D3C;
+            background-color: #5D3F2C;
             color: white;
         }
         
         .cybernova-button.filled:before {
-            background-color: #30201A;
+            background-color: #2A1B0F;
         }
         
         /* Hero section */
@@ -236,7 +236,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(45deg, rgba(107, 77, 60, 0.05) 0%, rgba(255, 255, 255, 0) 70%);
+            background: linear-gradient(45deg, rgba(93, 63, 44, 0.05) 0%, rgba(255, 255, 255, 0) 70%);
             transform: translateX(-100%);
             animation: gradient-slide 8s infinite alternate ease-in-out;
         }
@@ -376,10 +376,6 @@
             margin-bottom: 1rem;
             font-size: 1.5rem;
             transition: color 0.3s ease;
-        }
-        
-        .card:hover h3 {
-            color: #6B4D3C;
         }
         
         /* How it works section */
@@ -534,7 +530,6 @@
         }
         
         .benefit-card h3 {
-            color: #6B4D3C;
             margin-bottom: 1.5rem;
             font-size: 1.5rem;
             text-align: center;
@@ -581,7 +576,7 @@
         
         .benefit-list li:before {
             content: "✓";
-            color: #6B4D3C;
+            color: #5D3F2C;
             font-weight: bold;
             margin-right: 0.5rem;
             flex-shrink: 0;
@@ -642,7 +637,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(107, 77, 60, 0.05) 0%, rgba(255, 255, 255, 0) 70%);
+            background: radial-gradient(circle, rgba(93, 63, 44, 0.05) 0%, rgba(255, 255, 255, 0) 70%);
             animation: pulse 15s infinite ease-in-out;
         }
         
@@ -700,7 +695,7 @@
         
         /* Footer */
         footer {
-            background-color: #3A2618;
+            background-color: #2A1B0F;
             color: white;
             padding: 2rem 0;
             text-align: center;
@@ -768,7 +763,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: #6B4D3C;
+            background-color: #5D3F2C;
             z-index: 9999;
             transform: translateY(100%);
             transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
@@ -786,7 +781,7 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background-color: #6B4D3C;
+            background-color: #5D3F2C;
             color: white;
             display: flex;
             justify-content: center;
@@ -948,7 +943,7 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="container hero-content">
-            <h1 class="gradient-text">Property Records, Reimagined.</h1>
+            <h1>Property Records, Reimagined.</h1>
             <p>A secure, transparent, and owner first property registry platform built on blockchain giving control back to individuals, while streamlining processes for governments and real estate developers alike.</p>
             <div class="cta-buttons">
                 <a href="contact.html" class="cybernova-button filled">Join Us</a>
@@ -956,6 +951,7 @@
             </div>
         </div>
     </section>
+    
     
     <!-- Why Saraya Section -->
     <section class="why-saraya">
