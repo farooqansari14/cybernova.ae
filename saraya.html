@@ -37,6 +37,14 @@
             font-weight: 700;
             margin-bottom: 1.5rem;
             text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .section-title.appear {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         /* Container and general layout */
@@ -49,6 +57,7 @@
         
         section {
             padding: 4rem 0;
+            position: relative;
         }
 
         img {
@@ -66,6 +75,12 @@
             top: 0;
             background-color: #fff;
             z-index: 1000;
+            transition: box-shadow 0.3s ease, background-color 0.3s ease;
+        }
+        
+        header.scrolled {
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.98);
         }
 
         .nav-container {
@@ -79,6 +94,11 @@
             text-decoration: none;
             display: flex;
             align-items: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
         }
         
         .logo img {
@@ -100,6 +120,11 @@
             cursor: pointer;
             padding: 0.5rem;
             z-index: 1010;
+            transition: transform 0.3s ease;
+        }
+        
+        .mobile-menu-btn:hover {
+            transform: rotate(90deg);
         }
 
         .nav-links a {
@@ -107,7 +132,7 @@
             text-decoration: none;
             font-size: 0.9rem;
             font-weight: 500;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease, transform 0.3s ease;
             position: relative;
         }
 
@@ -119,7 +144,7 @@
             bottom: -4px;
             left: 0;
             background-color: #6B4D3C;
-            transition: width 0.3s ease;
+            transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         .nav-links a:hover:after {
@@ -128,6 +153,7 @@
 
         .nav-links a:hover {
             color: #6B4D3C;
+            transform: translateY(-2px);
         }
         
         /* Cybernova button styles */
@@ -145,15 +171,31 @@
             cursor: pointer;
             position: relative;
             overflow: hidden;
-            transition: all 0.3s ease;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             margin: 0.5rem;
+            z-index: 1;
+        }
+        
+        .cybernova-button:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background-color: #6B4D3C;
+            transition: width 0.4s ease;
+            z-index: -1;
         }
 
         .cybernova-button:hover {
-            background-color: #6B4D3C;
             color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(107, 77, 60, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 7px 15px rgba(107, 77, 60, 0.3);
+        }
+        
+        .cybernova-button:hover:before {
+            width: 100%;
         }
 
         .cybernova-button:focus {
@@ -162,8 +204,17 @@
         }
 
         .cybernova-button:active {
-            transform: translateY(0);
-            box-shadow: 0 2px 6px rgba(107, 77, 60, 0.2);
+            transform: translateY(-1px);
+            box-shadow: 0 3px 8px rgba(107, 77, 60, 0.2);
+        }
+        
+        .cybernova-button.filled {
+            background-color: #6B4D3C;
+            color: white;
+        }
+        
+        .cybernova-button.filled:before {
+            background-color: #30201A;
         }
         
         /* Hero section */
@@ -175,24 +226,61 @@
             text-align: center;
             position: relative;
             padding: 4rem 0;
+            overflow: hidden;
+        }
+        
+        .hero:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(107, 77, 60, 0.05) 0%, rgba(255, 255, 255, 0) 70%);
+            transform: translateX(-100%);
+            animation: gradient-slide 8s infinite alternate ease-in-out;
+        }
+        
+        @keyframes gradient-slide {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
         }
         
         .hero-content {
             max-width: 800px;
             margin: 0 auto;
             padding: 0 1rem;
+            position: relative;
+            z-index: 2;
         }
         
         .hero h1 {
             font-size: clamp(2rem, 7vw, 3.5rem);
             margin-bottom: 1rem;
             line-height: 1.2;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fade-in-up 1s forwards 0.2s ease;
         }
         
         .hero p {
             font-size: clamp(1rem, 3vw, 1.25rem);
             margin-bottom: 2rem;
             color: #555;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fade-in-up 1s forwards 0.6s ease;
+        }
+        
+        @keyframes fade-in-up {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .cta-buttons {
@@ -200,6 +288,9 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 0.5rem;
+            opacity: 0;
+            transform: translateY(15px);
+            animation: fade-in-up 1s forwards 1s ease;
         }
         
         /* Cards */
@@ -209,6 +300,14 @@
             justify-content: center;
             gap: 1.5rem;
             margin-top: 3rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .cards-container.appear {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .card {
@@ -218,27 +317,69 @@
             flex: 1 1 250px;
             max-width: 350px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             text-align: center;
             margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .cards-container.appear .card {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .cards-container.appear .card:nth-child(1) {
+            transition-delay: 0.1s;
+        }
+        
+        .cards-container.appear .card:nth-child(2) {
+            transition-delay: 0.3s;
+        }
+        
+        .cards-container.appear .card:nth-child(3) {
+            transition-delay: 0.5s;
+        }
+        
+        .cards-container.appear .card:nth-child(4) {
+            transition-delay: 0.7s;
         }
         
         .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
         }
         
         /* Icon styling - Updated to make icons smaller and uniform */
+        .card-icon {
+            transform: translateY(0);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .card:hover .card-icon {
+            transform: translateY(-8px) scale(1.1);
+        }
+        
         .card-icon img {
             width: 48px;
             height: 48px;
             object-fit: contain;
             margin-bottom: 1.5rem;
+            transition: transform 0.5s ease;
+        }
+        
+        .card:hover .card-icon img {
+            transform: rotate(10deg);
         }
         
         .card h3 {
             margin-bottom: 1rem;
             font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+        
+        .card:hover h3 {
+            color: #6B4D3C;
         }
         
         /* How it works section */
@@ -252,6 +393,12 @@
             gap: 2rem;
             margin-top: 3rem;
             flex-direction: column;
+            opacity: 0;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .split-content.appear {
+            opacity: 1;
         }
         
         .visual-content {
@@ -259,11 +406,27 @@
             order: 1;
             width: 100%;
             max-width: 500px;
+            transform: translateX(-30px);
+            opacity: 0;
+            transition: transform 0.8s ease 0.3s, opacity 0.8s ease 0.3s;
+        }
+        
+        .split-content.appear .visual-content {
+            transform: translateX(0);
+            opacity: 1;
         }
         
         .text-content {
             flex: 1;
             order: 2;
+            transform: translateX(30px);
+            opacity: 0;
+            transition: transform 0.8s ease 0.5s, opacity 0.8s ease 0.5s;
+        }
+        
+        .split-content.appear .text-content {
+            transform: translateX(0);
+            opacity: 1;
         }
         
         .text-content h3 {
@@ -279,22 +442,43 @@
             flex: 1 1 250px;
             max-width: 350px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             text-align: center;
             margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .cards-container.appear .feature-card {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
         }
         
         /* Feature Icon styling - Updated for uniform size */
+        .feature-icon {
+            transform: translateY(0);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .feature-card:hover .feature-icon {
+            transform: translateY(-8px);
+        }
+        
         .feature-icon img {
             width: 48px;
             height: 48px;
             object-fit: contain;
             margin-bottom: 1.5rem;
+            transition: transform 0.5s ease;
+        }
+        
+        .feature-card:hover .feature-icon img {
+            transform: rotate(10deg);
         }
         
         /* Benefits section - converted to cards */
@@ -304,6 +488,14 @@
             justify-content: center;
             gap: 1.5rem;
             margin-top: 3rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .benefits-cards.appear {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .benefit-card {
@@ -313,13 +505,32 @@
             flex: 1 1 250px;
             max-width: 350px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .benefits-cards.appear .benefit-card {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .benefits-cards.appear .benefit-card:nth-child(1) {
+            transition-delay: 0.1s;
+        }
+        
+        .benefits-cards.appear .benefit-card:nth-child(2) {
+            transition-delay: 0.3s;
+        }
+        
+        .benefits-cards.appear .benefit-card:nth-child(3) {
+            transition-delay: 0.5s;
         }
         
         .benefit-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
         }
         
         .benefit-card h3 {
@@ -327,6 +538,11 @@
             margin-bottom: 1.5rem;
             font-size: 1.5rem;
             text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .benefit-card:hover h3 {
+            transform: translateY(-5px);
         }
         
         /* Updated styling for benefit icons */
@@ -336,6 +552,11 @@
             width: 32px;
             height: 32px;
             object-fit: contain;
+            transition: transform 0.5s ease;
+        }
+        
+        .benefit-card:hover h3 img {
+            transform: rotate(15deg);
         }
         
         .benefit-list {
@@ -346,6 +567,16 @@
             margin-bottom: 1rem;
             display: flex;
             align-items: flex-start;
+            opacity: 0.8;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        
+        .benefit-card:hover .benefit-list li {
+            opacity: 1;
+        }
+        
+        .benefit-list li:hover {
+            transform: translateX(5px);
         }
         
         .benefit-list li:before {
@@ -354,6 +585,11 @@
             font-weight: bold;
             margin-right: 0.5rem;
             flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+        
+        .benefit-list li:hover:before {
+            transform: scale(1.2);
         }
         
         /* Company section */
@@ -367,11 +603,27 @@
             margin: 0 auto 2rem;
             font-size: clamp(1rem, 3vw, 1.1rem);
             padding: 0 1rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .company p.appear {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .company img {
             max-width: 200px;
             margin: 0 auto;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .company img.appear {
+            opacity: 1;
+            transform: scale(1);
         }
         
         /* CTA section */
@@ -379,12 +631,42 @@
             text-align: center;
             background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)), url('/api/placeholder/1200/600') center/cover no-repeat;
             padding: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta:before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(107, 77, 60, 0.05) 0%, rgba(255, 255, 255, 0) 70%);
+            animation: pulse 15s infinite ease-in-out;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 0.3;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
         }
         
         .cta-content {
             max-width: 700px;
             margin: 0 auto;
             padding: 0 1rem;
+            position: relative;
+            z-index: 2;
         }
         
         .cta h2 {
@@ -394,6 +676,26 @@
         .cta p {
             margin-bottom: 2rem;
             font-size: clamp(1rem, 3vw, 1.1rem);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .cta p.appear {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .cta .cta-buttons {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s;
+            animation: none;
+        }
+        
+        .cta .cta-buttons.appear {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         /* Footer */
@@ -402,10 +704,24 @@
             color: white;
             padding: 2rem 0;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        footer:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.5), transparent);
         }
         
         footer .container {
             padding: 0 1rem;
+            position: relative;
+            z-index: 2;
         }
         
         footer a {
@@ -413,6 +729,28 @@
             margin: 0 10px;
             display: inline-block;
             text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        footer a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -3px;
+            left: 0;
+            background-color: white;
+            transition: width 0.3s ease;
+        }
+        
+        footer a:hover:after {
+            width: 100%;
+        }
+        
+        footer a:hover {
+            transform: translateY(-3px);
+            text-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
         }
         
         footer .links {
@@ -421,6 +759,60 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 0.5rem;
+        }
+        
+        /* Page transition overlay */
+        .page-transition-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #6B4D3C;
+            z-index: 9999;
+            transform: translateY(100%);
+            transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+        
+        .page-transition-overlay.active {
+            transform: translateY(0);
+        }
+        
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #6B4D3C;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            z-index: 100;
+        }
+        
+        .scroll-indicator.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .scroll-indicator:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .scroll-indicator svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
         }
         
         /* Responsive design */
@@ -460,7 +852,7 @@
                 padding: 2rem;
                 gap: 2rem;
                 transform: translateX(100%);
-                transition: transform 0.3s ease;
+                transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
                 z-index: 1000;
             }
             
@@ -470,6 +862,30 @@
             
             .nav-links a {
                 font-size: 1.2rem;
+                opacity: 0;
+                transform: translateY(20px);
+                transition: opacity 0.4s ease, transform 0.4s ease;
+            }
+            
+            .nav-links.active a {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            
+            .nav-links.active a:nth-child(1) {
+                transition-delay: 0.1s;
+            }
+            
+            .nav-links.active a:nth-child(2) {
+                transition-delay: 0.2s;
+            }
+            
+            .nav-links.active a:nth-child(3) {
+                transition-delay: 0.3s;
+            }
+            
+            .nav-links.active a:nth-child(4) {
+                transition-delay: 0.4s;
             }
         }
         
@@ -492,17 +908,29 @@
             .card, .feature-card, .benefit-card {
                 max-width: 100%;
             }
-        }
-        
-        /* Animation for page transitions */
-        .page-transition {
-            transition: opacity 0.3s ease;
+            
+            .scroll-indicator {
+                bottom: 20px;
+                right: 20px;
+                width: 40px;
+                height: 40px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Page transition overlay -->
+    <div class="page-transition-overlay"></div>
+    
+    <!-- Scroll to top indicator -->
+    <div class="scroll-indicator" id="scrollToTop">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M12 4l-8 8h5v8h6v-8h5z"/>
+        </svg>
+    </div>
+    
     <!-- Header & Navigation -->
-    <header>
+    <header id="mainHeader">
         <div class="container nav-container">
             <a href="index.html" class="logo">
                 <img src="CybernovaAsset_3-removebg-preview.png" alt="Cybernova Logo">
@@ -523,7 +951,7 @@
             <h1 class="gradient-text">Property Records, Reimagined.</h1>
             <p>A secure, transparent, and owner first property registry platform built on blockchain giving control back to individuals, while streamlining processes for governments and real estate developers alike.</p>
             <div class="cta-buttons">
-                <a href="contact.html" class="cybernova-button" style="background-color: #6B4D3C; color: white;">Join Us</a>
+                <a href="contact.html" class="cybernova-button filled">Join Us</a>
                 <a href="#how-it-works" class="cybernova-button">How It Works</a>
             </div>
         </div>
@@ -658,7 +1086,7 @@
     <section class="company">
         <div class="container">
             <h2 class="section-title gradient-text">Built by Cybernova</h2>
-            <p>Saraya is one of <strong>Cybernova's</strong>flagship projects, a blockchain driven platform tackling data fragmentation in property ownership. We're building decentralized infrastructure for smarter, more connected systems.</p>
+            <p>Saraya is one of <strong>Cybernova's</strong> flagship projects, a blockchain driven platform tackling data fragmentation in property ownership. We're building decentralized infrastructure for smarter, more connected systems.</p>
             <img src="CybernovaAsset_3-removebg-preview.png" alt="Cybernova Logo">
         </div>
     </section>
@@ -669,7 +1097,7 @@
             <h2 class="section-title gradient-text">Join the Future of Real Estate</h2>
             <p>Whether you're a government agency, property developer, or individual investor, Saraya is your secure gateway to simplified property ownership.</p>
             <div class="cta-buttons">
-                <a href="contact.html" class="cybernova-button" style="background-color: #6B4D3C; color: white;">Partner With Us</a>
+                <a href="contact.html" class="cybernova-button filled">Partner With Us</a>
                 <a href="saraya.pdf" class="cybernova-button" download>View Presentation</a>
             </div>
         </div>
@@ -718,23 +1146,82 @@
             }
         });
         
-        // Page transition for internal links
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+        
+        const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    return;
+                } else {
+                    entry.target.classList.add('appear');
+                    appearOnScroll.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all elements with animations
         document.addEventListener('DOMContentLoaded', () => {
-            const internalLinks = document.querySelectorAll('a[href^="index"], a[href^="about"], a[href^="projects"], a[href^="contact"]');
+            const animatedElements = document.querySelectorAll('.section-title, .cards-container, .split-content, .benefits-cards, .company p, .company img, .cta p, .cta .cta-buttons');
             
-            internalLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    if (!link.href.includes('#')) {
-                        e.preventDefault();
-                        document.body.classList.add('page-transition');
-                        document.body.style.opacity = 0;
-                        
-                        setTimeout(() => {
-                            window.location.href = link.href;
-                        }, 300);
-                    }
+            animatedElements.forEach(el => {
+                appearOnScroll.observe(el);
+            });
+            
+            // Header scroll effect
+            const header = document.getElementById('mainHeader');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+            
+            // Scroll to top functionality
+            const scrollToTopBtn = document.getElementById('scrollToTop');
+            
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    scrollToTopBtn.classList.add('visible');
+                } else {
+                    scrollToTopBtn.classList.remove('visible');
+                }
+            });
+            
+            scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
                 });
             });
+        });
+        
+        // Page transition for internal links
+        const pageTransitionOverlay = document.querySelector('.page-transition-overlay');
+        const internalLinks = document.querySelectorAll('a[href^="index"], a[href^="about"], a[href^="projects"], a[href^="contact"]');
+        
+        internalLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                if (!link.href.includes('#')) {
+                    e.preventDefault();
+                    
+                    pageTransitionOverlay.classList.add('active');
+                    
+                    setTimeout(() => {
+                        window.location.href = link.href;
+                    }, 500);
+                }
+            });
+        });
+        
+        // Fade in on page load
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '1';
         });
         
         // Smooth scrolling for anchor links
