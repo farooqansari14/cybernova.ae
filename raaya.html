@@ -37,6 +37,15 @@
             font-weight: 700;
             margin-bottom: 1.5rem;
             text-align: center;
+            /* Add transition for section titles */
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .section-title.show {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         /* Container and general layout */
@@ -49,6 +58,15 @@
         
         section {
             padding: 4rem 0;
+            /* Add section transitions */
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        section.show {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         img {
@@ -66,6 +84,15 @@
             top: 0;
             background-color: #fff;
             z-index: 1000;
+            /* Add header transition */
+            transform: translateY(-100%);
+            animation: slideDown 0.6s forwards;
+        }
+        
+        @keyframes slideDown {
+            to {
+                transform: translateY(0);
+            }
         }
 
         .nav-container {
@@ -79,6 +106,11 @@
             text-decoration: none;
             display: flex;
             align-items: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
         }
         
         .logo img {
@@ -100,6 +132,11 @@
             cursor: pointer;
             padding: 0.5rem;
             z-index: 1010;
+            transition: transform 0.3s ease;
+        }
+        
+        .mobile-menu-btn:hover {
+            transform: rotate(90deg);
         }
 
         .nav-links a {
@@ -107,7 +144,7 @@
             text-decoration: none;
             font-size: 0.9rem;
             font-weight: 500;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease, transform 0.3s ease;
             position: relative;
         }
 
@@ -128,6 +165,7 @@
 
         .nav-links a:hover {
             color: #0070f3;
+            transform: translateY(-2px);
         }
         
         /* Cybernova button styles */
@@ -145,15 +183,31 @@
             cursor: pointer;
             position: relative;
             overflow: hidden;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             margin: 0.5rem;
+            z-index: 1;
+        }
+        
+        .cybernova-button:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background-color: #00796b;
+            transition: width 0.4s ease;
+            z-index: -1;
         }
 
         .cybernova-button:hover {
-            background-color: #00796b;
             color: white;
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0, 121, 107, 0.3);
+        }
+        
+        .cybernova-button:hover:before {
+            width: 100%;
         }
 
         .cybernova-button:focus {
@@ -166,6 +220,12 @@
             box-shadow: 0 2px 6px rgba(0, 121, 107, 0.2);
         }
         
+        /* Special button */
+        .cybernova-button.filled {
+            background-color: #00796b;
+            color: white;
+        }
+        
         /* Hero section */
         .hero {
             background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('/api/placeholder/1200/600') center/cover no-repeat;
@@ -175,6 +235,16 @@
             text-align: center;
             position: relative;
             padding: 4rem 0;
+            /* Hero specific animation */
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+            animation-delay: 0.3s;
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
         }
         
         .hero-content {
@@ -187,12 +257,27 @@
             font-size: clamp(2rem, 7vw, 3.5rem);
             margin-bottom: 1rem;
             line-height: 1.2;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 0.8s forwards;
+            animation-delay: 0.6s;
+        }
+        
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .hero p {
             font-size: clamp(1rem, 3vw, 1.25rem);
             margin-bottom: 2rem;
             color: #555;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 0.8s forwards;
+            animation-delay: 0.8s;
         }
         
         .cta-buttons {
@@ -200,6 +285,10 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 0.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 0.8s forwards; 
+            animation-delay: 1s;
         }
         
         /* Cards */
@@ -218,13 +307,20 @@
             flex: 1 1 250px;
             max-width: 350px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             text-align: center;
             margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(40px);
+        }
+        
+        .card.show {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-10px) scale(1.03);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
         }
         
@@ -234,11 +330,21 @@
             height: 48px;
             object-fit: contain;
             margin-bottom: 1.5rem;
+            transition: transform 0.4s ease;
+        }
+        
+        .card:hover .card-icon img {
+            transform: scale(1.1) rotate(5deg);
         }
         
         .card h3 {
             margin-bottom: 1rem;
             font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+        
+        .card:hover h3 {
+            color: #00796b;
         }
         
         /* How it works section */
@@ -259,11 +365,27 @@
             order: 1;
             width: 100%;
             max-width: 500px;
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .visual-content.show {
+            opacity: 1;
+            transform: translateX(0);
         }
         
         .text-content {
             flex: 1;
             order: 2;
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .text-content.show {
+            opacity: 1;
+            transform: translateX(0);
         }
         
         .text-content h3 {
@@ -279,13 +401,20 @@
             flex: 1 1 250px;
             max-width: 350px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             text-align: center;
             margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(40px);
+        }
+        
+        .feature-card.show {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .feature-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-10px) scale(1.03);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
         }
         
@@ -295,6 +424,11 @@
             height: 48px;
             object-fit: contain;
             margin-bottom: 1.5rem;
+            transition: transform 0.4s ease;
+        }
+        
+        .feature-card:hover .feature-icon img {
+            transform: rotate(15deg);
         }
         
         /* Benefits section - converted to cards */
@@ -313,12 +447,19 @@
             flex: 1 1 250px;
             max-width: 350px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(40px);
+        }
+        
+        .benefit-card.show {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .benefit-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-10px) scale(1.03);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
         }
         
@@ -327,6 +468,11 @@
             margin-bottom: 1.5rem;
             font-size: 1.5rem;
             text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .benefit-card:hover h3 {
+            transform: translateY(-5px);
         }
         
         /* Updated styling for benefit icons */
@@ -336,6 +482,11 @@
             width: 32px;
             height: 32px;
             object-fit: contain;
+            transition: transform 0.4s ease;
+        }
+        
+        .benefit-card:hover h3 img {
+            transform: rotate(10deg);
         }
         
         .benefit-list {
@@ -346,6 +497,23 @@
             margin-bottom: 1rem;
             display: flex;
             align-items: flex-start;
+            opacity: 0;
+            transform: translateX(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            transition-delay: 0.1s;
+        }
+        
+        .benefit-card.show .benefit-list li {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .benefit-card.show .benefit-list li:nth-child(2) {
+            transition-delay: 0.2s;
+        }
+        
+        .benefit-card.show .benefit-list li:nth-child(3) {
+            transition-delay: 0.3s;
         }
         
         .benefit-list li:before {
@@ -354,6 +522,12 @@
             font-weight: bold;
             margin-right: 0.5rem;
             flex-shrink: 0;
+            transform: scale(0);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .benefit-card.show .benefit-list li:before {
+            transform: scale(1);
         }
         
         /* Company section */
@@ -367,11 +541,43 @@
             margin: 0 auto 2rem;
             font-size: clamp(1rem, 3vw, 1.1rem);
             padding: 0 1rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .company p.show {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .company img {
             max-width: 200px;
             margin: 0 auto;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .company img.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .company img:hover {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
         }
         
         /* CTA section */
@@ -394,6 +600,14 @@
         .cta p {
             margin-bottom: 2rem;
             font-size: clamp(1rem, 3vw, 1.1rem);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .cta p.show {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         /* Footer */
@@ -402,6 +616,9 @@
             color: white;
             padding: 2rem 0;
             text-align: center;
+            transform: translateY(100%);
+            animation: slideUp 0.6s forwards;
+            animation-delay: 0.2s;
         }
         
         footer .container {
@@ -413,6 +630,13 @@
             margin: 0 10px;
             display: inline-block;
             text-decoration: none;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            opacity: 0.8;
+        }
+        
+        footer a:hover {
+            transform: translateY(-3px);
+            opacity: 1;
         }
         
         footer .links {
@@ -460,7 +684,7 @@
                 padding: 2rem;
                 gap: 2rem;
                 transform: translateX(100%);
-                transition: transform 0.3s ease;
+                transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
                 z-index: 1000;
             }
             
@@ -470,6 +694,30 @@
             
             .nav-links a {
                 font-size: 1.2rem;
+                opacity: 0;
+                transform: translateX(20px);
+                transition: opacity 0.3s ease, transform 0.3s ease;
+            }
+            
+            .nav-links.active a {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            
+            .nav-links.active a:nth-child(1) {
+                transition-delay: 0.2s;
+            }
+            
+            .nav-links.active a:nth-child(2) {
+                transition-delay: 0.3s;
+            }
+            
+            .nav-links.active a:nth-child(3) {
+                transition-delay: 0.4s;
+            }
+            
+            .nav-links.active a:nth-child(4) {
+                transition-delay: 0.5s;
             }
         }
         
@@ -498,9 +746,19 @@
         .page-transition {
             transition: opacity 0.3s ease;
         }
+        
+        /* Page load animation */
+        .fade-in {
+            animation: fadeIn 0.6s ease forwards;
+        }
+        
+        /* Sequential reveal animation */
+        .reveal-sequential {
+            transition-delay: calc(var(--order) * 0.1s);
+        }
     </style>
 </head>
-<body>
+<body class="fade-in">
     <!-- Header & Navigation -->
     <header>
         <div class="container nav-container">
@@ -523,32 +781,32 @@
             <h1 class="gradient-text">Healthcare Records, Reimagined.</h1>
             <p>A secure, interoperable, and patient first healthcare data platform built on blockchain giving control back to the people, while streamlining operations for hospitals and insurers alike.</p>
             <div class="cta-buttons">
-                <a href="contact.html" class="cybernova-button" style="background-color: #00796b; color: white;">Join Us</a>
+                <a href="contact.html" class="cybernova-button filled">Join Us</a>
                 <a href="#how-it-works" class="cybernova-button">How It Works</a>
             </div>
         </div>
     </section>
     
     <!-- Why Raaya Section -->
-    <section class="why-raaya">
+    <section class="why-raaya" id="why-raaya">
         <div class="container">
             <h2 class="section-title gradient-text">Why Healthcare Needs a Smarter Backbone</h2>
             <div class="cards-container">
-                <div class="card">
+                <div class="card" style="--order: 1">
                     <div class="card-icon">
                         <img src="hospital.png" alt="Hospital Icon">
                     </div>
                     <h3>No More Data Silos</h3>
                     <p>Unified health records across hospitals, labs, and clinics.</p>
                 </div>
-                <div class="card">
+                <div class="card" style="--order: 2">
                     <div class="card-icon">
                         <img src="padlock.png" alt="Security Icon">
                     </div>
                     <h3>Patient-Centric Privacy</h3>
                     <p>Consent-driven data sharing with encryption and blockchain integrity.</p>
                 </div>
-                <div class="card">
+                <div class="card" style="--order: 3">
                     <div class="card-icon">
                         <img src="rush.png" alt="Speed Icon">
                     </div>
@@ -576,32 +834,32 @@
     </section>
     
     <!-- Core Features Section -->
-    <section class="core-features">
+    <section class="core-features" id="core-features">
         <div class="container">
             <h2 class="section-title gradient-text">Core Features</h2>
             <div class="cards-container">
-                <div class="feature-card">
+                <div class="feature-card" style="--order: 1">
                     <div class="feature-icon">
                         <img src="interoperability.png" alt="Interoperability Icon">
                     </div>
                     <h3>Interoperability Across Systems</h3>
                     <p>Connect public, private, and rural health institutions.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card" style="--order: 2">
                     <div class="feature-icon">
                         <img src="medical-prescription.png" alt="Medical Records Icon">
                     </div>
                     <h3>Tamper-Proof Medical Records</h3>
                     <p>Every edit is logged and timestamped nothing is lost, nothing is fake.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card" style="--order: 3">
                     <div class="feature-icon">
                         <img src="location.png" alt="Location Icon">
                     </div>
                     <h3>Location-Based Hospital Integration</h3>
                     <p>Share records securely across geographies with localized access.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card" style="--order: 4">
                     <div class="feature-icon">
                         <img src="easy-access.png" alt="Data Access Icon">
                     </div>
@@ -613,11 +871,11 @@
     </section>
     
     <!-- Benefits Section -->
-    <section class="benefits">
+    <section class="benefits" id="benefits">
         <div class="container">
             <h2 class="section-title gradient-text">Benefits for Everyone</h2>
             <div class="benefits-cards">
-                <div class="benefit-card">
+                <div class="benefit-card" style="--order: 1">
                     <h3>
                         <img src="medical.png" alt="Patient Icon"> 
                         Patients
@@ -628,7 +886,7 @@
                         <li>Get better, faster, more personalized care</li>
                     </ul>
                 </div>
-                <div class="benefit-card">
+                <div class="benefit-card" style="--order: 2">
                     <h3>
                         <img src="medical-professional.png" alt="Healthcare Provider Icon">
                         Healthcare Providers
@@ -639,7 +897,7 @@
                         <li>Focus on care, not administration</li>
                     </ul>
                 </div>
-                <div class="benefit-card">
+                <div class="benefit-card" style="--order: 3">
                     <h3>
                         <img src="offer.png" alt="Insurance Icon">
                         Insurance Providers
@@ -655,7 +913,7 @@
     </section>
     
     <!-- Company Section -->
-    <section class="company">
+    <section class="company" id="company">
         <div class="container">
             <h2 class="section-title gradient-text">Built by Cybernova</h2>
             <p>Raaya is a flagship module of <strong>Cybernova</strong>, a blockchain driven platform tackling data fragmentation in healthcare. We're building decentralized infrastructure for smarter, more connected systems.</p>
@@ -664,12 +922,12 @@
     </section>
     
     <!-- CTA Section -->
-    <section class="cta">
+    <section class="cta" id="cta">
         <div class="container cta-content">
             <h2 class="section-title gradient-text">Join the Future of Healthcare</h2>
             <p>Whether you're a government, hospital, or insurer Raaya is your secure gateway to seamless medical records.</p>
             <div class="cta-buttons">
-                <a href="contact.html" class="cybernova-button" style="background-color: #00796b; color: white;">Partner With Us</a>
+                <a href="contact.html" class="cybernova-button filled">Partner With Us</a>
                 <a href="raaya.pdf" class="cybernova-button" download>View Presentation</a>
             </div>
         </div>
@@ -687,7 +945,7 @@
         </div>
     </footer>
 
-    <!-- JavaScript for mobile menu and page transitions -->
+    <!-- JavaScript for mobile menu, page transitions, and animations -->
     <script>
         // Mobile menu toggle
         const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
@@ -735,9 +993,14 @@
                     }
                 });
             });
+            
+            // Add animation to section titles and cards on page load
+            setTimeout(() => {
+                animateOnScroll();
+            }, 100);
         });
         
-        // Smooth scrolling for anchor links
+        // Smooth scrolling for anchor links with improved animation
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -755,13 +1018,172 @@
                     const headerHeight = document.querySelector('header').offsetHeight;
                     const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
                     
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
+                    // Smooth scroll with easing function
+                    const startPosition = window.pageYOffset;
+                    const distance = targetPosition - startPosition;
+                    const duration = 800;
+                    let start = null;
+                    
+                    function step(timestamp) {
+                        if (!start) start = timestamp;
+                        const progress = timestamp - start;
+                        const percentage = Math.min(progress / duration, 1);
+                        
+                        // Easing function: easeInOutCubic
+                        const easing = percentage < 0.5
+                            ? 4 * percentage * percentage * percentage
+                            : 1 - Math.pow(-2 * percentage + 2, 3) / 2;
+                        
+                        window.scrollTo(0, startPosition + distance * easing);
+                        
+                        if (progress < duration) {
+                            window.requestAnimationFrame(step);
+                        }
+                    }
+                    
+                    window.requestAnimationFrame(step);
                 }
             });
         });
+        
+        // Intersection Observer for scroll animations
+        function animateOnScroll() {
+            const sections = document.querySelectorAll('section');
+            const titles = document.querySelectorAll('.section-title');
+            const cards = document.querySelectorAll('.card, .feature-card, .benefit-card');
+            const visualContent = document.querySelector('.visual-content');
+            const textContent = document.querySelector('.text-content');
+            const companyElements = document.querySelectorAll('.company p, .company img');
+            const ctaElements = document.querySelectorAll('.cta p');
+            
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+            
+            // Observer for sections
+            const sectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('show');
+                    }
+                });
+            }, observerOptions);
+            
+            sections.forEach(section => {
+                sectionObserver.observe(section);
+            });
+            
+            // Observer for titles
+            const titleObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('show');
+                    }
+                });
+            }, observerOptions);
+            
+            titles.forEach(title => {
+                titleObserver.observe(title);
+            });
+            
+            // Observer for cards with staggered animation
+            const cardObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        // Stagger the animations
+                        setTimeout(() => {
+                            entry.target.classList.add('show');
+                        }, index * 100);
+                    }
+                });
+            }, observerOptions);
+            
+            cards.forEach(card => {
+                cardObserver.observe(card);
+            });
+            
+            // Observer for split content sections
+            const contentObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        if (visualContent) visualContent.classList.add('show');
+                        if (textContent) textContent.classList.add('show');
+                    }
+                });
+            }, observerOptions);
+            
+            if (visualContent && textContent) {
+                const splitContentSection = document.querySelector('.split-content');
+                if (splitContentSection) {
+                    contentObserver.observe(splitContentSection);
+                }
+            }
+            
+            // Observer for company section elements
+            const companyObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('show');
+                    }
+                });
+            }, observerOptions);
+            
+            companyElements.forEach(element => {
+                companyObserver.observe(element);
+            });
+            
+            // Observer for CTA section elements
+            const ctaObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('show');
+                    }
+                });
+            }, observerOptions);
+            
+            ctaElements.forEach(element => {
+                ctaObserver.observe(element);
+            });
+        }
+        
+        // Run animations when scrolling
+        window.addEventListener('scroll', debounce(checkAnimation, 50));
+        
+        // Initial check for animations
+        checkAnimation();
+        
+        // Helper function for debouncing
+        function debounce(func, wait, immediate) {
+            let timeout;
+            return function() {
+                const context = this, args = arguments;
+                const later = function() {
+                    timeout = null;
+                    if (!immediate) func.apply(context, args);
+                };
+                const callNow = immediate && !timeout;
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+                if (callNow) func.apply(context, args);
+            };
+        }
+        
+        // Check which animations should trigger
+        function checkAnimation() {
+            const elementsToAnimate = document.querySelectorAll('.card, .feature-card, .benefit-card, .section-title, .visual-content, .text-content, .company p, .company img, .cta p');
+            const windowHeight = window.innerHeight;
+            
+            elementsToAnimate.forEach((element) => {
+                const elementPosition = element.getBoundingClientRect();
+                
+                // If element is in viewport
+                if (elementPosition.top < windowHeight * 0.9) {
+                    element.classList.add('show');
+                }
+            });
+        }
     </script>
 </body>
 </html>
