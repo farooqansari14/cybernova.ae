@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saraya - Property Records, Reimagined | Cybernova</title>
+    <style>
+        /* Font imports */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fff;
+            overflow-x: hidden;
+        }
+        
+        /* Brown gradients for headings */
+        .gradient-text {
+            background: linear-gradient(90deg, #3A2618 0%, #6B4D3C 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+        
+        .section-title {
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        /* Container and general layout */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        section {
+            padding: 4rem 0;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Header & Navigation */
+        header {
+            height: 80px;
+            border-bottom: 1px solid #eaeaea;
+            display: flex;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background-color: #fff;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 1010;
+        }
+
+        .nav-links a {
+            color: #444;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #6B4D3C;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: #6B4D3C;
+        }
+        
+        /* Cybernova button styles */
+        .cybernova-button {
+            display: inline-block;
+            padding: 10px 22px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: #6B4D3C;
+            background-color: transparent;
+            border: 2px solid #6B4D3C;
+            border-radius: 50px;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+        }
+
+        .cybernova-button:hover {
+            background-color: #6B4D3C;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(107, 77, 60, 0.3);
+        }
+
+        .cybernova-button:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(107, 77, 60, 0.4);
+        }
+
+        .cybernova-button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 6px rgba(107, 77, 60, 0.2);
+        }
+        
+        /* Hero section */
+        .hero {
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('/api/placeholder/1200/600') center/cover no-repeat;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            padding: 4rem 0;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .hero h1 {
+            font-size: clamp(2rem, 7vw, 3.5rem);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: clamp(1rem, 3vw, 1.25rem);
+            margin-bottom: 2rem;
+            color: #555;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        /* Cards */
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            flex: 1 1 250px;
+            max-width: 350px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+        
+        /* Icon styling - Updated to make icons smaller and uniform */
+        .card-icon img {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            margin-bottom: 1.5rem;
+        }
+        
+        .card h3 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        /* How it works section */
+        .how-it-works {
+            background-color: #f9f9f9;
+        }
+        
+        .split-content {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-top: 3rem;
+            flex-direction: column;
+        }
+        
+        .visual-content {
+            flex: 1;
+            order: 1;
+            width: 100%;
+            max-width: 500px;
+        }
+        
+        .text-content {
+            flex: 1;
+            order: 2;
+        }
+        
+        .text-content h3 {
+            margin-bottom: 1.5rem;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+        }
+        
+        /* Features list - converted to cards */
+        .feature-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            flex: 1 1 250px;
+            max-width: 350px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+        
+        /* Feature Icon styling - Updated for uniform size */
+        .feature-icon img {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Benefits section - converted to cards */
+        .benefits-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        .benefit-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            flex: 1 1 250px;
+            max-width: 350px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            margin-bottom: 1.5rem;
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+        
+        .benefit-card h3 {
+            color: #6B4D3C;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+        
+        /* Updated styling for benefit icons */
+        .benefit-card h3 img {
+            vertical-align: middle;
+            margin-right: 8px;
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+        }
+        
+        .benefit-list {
+            list-style-type: none;
+        }
+        
+        .benefit-list li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .benefit-list li:before {
+            content: "✓";
+            color: #6B4D3C;
+            font-weight: bold;
+            margin-right: 0.5rem;
+            flex-shrink: 0;
+        }
+        
+        /* Company section */
+        .company {
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+        
+        .company p {
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            font-size: clamp(1rem, 3vw, 1.1rem);
+            padding: 0 1rem;
+        }
+        
+        .company img {
+            max-width: 200px;
+            margin: 0 auto;
+        }
+        
+        /* CTA section */
+        .cta {
+            text-align: center;
+            background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)), url('/api/placeholder/1200/600') center/cover no-repeat;
+            padding: 4rem 0;
+        }
+        
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .cta h2 {
+            margin-bottom: 1rem;
+        }
+        
+        .cta p {
+            margin-bottom: 2rem;
+            font-size: clamp(1rem, 3vw, 1.1rem);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #3A2618;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        footer .container {
+            padding: 0 1rem;
+        }
+        
+        footer a {
+            color: white;
+            margin: 0 10px;
+            display: inline-block;
+            text-decoration: none;
+        }
+        
+        footer .links {
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        /* Responsive design */
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 2rem;
+            }
+            
+            .split-content {
+                flex-direction: row;
+            }
+            
+            .visual-content {
+                order: 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            section {
+                padding: 3rem 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: white;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 2rem;
+                gap: 2rem;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+                z-index: 1000;
+            }
+            
+            .nav-links.active {
+                transform: translateX(0);
+            }
+            
+            .nav-links a {
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .cybernova-button {
+                width: 100%;
+                margin: 0.5rem 0;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                width: 100%;
+                padding: 0 1rem;
+            }
+            
+            .hero {
+                min-height: 50vh;
+            }
+            
+            .card, .feature-card, .benefit-card {
+                max-width: 100%;
+            }
+        }
+        
+        /* Animation for page transitions */
+        .page-transition {
+            transition: opacity 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <img src="CybernovaAsset_3-removebg-preview.png" alt="Cybernova Logo">
+            </a>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">☰</button>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="projects.html">Projects</a>
+                <a href="contact.html" class="cybernova-button">Let's Talk</a>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1 class="gradient-text">Property Records, Reimagined.</h1>
+            <p>A secure, transparent, and owner-first property registry platform built on blockchain giving control back to individuals, while streamlining processes for governments and real estate developers alike.</p>
+            <div class="cta-buttons">
+                <a href="contact.html" class="cybernova-button" style="background-color: #6B4D3C; color: white;">Join Us</a>
+                <a href="#how-it-works" class="cybernova-button">How It Works</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Why Saraya Section -->
+    <section class="why-saraya">
+        <div class="container">
+            <h2 class="section-title gradient-text">Why Property Records Need a Smarter Backbone</h2>
+            <div class="cards-container">
+                <div class="card">
+                    <div class="card-icon">
+                        <img src="building.png" alt="Building Icon">
+                    </div>
+                    <h3>Eliminate Paper-Based Systems</h3>
+                    <p>Digitize and secure land records with one verifiable source of truth.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <img src="padlock.png" alt="Security Icon">
+                    </div>
+                    <h3>No More Fraud or Disputes</h3>
+                    <p>Immutable blockchain registry ensures titles can't be tampered with.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <img src="rush.png" alt="Speed Icon">
+                    </div>
+                    <h3>Effortless Ownership Transfers</h3>
+                    <p>Smart contracts streamline buyer-seller transactions, saving time and legal costs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- How Saraya Works Section -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <h2 class="section-title gradient-text">How Saraya Works</h2>
+            <div class="split-content">
+                <div class="visual-content">
+                    <img src="Saraya Logo" alt="Saraya Blockchain Technology Illustration">
+                </div>
+                <div class="text-content">
+                    <h3 class="gradient-text">Blockchain as the New Land Ledger</h3>
+                    <p>Each property on Saraya is linked to a digital token representing its verified ownership record. Governments, developers, and owners can record transfers, mortgages, and other transactions immutably, with timestamped validation and complete auditability.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Core Features Section -->
+    <section class="core-features">
+        <div class="container">
+            <h2 class="section-title gradient-text">Core Features</h2>
+            <div class="cards-container">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="document.png" alt="Document Icon">
+                    </div>
+                    <h3>Tamper-Proof Title Deeds</h3>
+                    <p>Every ownership entry is recorded immutably and verifiably on the blockchain.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="building.png" alt="Building Icon">
+                    </div>
+                    <h3>Multi-Stakeholder Access</h3>
+                    <p>Land departments, banks, notaries, and buyers — all connected to one system.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="contract.png" alt="Contract Icon">
+                    </div>
+                    <h3>Smart Contract-Based Transfers</h3>
+                    <p>Reduce fraud and remove middlemen with programmable ownership changes.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="location.png" alt="Location Icon">
+                    </div>
+                    <h3>Geo-Tagging Support</h3>
+                    <p>Link land parcels to government maps, zoning laws, and project metadata.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Benefits Section -->
+    <section class="benefits">
+        <div class="container">
+            <h2 class="section-title gradient-text">Benefits for Everyone</h2>
+            <div class="benefits-cards">
+                <div class="benefit-card">
+                    <h3>
+                        <img src="user.png" alt="User Icon"> 
+                        Individual Owners
+                    </h3>
+                    <ul class="benefit-list">
+                        <li>Verify property ownership with confidence</li>
+                        <li>Simplify buying and selling transactions</li>
+                        <li>Access complete property history in one place</li>
+                    </ul>
+                </div>
+                <div class="benefit-card">
+                    <h3>
+                        <img src="government.png" alt="Government Icon">
+                        Government Agencies
+                    </h3>
+                    <ul class="benefit-list">
+                        <li>Digitize and secure property records</li>
+                        <li>Eliminate disputes and overlapping claims</li>
+                        <li>Enable instant verification for citizens</li>
+                    </ul>
+                </div>
+                <div class="benefit-card">
+                    <h3>
+                        <img src="real-estate.png" alt="Real Estate Icon">
+                        Real Estate Developers
+                    </h3>
+                    <ul class="benefit-list">
+                        <li>Manage property inventory transparently</li>
+                        <li>Reduce legal burden and build investor trust</li>
+                        <li>Streamline ownership handovers to buyers</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Company Section -->
+    <section class="company">
+        <div class="container">
+            <h2 class="section-title gradient-text">Built by Cybernova</h2>
+            <p>Saraya is a flagship module of <strong>Cybernova</strong>, a blockchain driven platform tackling data fragmentation in property ownership. We're building decentralized infrastructure for smarter, more connected systems.</p>
+            <img src="CybernovaAsset_3-removebg-preview.png" alt="Cybernova Logo">
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container cta-content">
+            <h2 class="section-title gradient-text">Join the Future of Real Estate</h2>
+            <p>Whether you're a government agency, property developer, or individual investor, Saraya is your secure gateway to simplified property ownership.</p>
+            <div class="cta-buttons">
+                <a href="contact.html" class="cybernova-button" style="background-color: #6B4D3C; color: white;">Partner With Us</a>
+                <a href="saraya.pdf" class="cybernova-button" download>View Presentation</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Cybernova. All rights reserved.</p>
+            <div class="links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact Us</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for mobile menu and page transitions -->
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            // Change menu icon based on state
+            mobileMenuBtn.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+        });
+        
+        // Close mobile menu when clicking a link
+        const navLinksList = document.querySelectorAll('.nav-links a');
+        navLinksList.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.textContent = '☰';
+            });
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (navLinks.classList.contains('active') && 
+                !e.target.closest('.nav-links') && 
+                !e.target.closest('.mobile-menu-btn')) {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.textContent = '☰';
+            }
+        });
+        
+        // Page transition for internal links
+        document.addEventListener('DOMContentLoaded', () => {
+            const internalLinks = document.querySelectorAll('a[href^="index"], a[href^="about"], a[href^="projects"], a[href^="contact"]');
+            
+            internalLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (!link.href.includes('#')) {
+                        e.preventDefault();
+                        document.body.classList.add('page-transition');
+                        document.body.style.opacity = 0;
+                        
+                        setTimeout(() => {
+                            window.location.href = link.href;
+                        }, 300);
+                    }
+                });
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                // Close mobile menu if open
+                navLinks.classList.remove('active');
+                mobileMenuBtn.textContent = '☰';
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    // Offset for fixed header
+                    const headerHeight = document.querySelector('header').offsetHeight;
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
