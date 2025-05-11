@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credel - Trust in Every Credential | Cybernova</title>
+    <style>
+        /* Font imports */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fff;
+            overflow-x: hidden;
+        }
+        
+        /* Black gradients for headings */
+        .gradient-text {
+            background: linear-gradient(90deg, #000000 0%, #404040 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+        
+        .section-title {
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        /* Container and general layout */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        section {
+            padding: 4rem 0;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Header & Navigation */
+        header {
+            height: 80px;
+            border-bottom: 1px solid #eaeaea;
+            display: flex;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background-color: #fff;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 1010;
+        }
+
+        .nav-links a {
+            color: #444;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #000;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: #000;
+        }
+        
+        /* Cybernova button styles */
+        .cybernova-button {
+            display: inline-block;
+            padding: 10px 22px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: #000;
+            background-color: transparent;
+            border: 2px solid #000;
+            border-radius: 50px;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+        }
+
+        .cybernova-button:hover {
+            background-color: #000;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .cybernova-button:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.4);
+        }
+
+        .cybernova-button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Hero section */
+        .hero {
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('/api/placeholder/1200/600') center/cover no-repeat;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            padding: 4rem 0;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .hero h1 {
+            font-size: clamp(2rem, 7vw, 3.5rem);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: clamp(1rem, 3vw, 1.25rem);
+            margin-bottom: 2rem;
+            color: #555;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        /* Cards */
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            flex: 1 1 250px;
+            max-width: 350px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+        
+        /* Icon styling - Updated to make icons smaller and uniform */
+        .card-icon img {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            margin-bottom: 1.5rem;
+        }
+        
+        .card h3 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        /* How it works section */
+        .how-it-works {
+            background-color: #f9f9f9;
+        }
+        
+        .split-content {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-top: 3rem;
+            flex-direction: column;
+        }
+        
+        .visual-content {
+            flex: 1;
+            order: 1;
+            width: 100%;
+            max-width: 500px;
+        }
+        
+        .text-content {
+            flex: 1;
+            order: 2;
+        }
+        
+        .text-content h3 {
+            margin-bottom: 1.5rem;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+        }
+        
+        /* Features list - converted to cards */
+        .feature-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            flex: 1 1 250px;
+            max-width: 350px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+        
+        /* Feature Icon styling - Updated for uniform size */
+        .feature-icon img {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Benefits section - converted to cards */
+        .benefits-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        .benefit-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            flex: 1 1 250px;
+            max-width: 350px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            margin-bottom: 1.5rem;
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+        
+        .benefit-card h3 {
+            color: #000;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+        
+        /* Updated styling for benefit icons */
+        .benefit-card h3 img {
+            vertical-align: middle;
+            margin-right: 8px;
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+        }
+        
+        .benefit-list {
+            list-style-type: none;
+        }
+        
+        .benefit-list li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .benefit-list li:before {
+            content: "✓";
+            color: #000;
+            font-weight: bold;
+            margin-right: 0.5rem;
+            flex-shrink: 0;
+        }
+        
+        /* Company section */
+        .company {
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+        
+        .company p {
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            font-size: clamp(1rem, 3vw, 1.1rem);
+            padding: 0 1rem;
+        }
+        
+        .company img {
+            max-width: 200px;
+            margin: 0 auto;
+        }
+        
+        /* CTA section */
+        .cta {
+            text-align: center;
+            background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)), url('/api/placeholder/1200/600') center/cover no-repeat;
+            padding: 4rem 0;
+        }
+        
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .cta h2 {
+            margin-bottom: 1rem;
+        }
+        
+        .cta p {
+            margin-bottom: 2rem;
+            font-size: clamp(1rem, 3vw, 1.1rem);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #000;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        footer .container {
+            padding: 0 1rem;
+        }
+        
+        footer a {
+            color: white;
+            margin: 0 10px;
+            display: inline-block;
+            text-decoration: none;
+        }
+        
+        footer .links {
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        /* Responsive design */
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 2rem;
+            }
+            
+            .split-content {
+                flex-direction: row;
+            }
+            
+            .visual-content {
+                order: 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            section {
+                padding: 3rem 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: white;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 2rem;
+                gap: 2rem;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+                z-index: 1000;
+            }
+            
+            .nav-links.active {
+                transform: translateX(0);
+            }
+            
+            .nav-links a {
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .cybernova-button {
+                width: 100%;
+                margin: 0.5rem 0;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                width: 100%;
+                padding: 0 1rem;
+            }
+            
+            .hero {
+                min-height: 50vh;
+            }
+            
+            .card, .feature-card, .benefit-card {
+                max-width: 100%;
+            }
+        }
+        
+        /* Animation for page transitions */
+        .page-transition {
+            transition: opacity 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <img src="CybernovaAsset_3-removebg-preview.png" alt="Cybernova Logo">
+            </a>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">☰</button>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="projects.html">Projects</a>
+                <a href="contact.html" class="cybernova-button">Let's Talk</a>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1 class="gradient-text">Academic Integrity Meets Blockchain Transparency</h1>
+            <p>Credel verifies academic certificates using blockchain technology — preventing fraud, easing cross-border verification, and restoring trust in qualifications for employers, universities, and governments alike.</p>
+            <div class="cta-buttons">
+                <a href="#use-cases" class="cybernova-button" style="background-color: #000; color: white;">Explore Use Cases</a>
+                <a href="contact.html" class="cybernova-button">Schedule a Demo</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Why Credel Section -->
+    <section class="why-credel">
+        <div class="container">
+            <h2 class="section-title gradient-text">Because a Degree Shouldn't Require a Background Check</h2>
+            <div class="cards-container">
+                <div class="card">
+                    <div class="card-icon">
+                        <img src="graduation-cap.png" alt="Graduation Cap Icon">
+                    </div>
+                    <h3>Verifiable from the Source</h3>
+                    <p>Institutions issue certificates directly on-chain — tamper-proof, timestamped, and globally accessible.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <img src="buildings.png" alt="Building Icon">
+                    </div>
+                    <h3>Fast, Cross-Border Verification</h3>
+                    <p>No more long waits for embassy attestations or paperwork — verify credentials in seconds.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <img src="padlock.png" alt="Shield Icon">
+                    </div>
+                    <h3>Fraud-Proof & Transparent</h3>
+                    <p>Protect employers and institutions from forged documents and misrepresented qualifications.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- How Credel Works Section -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <h2 class="section-title gradient-text">How Credel Works</h2>
+            <div class="split-content">
+                <div class="visual-content">
+                    <img src="Credel Logo with Graduation Cap.png" alt="Credel Blockchain Technology Illustration">
+                </div>
+                <div class="text-content">
+                    <h3 class="gradient-text">Credentialing That's Instantly Trustworthy</h3>
+                    <p>Each certificate issued through Credel is recorded on a secure blockchain — signed by the issuing body, uniquely linked to the student, and viewable (with permission) by authorized third parties. Whether for employment, immigration, or postgraduate admission, verification becomes seamless.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Core Features Section -->
+    <section class="core-features">
+        <div class="container">
+            <h2 class="section-title gradient-text">Core Features</h2>
+            <div class="cards-container">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="institution.png" alt="Institution Icon">
+                    </div>
+                    <h3>Institution-Level Issuance</h3>
+                    <p>Universities and boards publish credentials directly — no middlemen.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="access.png" alt="Permission Icon">
+                    </div>
+                    <h3>Permissioned Access</h3>
+                    <p>Students control who can view and validate their records.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="globe.png" alt="Globe Icon">
+                    </div>
+                    <h3>Interoperable Across Borders</h3>
+                    <p>A universal system designed for mobility in a globalized world.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="certificate.png" alt="Certificate Icon">
+                    </div>
+                    <h3>Transcript & Certificate Support</h3>
+                    <p>Handles degrees, diplomas, transcripts, and licenses — all verifiable from one place.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="archive.png" alt="Archive Icon">
+                    </div>
+                    <h3>Archived Forever, Accessible Anytime</h3>
+                    <p>No more "lost certificates" — data stays secure and recoverable.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Benefits/Use Cases Section -->
+    <section class="benefits" id="use-cases">
+        <div class="container">
+            <h2 class="section-title gradient-text">Use Cases by Sector</h2>
+            <div class="benefits-cards">
+                <div class="benefit-card">
+                    <h3>
+                        <img src="university.png" alt="University Icon"> 
+                        Universities & Institutions
+                    </h3>
+                    <ul class="benefit-list">
+                        <li>Instantly issue and manage graduate credentials</li>
+                        <li>Simplify alumni requests and reduce admin load</li>
+                        <li>Build institutional reputation through verified records</li>
+                    </ul>
+                </div>
+                <div class="benefit-card">
+                    <h3>
+                        <img src="government.png" alt="Government Icon">
+                        Government Agencies
+                    </h3>
+                    <ul class="benefit-list">
+                        <li>Combat fake qualifications in immigration</li>
+                        <li>Streamline professional licensing verification</li>
+                        <li>Ensure qualification validity in public employment</li>
+                    </ul>
+                </div>
+                <div class="benefit-card">
+                    <h3>
+                        <img src="briefcase.png" alt="Employer Icon">
+                        Employers
+                    </h3>
+                    <ul class="benefit-list">
+                        <li>Instantly validate education claims</li>
+                        <li>Eliminate the risk of misrepresented candidates</li>
+                        <li>Streamline international recruitment processes</li>
+                    </ul>
+                </div>
+                <div class="benefit-card">
+                    <h3>
+                        <img src="student.png" alt="Student Icon">
+                        Students
+                    </h3>
+                    <ul class="benefit-list">
+                        <li>Carry your verified achievements wherever you go</li>
+                        <li>Own your educational narrative in a secure format</li>
+                        <li>Share credentials instantly with potential employers</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Company Section -->
+    <section class="company">
+        <div class="container">
+            <h2 class="section-title gradient-text">Built by Cybernova</h2>
+            <p>Credel is a flagship module of <strong>Cybernova</strong> — designed to eliminate fragmented record-keeping and rebuild trust in critical systems using blockchain.</p>
+            <img src="CybernovaAsset_3-removebg-preview.png" alt="Cybernova Logo">
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container cta-content">
+            <h2 class="section-title gradient-text">Let the World Trust What You've Earned</h2>
+            <p>Credel is already being piloted by institutions looking to move beyond paperwork. Join the movement.</p>
+            <div class="cta-buttons">
+                <a href="contact.html" class="cybernova-button" style="background-color: #000; color: white;">Become a Partner Institution</a>
+                <a href="contact.html" class="cybernova-button">Schedule a Call</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Cybernova. All rights reserved.</p>
+            <div class="links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact Us</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for mobile menu and page transitions -->
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            // Change menu icon based on state
+            mobileMenuBtn.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+        });
+        
+        // Close mobile menu when clicking a link
+        const navLinksList = document.querySelectorAll('.nav-links a');
+        navLinksList.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.textContent = '☰';
+            });
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (navLinks.classList.contains('active') && 
+                !e.target.closest('.nav-links') && 
+                !e.target.closest('.mobile-menu-btn')) {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.textContent = '☰';
+            }
+        });
+        
+        // Page transition for internal links
+        document.addEventListener('DOMContentLoaded', () => {
+            const internalLinks = document.querySelectorAll('a[href^="index"], a[href^="about"], a[href^="projects"], a[href^="contact"]');
+            
+            internalLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (!link.href.includes('#')) {
+                        e.preventDefault();
+                        document.body.classList.add('page-transition');
+                        document.body.style.opacity = 0;
+                        
+                        setTimeout(() => {
+                            window.location.href = link.href;
+                        }, 300);
+                    }
+                });
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                // Close mobile menu if open
+                navLinks.classList.remove('active');
+                mobileMenuBtn.textContent = '☰';
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    // Offset for fixed header
+                    const headerHeight = document.querySelector('header').offsetHeight;
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
