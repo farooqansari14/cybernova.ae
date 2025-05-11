@@ -14,6 +14,7 @@
             --border-color: #eaeaea;
             --radius: 8px;
             --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            --transition-speed: 0.3s;
         }
 
         * {
@@ -22,11 +23,16 @@
             padding: 0;
         }
 
+        html {
+            scroll-behavior: smooth; /* Smooth scrolling for the entire page */
+        }
+
         body {
             font-family: var(--font-sans);
             color: var(--text-primary);
             background-color: var(--background);
             line-height: 1.6;
+            transition: background-color var(--transition-speed) ease;
         }
 
         .container {
@@ -41,6 +47,16 @@
             border-bottom: 1px solid var(--border-color);
             display: flex;
             align-items: center;
+            position: sticky;
+            top: 0;
+            background-color: var(--background);
+            z-index: 1000;
+            transition: box-shadow var(--transition-speed) ease, 
+                        background-color var(--transition-speed) ease;
+        }
+
+        header.scrolled {
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .nav-container {
@@ -55,6 +71,13 @@
             font-weight: 700;
             color: var(--text-primary);
             text-decoration: none;
+            transition: color var(--transition-speed) ease, 
+                        transform var(--transition-speed) ease;
+        }
+
+        .logo:hover {
+            color: var(--primary);
+            transform: scale(1.02);
         }
 
         .nav-links {
@@ -68,11 +91,27 @@
             text-decoration: none;
             font-size: 0.9rem;
             font-weight: 500;
-            transition: color 0.2s ease;
+            position: relative;
+            transition: color var(--transition-speed) ease;
         }
 
         .nav-links a:hover {
             color: var(--primary);
+        }
+
+        .nav-links a:not(.btn)::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width var(--transition-speed) ease;
+        }
+
+        .nav-links a:not(.btn):hover::after {
+            width: 100%;
         }
 
         .btn {
@@ -83,11 +122,20 @@
             border-radius: var(--radius);
             font-weight: 500;
             text-decoration: none;
-            transition: background-color 0.2s ease;
+            transition: background-color var(--transition-speed) ease,
+                        transform var(--transition-speed) ease,
+                        box-shadow var(--transition-speed) ease;
         }
 
         .btn:hover {
             background-color: #0060df;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         /* Page Header */
@@ -95,11 +143,15 @@
             padding: 6rem 0 3rem;
             text-align: center;
             background-color: var(--background-secondary);
+            transition: background-color var(--transition-speed) ease;
         }
 
         .page-header h1 {
             font-size: 3rem;
             margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s forwards;
         }
 
         .page-header p {
@@ -107,11 +159,29 @@
             max-width: 600px;
             margin: 0 auto;
             font-size: 1.1rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s 0.2s forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Contact Section */
         .contact-section {
             padding: 5rem 0;
+            opacity: 0;
+            animation: fadeIn 1s 0.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
         }
 
         .contact-intro {
@@ -141,6 +211,13 @@
             border-radius: var(--radius);
             padding: 2.5rem;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: transform var(--transition-speed) ease,
+                        box-shadow var(--transition-speed) ease;
+        }
+
+        .contact-form:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
         }
 
         .contact-form h3 {
@@ -156,6 +233,7 @@
             display: block;
             margin-bottom: 0.5rem;
             font-weight: 500;
+            transition: color var(--transition-speed) ease;
         }
 
         .form-control {
@@ -165,12 +243,14 @@
             border-radius: var(--radius);
             font-family: var(--font-sans);
             font-size: 1rem;
-            transition: border-color 0.2s ease;
+            transition: border-color var(--transition-speed) ease,
+                        box-shadow var(--transition-speed) ease;
         }
 
         .form-control:focus {
             outline: none;
             border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 112, 243, 0.1);
         }
 
         textarea.form-control {
@@ -188,11 +268,19 @@
             font-size: 1rem;
             font-weight: 500;
             cursor: pointer;
-            transition: background-color 0.2s ease;
+            transition: background-color var(--transition-speed) ease,
+                        transform var(--transition-speed) ease,
+                        box-shadow var(--transition-speed) ease;
         }
 
         .form-submit:hover {
             background-color: #0060df;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-submit:active {
+            transform: translateY(0);
         }
 
         /* Contact Info */
@@ -207,6 +295,13 @@
             border-radius: var(--radius);
             padding: 2rem;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: transform var(--transition-speed) ease,
+                        box-shadow var(--transition-speed) ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
         }
 
         .info-card h3 {
@@ -219,11 +314,21 @@
             display: flex;
             gap: 1rem;
             margin-bottom: 1.2rem;
+            transition: transform var(--transition-speed) ease;
+        }
+
+        .info-item:hover {
+            transform: translateX(5px);
         }
 
         .info-icon {
             font-size: 1.2rem;
             color: var(--primary);
+            transition: transform var(--transition-speed) ease;
+        }
+
+        .info-item:hover .info-icon {
+            transform: scale(1.2);
         }
 
         .info-text {
@@ -233,10 +338,12 @@
         .info-text a {
             color: var(--primary);
             text-decoration: none;
+            transition: color var(--transition-speed) ease;
         }
 
         .info-text a:hover {
             text-decoration: underline;
+            color: #0060df;
         }
 
         .social-links {
@@ -255,11 +362,15 @@
             border-radius: 50%;
             color: var(--primary);
             text-decoration: none;
-            transition: background-color 0.2s ease;
+            transition: background-color var(--transition-speed) ease,
+                        transform var(--transition-speed) ease,
+                        color var(--transition-speed) ease;
         }
 
         .social-link:hover {
-            background-color: #e1e1e1;
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-3px) rotate(5deg);
         }
 
         /* Calendar Section */
@@ -267,6 +378,8 @@
             padding: 5rem 0;
             background-color: var(--background-secondary);
             text-align: center;
+            opacity: 0;
+            animation: fadeIn 1s 0.8s forwards;
         }
 
         .calendar-section h2 {
@@ -287,12 +400,26 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             max-width: 800px;
             margin: 0 auto;
+            transition: transform var(--transition-speed) ease,
+                        box-shadow var(--transition-speed) ease;
+        }
+
+        .calendar-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
         }
 
         .calendar-placeholder {
             padding: 2rem;
             border: 2px dashed var(--border-color);
             border-radius: var(--radius);
+            transition: border-color var(--transition-speed) ease,
+                        background-color var(--transition-speed) ease;
+        }
+
+        .calendar-placeholder:hover {
+            border-color: var(--primary);
+            background-color: rgba(0, 112, 243, 0.03);
         }
 
         .calendar-placeholder p {
@@ -303,6 +430,8 @@
         footer {
             padding: 3rem 0;
             border-top: 1px solid var(--border-color);
+            opacity: 0;
+            animation: fadeIn 1s 1s forwards;
         }
 
         .footer-container {
@@ -320,10 +449,39 @@
             color: var(--text-secondary);
             text-decoration: none;
             font-size: 0.9rem;
+            transition: color var(--transition-speed) ease;
         }
 
         .footer-links a:hover {
             color: var(--primary);
+        }
+
+        /* Form Feedback Animation */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .shake {
+            animation: shake 0.5s;
+        }
+
+        @keyframes success {
+            0% { transform: scale(0.8); opacity: 0; }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .success-message {
+            display: none;
+            padding: 1rem;
+            background-color: #d4edda;
+            color: #155724;
+            border-radius: var(--radius);
+            text-align: center;
+            margin-bottom: 1rem;
+            animation: success 0.5s forwards;
         }
 
         /* Responsive */
@@ -342,7 +500,7 @@
 </head>
 <body>
     <!-- Header & Navigation -->
-    <header>
+    <header id="header">
         <div class="container nav-container">
             <a href="index.html" class="logo">Cybernova</a>
             <nav class="nav-links">
@@ -374,6 +532,9 @@
                 <!-- Contact Form -->
                 <div class="contact-form">
                     <h3>Send Us a Message</h3>
+                    <div class="success-message" id="successMessage">
+                        Thank you for your message! We will get back to you soon.
+                    </div>
                     <form action="#" method="POST" id="contactForm">
                         <div class="form-group">
                             <label for="name">Full Name</label>
@@ -479,12 +640,100 @@
     </footer>
 
     <script>
-        // Simple form validation and submission handling
+        // Sticky header on scroll
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Form validation and submission handling with animation
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
+            
+            // Validate form (simple validation example)
+            let isValid = true;
+            const requiredFields = this.querySelectorAll('[required]');
+            
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    isValid = false;
+                    field.classList.add('shake');
+                    setTimeout(() => {
+                        field.classList.remove('shake');
+                    }, 500);
+                }
+            });
+            
+            if (!isValid) return;
+            
+            // Show success message with animation
+            const successMessage = document.getElementById('successMessage');
+            successMessage.style.display = 'block';
+            
+            // Hide form and show success message
+            const formElements = this.elements;
+            for (let i = 0; i < formElements.length; i++) {
+                formElements[i].style.opacity = '0.5';
+                formElements[i].disabled = true;
+            }
+            
             // In a real implementation, you would send the form data to your backend
-            alert('Thank you for your message! We will get back to you soon.');
-            this.reset();
+            // Reset form after delay
+            setTimeout(() => {
+                this.reset();
+                successMessage.style.display = 'none';
+                
+                for (let i = 0; i < formElements.length; i++) {
+                    formElements[i].style.opacity = '1';
+                    formElements[i].disabled = false;
+                }
+            }, 3000);
+        });
+
+        // Reveal animations on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Select elements to animate on scroll
+        const animateElements = document.querySelectorAll('.info-card, .contact-form, .calendar-container');
+        animateElements.forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
         });
     </script>
 </body>
