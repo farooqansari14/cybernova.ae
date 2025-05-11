@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us | Cybernova</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
             --primary: #0070f3;
@@ -24,7 +25,7 @@
         }
 
         html {
-            scroll-behavior: smooth; /* Smooth scrolling for the entire page */
+            scroll-behavior: smooth;
         }
 
         body {
@@ -36,14 +37,15 @@
         }
 
         .container {
+            width: 100%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 1.5rem;
+            padding: 0 1rem;
         }
 
         /* Header & Navigation */
         header {
-            height: 80px;
+            height: 70px;
             border-bottom: 1px solid var(--border-color);
             display: flex;
             align-items: center;
@@ -71,53 +73,73 @@
             font-weight: 700;
             color: var(--text-primary);
             text-decoration: none;
-            transition: color var(--transition-speed) ease, 
-                        transform var(--transition-speed) ease;
+            transition: color var(--transition-speed) ease;
         }
 
         .logo:hover {
             color: var(--primary);
-            transform: scale(1.02);
         }
 
         .nav-links {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
+            display: none;
         }
 
-        .nav-links a {
+        .mobile-menu-btn {
+            display: block;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            background-color: var(--background);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 0;
+            transform: translateY(-100%);
+            opacity: 0;
+            visibility: hidden;
+            transition: transform var(--transition-speed) ease,
+                        opacity var(--transition-speed) ease,
+                        visibility var(--transition-speed) ease;
+            z-index: 999;
+        }
+
+        .mobile-menu.active {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-menu a {
+            display: block;
+            padding: 0.8rem 1.5rem;
             color: var(--text-secondary);
             text-decoration: none;
-            font-size: 0.9rem;
             font-weight: 500;
-            position: relative;
-            transition: color var(--transition-speed) ease;
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color var(--transition-speed) ease,
+                        color var(--transition-speed) ease;
         }
 
-        .nav-links a:hover {
+        .mobile-menu a:last-child {
+            border-bottom: none;
+        }
+
+        .mobile-menu a:hover {
+            background-color: var(--background-secondary);
             color: var(--primary);
-        }
-
-        .nav-links a:not(.btn)::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -4px;
-            left: 0;
-            background-color: var(--primary);
-            transition: width var(--transition-speed) ease;
-        }
-
-        .nav-links a:not(.btn):hover::after {
-            width: 100%;
         }
 
         .btn {
             display: inline-block;
             background-color: var(--primary);
-            color: white;
+            color: white !important;
             padding: 0.5rem 1rem;
             border-radius: var(--radius);
             font-weight: 500;
@@ -135,20 +157,19 @@
 
         .btn:active {
             transform: translateY(0);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         /* Page Header */
         .page-header {
-            padding: 6rem 0 3rem;
+            padding: 4rem 0 2rem;
             text-align: center;
             background-color: var(--background-secondary);
             transition: background-color var(--transition-speed) ease;
         }
 
         .page-header h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
             opacity: 0;
             transform: translateY(20px);
             animation: fadeInUp 0.8s forwards;
@@ -173,7 +194,7 @@
 
         /* Contact Section */
         .contact-section {
-            padding: 5rem 0;
+            padding: 3rem 0;
             opacity: 0;
             animation: fadeIn 1s 0.5s forwards;
         }
@@ -187,11 +208,12 @@
         .contact-intro {
             text-align: center;
             max-width: 700px;
-            margin: 0 auto 4rem;
+            margin: 0 auto 3rem;
+            padding: 0 1rem;
         }
 
         .contact-intro h2 {
-            font-size: 2.5rem;
+            font-size: 2rem;
             margin-bottom: 1.5rem;
         }
 
@@ -201,15 +223,15 @@
 
         .contact-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+            grid-template-columns: 1fr;
+            gap: 2rem;
         }
 
         /* Contact Form */
         .contact-form {
             background-color: white;
             border-radius: var(--radius);
-            padding: 2.5rem;
+            padding: 1.5rem;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             transition: transform var(--transition-speed) ease,
                         box-shadow var(--transition-speed) ease;
@@ -254,7 +276,7 @@
         }
 
         textarea.form-control {
-            min-height: 150px;
+            min-height: 120px;
             resize: vertical;
         }
 
@@ -293,7 +315,7 @@
         .info-card {
             background-color: white;
             border-radius: var(--radius);
-            padding: 2rem;
+            padding: 1.5rem;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             transition: transform var(--transition-speed) ease,
                         box-shadow var(--transition-speed) ease;
@@ -312,6 +334,7 @@
 
         .info-item {
             display: flex;
+            align-items: center;
             gap: 1rem;
             margin-bottom: 1.2rem;
             transition: transform var(--transition-speed) ease;
@@ -322,13 +345,20 @@
         }
 
         .info-icon {
-            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: rgba(0, 112, 243, 0.1);
+            border-radius: 50%;
             color: var(--primary);
             transition: transform var(--transition-speed) ease;
+            font-size: 1rem;
         }
 
         .info-item:hover .info-icon {
-            transform: scale(1.2);
+            transform: scale(1.1);
         }
 
         .info-text {
@@ -356,8 +386,8 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             background-color: var(--background-secondary);
             border-radius: 50%;
             color: var(--primary);
@@ -365,6 +395,7 @@
             transition: background-color var(--transition-speed) ease,
                         transform var(--transition-speed) ease,
                         color var(--transition-speed) ease;
+            font-size: 1rem;
         }
 
         .social-link:hover {
@@ -373,62 +404,9 @@
             transform: translateY(-3px) rotate(5deg);
         }
 
-        /* Calendar Section */
-        .calendar-section {
-            padding: 5rem 0;
-            background-color: var(--background-secondary);
-            text-align: center;
-            opacity: 0;
-            animation: fadeIn 1s 0.8s forwards;
-        }
-
-        .calendar-section h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .calendar-section p {
-            color: var(--text-secondary);
-            max-width: 700px;
-            margin: 0 auto 2rem;
-        }
-
-        .calendar-container {
-            background-color: white;
-            border-radius: var(--radius);
-            padding: 2rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            max-width: 800px;
-            margin: 0 auto;
-            transition: transform var(--transition-speed) ease,
-                        box-shadow var(--transition-speed) ease;
-        }
-
-        .calendar-container:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-        }
-
-        .calendar-placeholder {
-            padding: 2rem;
-            border: 2px dashed var(--border-color);
-            border-radius: var(--radius);
-            transition: border-color var(--transition-speed) ease,
-                        background-color var(--transition-speed) ease;
-        }
-
-        .calendar-placeholder:hover {
-            border-color: var(--primary);
-            background-color: rgba(0, 112, 243, 0.03);
-        }
-
-        .calendar-placeholder p {
-            margin-bottom: 1rem;
-        }
-
         /* Footer */
         footer {
-            padding: 3rem 0;
+            padding: 2rem 0;
             border-top: 1px solid var(--border-color);
             opacity: 0;
             animation: fadeIn 1s 1s forwards;
@@ -436,13 +414,17 @@
 
         .footer-container {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
+            text-align: center;
+            gap: 1rem;
         }
 
         .footer-links {
             display: flex;
-            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
         }
 
         .footer-links a {
@@ -484,16 +466,91 @@
             animation: success 0.5s forwards;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .contact-grid {
-                grid-template-columns: 1fr;
-                gap: 3rem;
+        /* Medium screens */
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+            
+            .mobile-menu-btn {
+                display: none;
+            }
+            
+            .nav-links {
+                display: flex;
+                gap: 1.5rem;
+                align-items: center;
             }
 
+            .nav-links a {
+                color: var(--text-secondary);
+                text-decoration: none;
+                font-size: 0.9rem;
+                font-weight: 500;
+                position: relative;
+                transition: color var(--transition-speed) ease;
+            }
+
+            .nav-links a:hover {
+                color: var(--primary);
+            }
+
+            .nav-links a:not(.btn)::after {
+                content: '';
+                position: absolute;
+                width: 0;
+                height: 2px;
+                bottom: -4px;
+                left: 0;
+                background-color: var(--primary);
+                transition: width var(--transition-speed) ease;
+            }
+
+            .nav-links a:not(.btn):hover::after {
+                width: 100%;
+            }
+            
+            .page-header {
+                padding: 6rem 0 3rem;
+            }
+            
+            .page-header h1 {
+                font-size: 3rem;
+            }
+            
+            .contact-section {
+                padding: 5rem 0;
+            }
+            
+            .contact-intro h2 {
+                font-size: 2.5rem;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 4rem;
+            }
+            
+            .contact-form, .info-card {
+                padding: 2rem;
+            }
+            
             .footer-container {
-                flex-direction: column;
-                gap: 1.5rem;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                text-align: left;
+            }
+        }
+
+        /* Large screens */
+        @media (min-width: 1024px) {
+            .nav-links {
+                gap: 2rem;
+            }
+            
+            .contact-form {
+                padding: 2.5rem;
             }
         }
     </style>
@@ -503,6 +560,9 @@
     <header id="header">
         <div class="container nav-container">
             <a href="index.html" class="logo">Cybernova</a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
             <nav class="nav-links">
                 <a href="index.html">Home</a>
                 <a href="about.html">About Us</a>
@@ -512,6 +572,15 @@
             </nav>
         </div>
     </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="projects.html">Projects</a>
+        <a href="contact.html">Contact</a>
+        <a href="contact.html" class="btn">Let's Talk</a>
+    </div>
 
     <!-- Page Header -->
     <section class="page-header">
@@ -525,7 +594,7 @@
     <section class="contact-section">
         <div class="container">
             <div class="contact-intro">
-                <h2>🤝 Let's Build Trust Together</h2>
+                <h2>Let's Build Trust Together</h2>
                 <p>Whether you're a government body exploring digital reform, an enterprise struggling with siloed systems, or an innovator looking to collaborate—we're ready to talk. We work with institutions that are serious about security, transparency, and scalability. If that's you, let's begin the conversation.</p>
             </div>
             <div class="contact-grid">
@@ -565,62 +634,58 @@
                     <div class="info-card">
                         <h3>Reach Out</h3>
                         <div class="info-item">
-                            <div class="info-icon">📧</div>
+                            <div class="info-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
                             <div class="info-text">
                                 <strong>Email:</strong><br>
                                 <a href="mailto:farooq.ansari14@outlook.com">farooq.ansari14@outlook.com</a>
                             </div>
                         </div>
                         <div class="info-item">
-                            <div class="info-icon">📞</div>
+                            <div class="info-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
                             <div class="info-text">
                                 <strong>Phone:</strong><br>
                                 <a href="tel:+971501160250">+971 50 116 0250</a>
                             </div>
                         </div>
                         <div class="info-item">
-                            <div class="info-icon">📍</div>
+                            <div class="info-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
                             <div class="info-text">
                                 <strong>Location:</strong><br>
                                 GCC-based | Operating Globally
                             </div>
                         </div>
                         <div class="social-links">
-                            <a href="#" class="social-link">in</a>
-                            <a href="#" class="social-link">tw</a>
+                            <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
                         </div>
                     </div>
                     <div class="info-card">
                         <h3>Working Hours</h3>
                         <div class="info-item">
-                            <div class="info-icon">🕒</div>
+                            <div class="info-icon">
+                                <i class="far fa-clock"></i>
+                            </div>
                             <div class="info-text">
-                                <strong>Sunday - Thursday:</strong><br>
+                                <strong>Monday - Thursday:</strong><br>
                                 9:00 AM - 6:00 PM (GST)
                             </div>
                         </div>
                         <div class="info-item">
-                            <div class="info-icon">⏱️</div>
+                            <div class="info-icon">
+                                <i class="fas fa-hourglass-half"></i>
+                            </div>
                             <div class="info-text">
                                 <strong>Response Time:</strong><br>
                                 We typically respond within 24 hours during business days.
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Calendar Section -->
-    <section class="calendar-section">
-        <div class="container">
-            <h2>📅 Book a Discovery Call</h2>
-            <p>Let's explore how Cybernova can help you modernize with blockchain-backed infrastructure.</p>
-            <div class="calendar-container">
-                <div class="calendar-placeholder">
-                    <p>This is where your scheduling calendar would be embedded.</p>
-                    <a href="#" class="btn">Schedule a Call</a>
                 </div>
             </div>
         </div>
@@ -640,6 +705,28 @@
     </footer>
 
     <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileMenu.classList.toggle('active');
+            const icon = this.querySelector('i');
+            if (mobileMenu.classList.contains('active')) {
+                icon.className = 'fas fa-times';
+            } else {
+                icon.className = 'fas fa-bars';
+            }
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!mobileMenuBtn.contains(event.target) && !mobileMenu.contains(event.target)) {
+                mobileMenu.classList.remove('active');
+                mobileMenuBtn.querySelector('i').className = 'fas fa-bars';
+            }
+        });
+
         // Sticky header on scroll
         window.addEventListener('scroll', function() {
             const header = document.getElementById('header');
@@ -648,23 +735,6 @@
             } else {
                 header.classList.remove('scrolled');
             }
-        });
-
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 100,
-                        behavior: 'smooth'
-                    });
-                }
-            });
         });
 
         // Form validation and submission handling with animation
@@ -728,7 +798,7 @@
         }, observerOptions);
 
         // Select elements to animate on scroll
-        const animateElements = document.querySelectorAll('.info-card, .contact-form, .calendar-container');
+        const animateElements = document.querySelectorAll('.info-card, .contact-form');
         animateElements.forEach(el => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(20px)';
