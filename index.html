@@ -68,10 +68,15 @@
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #f9fafb;
-            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 45px;
+            width: auto;
+            object-fit: contain;
         }
 
         .nav-links {
@@ -517,10 +522,7 @@
 
     <header>
         <nav>
-            <div class="container nav-container">
-            <a href="index.html" class="logo">
-                <img src="CybernovaAsset_3-removebg-preview.png" alt="Cybernova Logo">
-            </a>
+            <div class="logo">Cybernova</div>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#problem">The Problem</a></li>
