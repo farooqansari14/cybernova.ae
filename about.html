@@ -5,51 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us | Cybernova</title>
     <style>
-        :root {
-            --primary: #0070f3;
-            --text-primary: #000;
-            --text-secondary: #444;
-            --background: #fff;
-            --background-secondary: #f6f6f6;
-            --border-color: #eaeaea;
-            --radius: 8px;
-            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-        }
-
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            font-family: var(--font-sans);
-            color: var(--text-primary);
-            background-color: var(--background);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.6;
-            /* Increased base font size by 20% */
-            font-size: 1.2rem;
+            color: #e8e8e8;
+            background: #0a0a0a;
+            overflow-x: hidden;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1.5rem;
+        .bg-texture {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(17, 24, 39, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(17, 24, 39, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(17, 24, 39, 0.2) 0%, transparent 50%);
+            z-index: -1;
         }
 
-        /* Header & Navigation */
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(55, 65, 81, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(55, 65, 81, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
         header {
-            height: 80px;
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 2rem 0;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(55, 65, 81, 0.2);
+            z-index: 1000;
+            transition: all 0.3s ease;
         }
 
-        .nav-container {
+        nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 3rem;
         }
 
         .logo {
@@ -59,107 +74,142 @@
         }
 
         .logo img {
-            height: 40px;
+            height: 45px;
             width: auto;
+            object-fit: contain;
         }
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 3rem;
+            list-style: none;
             align-items: center;
         }
 
         .nav-links a {
-            color: var(--text-secondary);
+            color: #9ca3af;
             text-decoration: none;
-            /* Increased font size by 20% */
-            font-size: 1.08rem;
-            font-weight: 500;
-            transition: color 0.2s ease;
+            font-weight: 400;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
         .nav-links a:hover {
-            color: var(--primary);
+            color: #f9fafb;
         }
 
-        .btn {
-            display: inline-block;
-            background-color: var(--primary);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: var(--radius);
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #6b7280;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cta-btn {
+            background: #f9fafb;
+            color: #111827;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
             font-weight: 500;
-            text-decoration: none;
-            transition: background-color 0.2s ease;
+            transition: all 0.3s ease;
         }
 
-        .btn:hover {
-            background-color: #0060df;
+        .cta-btn:hover {
+            background: #e5e7eb;
+            transform: translateY(-1px);
         }
 
-        /* Mobile Menu */
+        .cta-btn::after {
+            display: none;
+        }
+
         .mobile-menu-toggle {
             display: none;
             background: none;
             border: none;
             font-size: 1.5rem;
             cursor: pointer;
-            color: var(--text-primary);
+            color: #f9fafb;
         }
 
-        /* Page Header */
         .page-header {
-            padding: 6rem 0 3rem;
+            padding: 12rem 3rem 6rem;
             text-align: center;
-            background-color: var(--background-secondary);
+            background: rgba(17, 24, 39, 0.3);
+            border-bottom: 1px solid rgba(55, 65, 81, 0.2);
         }
 
         .page-header h1 {
-            /* Increased font size by 20% */
-            font-size: 3.6rem;
-            margin-bottom: 1rem;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            color: #f9fafb;
+            animation: fadeInUp 0.8s ease-out;
         }
 
         .page-header p {
-            color: var(--text-secondary);
+            font-size: 1.2rem;
+            color: #9ca3af;
             max-width: 600px;
             margin: 0 auto;
-            /* Increased font size by 20% */
-            font-size: 1.32rem;
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
         }
 
-        /* About Section */
-        .about-section {
-            padding: 5rem 0;
+        .section {
+            padding: 8rem 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 300;
+            text-align: center;
+            margin-bottom: 4rem;
+            color: #f9fafb;
         }
 
         .about-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+            gap: 6rem;
             align-items: center;
         }
 
         .about-content h2 {
-            /* Increased font size by 20% */
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 300;
+            margin-bottom: 2rem;
+            color: #f9fafb;
         }
 
         .about-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #d1d5db;
             margin-bottom: 1.5rem;
-            color: var(--text-secondary);
+        }
+
+        .about-content p strong {
+            color: #f9fafb;
+            font-weight: 500;
         }
 
         .about-image {
             position: relative;
-            height: 400px;
-            border-radius: var(--radius);
+            height: 500px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            border: 1px solid rgba(55, 65, 81, 0.3);
         }
 
         .about-image img {
@@ -168,10 +218,10 @@
             object-fit: cover;
         }
 
-        /* Vision & Mission */
-        .vision-mission {
-            padding: 5rem 0;
-            background-color: var(--background-secondary);
+        .vm-section {
+            background: rgba(17, 24, 39, 0.3);
+            border-top: 1px solid rgba(55, 65, 81, 0.2);
+            border-bottom: 1px solid rgba(55, 65, 81, 0.2);
         }
 
         .vm-grid {
@@ -181,134 +231,136 @@
         }
 
         .vm-card {
-            background-color: white;
-            padding: 2.5rem;
-            border-radius: var(--radius);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            background: rgba(17, 24, 39, 0.4);
+            border: 1px solid rgba(55, 65, 81, 0.2);
+            border-radius: 12px;
+            padding: 3rem;
             text-align: center;
+            transition: all 0.3s ease;
         }
 
-        .vm-card h2 {
-            /* Increased font size by 20% */
-            font-size: 2.4rem;
-            margin-bottom: 1.5rem;
+        .vm-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(75, 85, 99, 0.3);
         }
 
-        .vm-card p {
-            color: var(--text-secondary);
-        }
-        
-        /* Added styles for vision and mission icons */
         .vm-icon {
-            margin-bottom: 1.5rem;
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        
+
         .vm-icon img {
             width: 48px;
             height: 48px;
             object-fit: contain;
+            filter: brightness(0) invert(1);
+            opacity: 0.9;
         }
 
-        /* Values */
-        .values {
-            padding: 5rem 0;
+        .vm-card h2 {
+            font-size: 2rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            color: #f9fafb;
         }
 
-        .values h2 {
-            /* Increased font size by 20% */
-            font-size: 3rem;
-            margin-bottom: 3rem;
-            text-align: center;
+        .vm-card p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #9ca3af;
         }
 
         .values-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
         }
 
         .value-card {
-            padding: 2rem;
-            border-radius: var(--radius);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            background-color: white;
-            transition: transform 0.3s ease;
+            background: rgba(17, 24, 39, 0.3);
+            border: 1px solid rgba(55, 65, 81, 0.2);
+            border-radius: 12px;
+            padding: 2.5rem;
             text-align: center;
+            transition: all 0.3s ease;
         }
 
         .value-card:hover {
             transform: translateY(-5px);
+            background: rgba(17, 24, 39, 0.4);
+            border-color: rgba(75, 85, 99, 0.3);
         }
 
         .value-icon {
-            margin-bottom: 1rem;
-            color: var(--primary);
-            text-align: center;
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        /* Added specific sizing for value icons */
         .value-icon img {
             width: 48px;
             height: 48px;
             object-fit: contain;
+            filter: brightness(0) invert(1);
+            opacity: 0.9;
         }
 
         .value-card h3 {
+            font-size: 1.3rem;
+            font-weight: 500;
             margin-bottom: 1rem;
-            /* Increased font size by 20% */
-            font-size: 1.44rem;
+            color: #f9fafb;
         }
 
         .value-card p {
-            color: var(--text-secondary);
+            color: #9ca3af;
+            line-height: 1.6;
         }
 
-        /* Team */
-        .team {
-            padding: 5rem 0;
-            background-color: var(--background-secondary);
+        .team-section {
+            background: rgba(17, 24, 39, 0.3);
+            border-top: 1px solid rgba(55, 65, 81, 0.2);
         }
 
-        .team h2 {
-            /* Increased font size by 20% */
-            font-size: 3rem;
-            margin-bottom: 3rem;
-            text-align: center;
-        }
-
-        .team p {
+        .team-intro {
             text-align: center;
             max-width: 800px;
-            margin: 0 auto 3rem;
-            color: var(--text-secondary);
+            margin: 0 auto 4rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #9ca3af;
         }
 
         .team-placeholder {
             text-align: center;
-            padding: 3rem;
-            background-color: white;
-            border-radius: var(--radius);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        }
-
-        .team-placeholder img {
-            max-width: 100%;
-            height: auto;
-            border-radius: var(--radius);
+            padding: 4rem;
+            background: rgba(17, 24, 39, 0.4);
+            border: 1px solid rgba(55, 65, 81, 0.2);
+            border-radius: 12px;
         }
 
         .team-placeholder p {
             font-style: italic;
-            margin-top: 1rem;
+            color: #6b7280;
+            margin-top: 1.5rem;
         }
 
-        /* Footer */
         footer {
-            padding: 3rem 0;
-            border-top: 1px solid var(--border-color);
+            padding: 5rem 3rem 3rem;
+            background: rgba(17, 24, 39, 0.5);
+            border-top: 1px solid rgba(55, 65, 81, 0.2);
         }
 
-        .footer-container {
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -316,228 +368,215 @@
 
         .footer-links {
             display: flex;
-            gap: 1.5rem;
+            gap: 2rem;
         }
 
         .footer-links a {
-            color: var(--text-secondary);
+            color: #9ca3af;
             text-decoration: none;
-            /* Increased font size by 20% */
-            font-size: 1.08rem;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
         }
 
         .footer-links a:hover {
-            color: var(--primary);
+            color: #d1d5db;
         }
 
-        /* Enhanced Responsive */
-        @media (max-width: 992px) {
-            .vm-grid {
-                gap: 2rem;
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
             }
-            
-            .values-grid {
-                grid-template-columns: repeat(2, 1fr);
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         @media (max-width: 768px) {
-            .about-grid, .vm-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
+            nav {
+                padding: 0 2rem;
             }
 
-            .about-image {
-                height: 300px;
-                order: -1;
-            }
-
-            .footer-container {
-                flex-direction: column;
-                gap: 1.5rem;
-            }
-            
-            .page-header h1 {
-                font-size: 2.8rem;
-            }
-            
-            .about-content h2, .values h2, .team h2 {
-                font-size: 2.4rem;
-            }
-            
-            .vm-card h2 {
-                font-size: 2rem;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .values-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .mobile-menu-toggle {
-                display: block;
-            }
-            
             .nav-links {
                 position: fixed;
                 top: 80px;
                 right: -100%;
                 flex-direction: column;
-                background-color: var(--background);
+                background: rgba(10, 10, 10, 0.98);
                 width: 100%;
                 height: calc(100vh - 80px);
                 padding: 2rem;
                 transition: right 0.3s ease;
-                z-index: 999;
-                border-top: 1px solid var(--border-color);
+                border-top: 1px solid rgba(55, 65, 81, 0.2);
             }
-            
+
             .nav-links.active {
                 right: 0;
             }
-            
-            .page-header h1 {
-                font-size: 2.4rem;
+
+            .mobile-menu-toggle {
+                display: block;
             }
-            
-            .page-header p {
-                font-size: 1.1rem;
+
+            .section {
+                padding: 5rem 2rem;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .about-image {
+                height: 350px;
+                order: -1;
+            }
+
+            .vm-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .page-header {
+                padding: 10rem 2rem 4rem;
             }
         }
 
-        /* Gradient Text for All Headers - COPIED FROM INDEX.HTML */
-        .page-header h1,
-        .about-content h2,
-        .vm-card h2,
-        .values h2,
-        .team h2,
-        .value-card h3 {
-            background: linear-gradient(to right, var(--primary), #6d28d9);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        @media (max-width: 480px) {
+            .section {
+                padding: 4rem 1.5rem;
+            }
+
+            nav {
+                padding: 0 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Header & Navigation -->
+    <div class="bg-texture"></div>
+    <div class="grid-overlay"></div>
+
     <header>
-        <div class="container nav-container">
+        <nav>
             <a href="index.html" class="logo">
-                <img src="CybernovaAsset_3-removebg-preview.png" alt="Cybernova Logo" />
+                <img src="CybernovaAsset_3-removebg-preview.png" alt="Cybernova Logo">
             </a>
             <button class="mobile-menu-toggle" id="mobileMenuToggle">☰</button>
-            <nav class="nav-links" id="navLinks">
-                <a href="index.html">Home</a>
-                <a href="about.html">About Us</a>
-                <a href="projects.html">Projects</a>
-                <a href="contact.html" class="btn">Let's Talk</a>
-            </nav>
-        </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="contact.html" class="cta-btn">Let's Talk</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <!-- Page Header -->
     <section class="page-header">
-        <div class="container">
-            <h1>About Us</h1>
-            <p>Building the infrastructure for a more transparent, connected future</p>
-        </div>
+        <h1>About Us</h1>
+        <p>Building the infrastructure for a more transparent, connected future</p>
     </section>
 
-    <!-- About Section -->
-    <section class="about-section">
-        <div class="container">
-            <div class="about-grid">
-                <div class="about-content">
-                    <h2>Who We Are</h2>
-                    <p>Cybernova is a blockchain-driven infrastructure startup committed to solving one of the most overlooked problems in modern systems: data fragmentation.</p>
-                    <p>From healthcare, real estate to credentials most systems today are isolated, inefficient, and vulnerable. We exist to change that.</p>
-                    <p>We design secure, interoperable, and decentralized platforms that allow institutions, governments, and individuals to share, verify, and control critical data without friction or intermediaries.</p>
-                    <p><strong>We don't build tools. We build trust.</strong></p>
-                </div>
-                <div class="about-image">
-                    <img src="code.webp" alt="Cybernova Team" />
-                </div>
+    <section class="section reveal">
+        <div class="about-grid">
+            <div class="about-content">
+                <h2>Who We Are</h2>
+                <p>Cybernova is an AI and blockchain-driven infrastructure startup committed to solving one of the most overlooked problems in modern systems: data fragmentation.</p>
+                <p>From healthcare, real estate, fintech to credentials, most systems today are isolated, inefficient, and vulnerable. We exist to change that.</p>
+                <p>We design secure, intelligent, and decentralized platforms powered by AI and blockchain that allow institutions, governments, and individuals to share, verify, and control critical data without friction or intermediaries.</p>
+                <p><strong>We don't build tools. We build intelligent trust.</strong></p>
+            </div>
+            <div class="about-image">
+                <img src="code.webp" alt="Cybernova Team">
             </div>
         </div>
     </section>
 
-    <!-- Vision & Mission -->
-    <section class="vision-mission">
-        <div class="container">
-            <div class="vm-grid">
-                <div class="vm-card">
-                    <div class="vm-icon">
-                        <img src="opportunity.png" alt="Vision Icon" />
-                    </div>
-                    <h2>Our Vision</h2>
-                    <p>To become the backbone of transparent digital systems across the globe connecting siloed data into unified ecosystems that serve people, not bureaucracy.</p>
+    <section class="section vm-section reveal">
+        <div class="vm-grid">
+            <div class="vm-card">
+                <div class="vm-icon">
+                    <img src="opportunity.png" alt="Vision Icon">
                 </div>
-                <div class="vm-card">
-                    <div class="vm-icon">
-                        <img src="target.png" alt="Mission Icon" />
-                    </div>
-                    <h2>Our Mission</h2>
-                    <p>To eliminate data siloes across critical sectors by delivering blockchain based infrastructure that enhances transparency, automates trust, and scales seamlessly from local to national levels.</p>
+                <h2>Our Vision</h2>
+                <p>To become the backbone of transparent digital systems across the globe, connecting siloed data into unified ecosystems that serve people, not bureaucracy.</p>
+            </div>
+            <div class="vm-card">
+                <div class="vm-icon">
+                    <img src="target.png" alt="Mission Icon">
                 </div>
+                <h2>Our Mission</h2>
+                <p>To eliminate data siloes across critical sectors by delivering AI-powered blockchain infrastructure that enhances transparency, automates intelligent decision-making, and scales seamlessly from local to national levels.</p>
             </div>
         </div>
     </section>
 
-    <!-- Values -->
-    <section class="values">
-        <div class="container">
-            <h2>What We Value</h2>
-            <div class="values-grid">
-                <div class="value-card">
-                    <div class="value-icon">
-                        <img src="target.png" alt="Purpose Icon" />
-                    </div>
-                    <h3>Purpose Over Hype</h3>
-                    <p>We don't build for trends. We build for transformation.</p>
+    <section class="section reveal">
+        <h2 class="section-title">What We Value</h2>
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon">
+                    <img src="target.png" alt="Purpose Icon">
                 </div>
-                <div class="value-card">
-                    <div class="value-icon">
-                        <img src="loupe.png" alt="Clarity Icon" />
-                    </div>
-                    <h3>Clarity Through Design</h3>
-                    <p>Every system we create simplifies the complex.</p>
+                <h3>Purpose Over Hype</h3>
+                <p>We don't build for trends. We build for transformation.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">
+                    <img src="loupe.png" alt="Clarity Icon">
                 </div>
-                <div class="value-card">
-                    <div class="value-icon">
-                        <img src="trust.png" alt="Trust Icon" />
-                    </div>
-                    <h3>Trust Without Compromise</h3>
-                    <p>Security, integrity, and transparency are non-negotiable.</p>
+                <h3>Clarity Through Design</h3>
+                <p>Every system we create simplifies the complex.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">
+                    <img src="trust.png" alt="Trust Icon">
                 </div>
-                <div class="value-card">
-                    <div class="value-icon">
-                        <img src="countries.png" alt="Regional Icon" />
-                    </div>
-                    <h3>Regional Relevance</h3>
-                    <p>Our solutions are deeply attuned to the needs of the GCC and emerging economies.</p>
+                <h3>Trust Without Compromise</h3>
+                <p>Security, integrity, and transparency are non-negotiable.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">
+                    <img src="countries.png" alt="Regional Icon">
                 </div>
+                <h3>Regional Relevance</h3>
+                <p>Our solutions are deeply attuned to the needs of the GCC and emerging economies.</p>
             </div>
         </div>
     </section>
 
-    <!-- Team -->
-    <section class="team">
-        <div class="container">
-            <h2>The Team Behind the Trust</h2>
-            <p>We are a focused, agile team of engineers, visionaries, and strategists, bringing expertise across blockchain architecture, government tech, and secure data infrastructure. We're lean, fast, and committed to making data integrity the new global standard.</p>
-            <div class="team-placeholder">
-                <img src="/api/placeholder/800/400" alt="Team Photo Placeholder" />
-                <p>Team members profiles coming soon...</p>
-            </div>
+    <section class="section team-section reveal">
+        <h2 class="section-title">The Team Behind the Trust</h2>
+        <p class="team-intro">We are a focused, agile team of engineers, AI specialists, visionaries, and strategists, bringing expertise across blockchain architecture, artificial intelligence, fintech, government tech, and secure data infrastructure. We're lean, fast, and committed to making intelligent data integrity the new global standard.</p>
+        <div class="team-placeholder">
+            <p>Team member profiles coming soon...</p>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
-        <div class="container footer-container">
-            <p>© 2025 Cybernova. All rights reserved.</p>
+        <div class="footer-content">
+            <p style="color: #6b7280;">© 2025 Cybernova. All rights reserved.</p>
             <div class="footer-links">
                 <a href="index.html">Home</a>
                 <a href="about.html">About Us</a>
@@ -547,16 +586,42 @@
         </div>
     </footer>
 
-    <!-- JavaScript for mobile menu -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const menuToggle = document.getElementById('mobileMenuToggle');
-            const navLinks = document.getElementById('navLinks');
-            
-            menuToggle.addEventListener('click', function() {
-                navLinks.classList.toggle('active');
-            });
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
         });
+
+        const reveals = document.querySelectorAll('.reveal');
+        
+        const revealOnScroll = () => {
+            reveals.forEach(reveal => {
+                const windowHeight = window.innerHeight;
+                const revealTop = reveal.getBoundingClientRect().top;
+                const revealPoint = 150;
+                
+                if (revealTop < windowHeight - revealPoint) {
+                    reveal.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(10, 10, 10, 0.98)';
+                header.style.padding = '1.5rem 0';
+            } else {
+                header.style.background = 'rgba(10, 10, 10, 0.95)';
+                header.style.padding = '2rem 0';
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', revealOnScroll);
     </script>
 </body>
 </html>
