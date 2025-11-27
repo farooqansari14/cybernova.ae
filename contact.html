@@ -6,256 +6,213 @@
     <title>Contact Us | Cybernova</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root {
-            --primary: #0070f3;
-            --text-primary: #000;
-            --text-secondary: #444;
-            --background: #fff;
-            --background-secondary: #f6f6f6;
-            --border-color: #eaeaea;
-            --radius: 8px;
-            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-            --transition-speed: 0.3s;
-        }
-
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
+            box-sizing: border-box;
         }
 
         body {
-            font-family: var(--font-sans);
-            color: var(--text-primary);
-            background-color: var(--background);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.6;
-            transition: background-color var(--transition-speed) ease;
+            color: #e8e8e8;
+            background: #0a0a0a;
+            overflow-x: hidden;
         }
 
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-
-        /* Header & Navigation */
-        header {
-            height: 70px;
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            position: sticky;
+        .bg-texture {
+            position: fixed;
             top: 0;
-            background-color: var(--background);
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(17, 24, 39, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(17, 24, 39, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(17, 24, 39, 0.2) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(55, 65, 81, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(55, 65, 81, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 2rem 0;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(55, 65, 81, 0.2);
             z-index: 1000;
-            transition: box-shadow var(--transition-speed) ease, 
-                        background-color var(--transition-speed) ease;
+            transition: all 0.3s ease;
         }
 
-        header.scrolled {
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .nav-container {
+        nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 3rem;
         }
 
         .logo {
-            text-decoration: none;
             display: flex;
             align-items: center;
+            text-decoration: none;
         }
-        
+
         .logo img {
-            height: 40px;
+            height: 45px;
             width: auto;
+            object-fit: contain;
         }
 
         .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #f9fafb;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #6b7280;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cta-btn {
+            background: #f9fafb;
+            color: #111827;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            background: #e5e7eb;
+            transform: translateY(-1px);
+        }
+
+        .cta-btn::after {
             display: none;
         }
 
-        .mobile-menu-btn {
-            display: block;
+        .mobile-menu-toggle {
+            display: none;
             background: none;
             border: none;
             font-size: 1.5rem;
-            color: var(--text-primary);
             cursor: pointer;
+            color: #f9fafb;
         }
 
-        .mobile-menu {
-            position: fixed;
-            top: 70px;
-            left: 0;
-            right: 0;
-            background-color: var(--background);
-            border-bottom: 1px solid var(--border-color);
-            padding: 1rem 0;
-            transform: translateY(-100%);
-            opacity: 0;
-            visibility: hidden;
-            transition: transform var(--transition-speed) ease,
-                        opacity var(--transition-speed) ease,
-                        visibility var(--transition-speed) ease;
-            z-index: 999;
-        }
-
-        .mobile-menu.active {
-            transform: translateY(0);
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .mobile-menu a {
-            display: block;
-            padding: 0.8rem 1.5rem;
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 500;
-            border-bottom: 1px solid var(--border-color);
-            transition: background-color var(--transition-speed) ease,
-                        color var(--transition-speed) ease;
-        }
-
-        .mobile-menu a:last-child {
-            border-bottom: none;
-        }
-
-        .mobile-menu a:hover {
-            background-color: var(--background-secondary);
-            color: var(--primary);
-        }
-
-        .btn {
-            display: inline-block;
-            background-color: var(--primary);
-            color: white !important;
-            padding: 0.5rem 1rem;
-            border-radius: var(--radius);
-            font-weight: 500;
-            text-decoration: none;
-            transition: background-color var(--transition-speed) ease,
-                        transform var(--transition-speed) ease,
-                        box-shadow var(--transition-speed) ease;
-        }
-
-        .btn:hover {
-            background-color: #0060df;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .btn:active {
-            transform: translateY(0);
-        }
-
-        /* Page Header */
         .page-header {
-            padding: 4rem 0 2rem;
+            padding: 12rem 3rem 6rem;
             text-align: center;
-            background-color: var(--background-secondary);
-            transition: background-color var(--transition-speed) ease;
+            background: rgba(17, 24, 39, 0.3);
+            border-bottom: 1px solid rgba(55, 65, 81, 0.2);
         }
 
         .page-header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.8s forwards;
-            background: linear-gradient(to right, var(--primary), #6d28d9);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            color: #f9fafb;
+            animation: fadeInUp 0.8s ease-out;
         }
 
         .page-header p {
-            color: var(--text-secondary);
+            font-size: 1.2rem;
+            color: #9ca3af;
             max-width: 600px;
             margin: 0 auto;
-            font-size: 1.1rem;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.8s 0.2s forwards;
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
         }
 
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Contact Section */
-        .contact-section {
-            padding: 3rem 0;
-            opacity: 0;
-            animation: fadeIn 1s 0.5s forwards;
-        }
-
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
+        .section {
+            padding: 8rem 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
         .contact-intro {
             text-align: center;
-            max-width: 700px;
-            margin: 0 auto 3rem;
-            padding: 0 1rem;
+            max-width: 800px;
+            margin: 0 auto 5rem;
         }
 
         .contact-intro h2 {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(to right, var(--primary), #6d28d9);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 300;
+            margin-bottom: 2rem;
+            color: #f9fafb;
         }
 
         .contact-intro p {
-            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #d1d5db;
         }
 
         .contact-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
         }
 
-        /* Contact Form */
         .contact-form {
-            background-color: white;
-            border-radius: var(--radius);
-            padding: 1.5rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            transition: transform var(--transition-speed) ease,
-                        box-shadow var(--transition-speed) ease;
+            background: rgba(17, 24, 39, 0.4);
+            border: 1px solid rgba(55, 65, 81, 0.2);
+            border-radius: 12px;
+            padding: 3rem;
+            transition: all 0.3s ease;
         }
 
         .contact-form:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            border-color: rgba(75, 85, 99, 0.3);
         }
 
         .contact-form h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(to right, var(--primary), #6d28d9);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: 1.8rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            color: #f9fafb;
         }
 
         .form-group {
@@ -264,59 +221,68 @@
 
         .form-group label {
             display: block;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
             font-weight: 500;
-            transition: color var(--transition-speed) ease;
+            color: #e5e7eb;
+            font-size: 0.95rem;
         }
 
         .form-control {
             width: 100%;
-            padding: 0.75rem;
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius);
-            font-family: var(--font-sans);
+            padding: 0.875rem;
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(55, 65, 81, 0.3);
+            border-radius: 6px;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: 1rem;
-            transition: border-color var(--transition-speed) ease,
-                        box-shadow var(--transition-speed) ease;
+            color: #e8e8e8;
+            transition: all 0.3s ease;
         }
 
         .form-control:focus {
             outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(0, 112, 243, 0.1);
+            border-color: rgba(249, 250, 251, 0.3);
+            background: rgba(17, 24, 39, 0.8);
+        }
+
+        .form-control::placeholder {
+            color: #6b7280;
         }
 
         textarea.form-control {
-            min-height: 120px;
+            min-height: 150px;
             resize: vertical;
         }
 
         .form-submit {
             width: 100%;
-            background-color: var(--primary);
-            color: white;
+            background: #f9fafb;
+            color: #111827;
             border: none;
-            padding: 0.75rem;
-            border-radius: var(--radius);
+            padding: 1rem;
+            border-radius: 6px;
             font-size: 1rem;
             font-weight: 500;
             cursor: pointer;
-            transition: background-color var(--transition-speed) ease,
-                        transform var(--transition-speed) ease,
-                        box-shadow var(--transition-speed) ease;
+            transition: all 0.3s ease;
         }
 
         .form-submit:hover {
-            background-color: #0060df;
+            background: #e5e7eb;
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        .form-submit:active {
-            transform: translateY(0);
+        .success-message {
+            display: none;
+            padding: 1rem;
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 6px;
+            text-align: center;
+            margin-bottom: 1.5rem;
         }
 
-        /* Contact Info */
         .contact-info {
             display: flex;
             flex-direction: column;
@@ -324,70 +290,69 @@
         }
 
         .info-card {
-            background-color: white;
-            border-radius: var(--radius);
-            padding: 1.5rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            transition: transform var(--transition-speed) ease,
-                        box-shadow var(--transition-speed) ease;
+            background: rgba(17, 24, 39, 0.4);
+            border: 1px solid rgba(55, 65, 81, 0.2);
+            border-radius: 12px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
         }
 
         .info-card:hover {
+            border-color: rgba(75, 85, 99, 0.3);
             transform: translateY(-5px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
         }
 
         .info-card h3 {
             font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(to right, var(--primary), #6d28d9);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            color: #f9fafb;
         }
 
         .info-item {
             display: flex;
-            align-items: center;
             gap: 1rem;
-            margin-bottom: 1.2rem;
-            transition: transform var(--transition-speed) ease;
+            margin-bottom: 1.5rem;
+            align-items: flex-start;
         }
 
-        .info-item:hover {
-            transform: translateX(5px);
+        .info-item:last-child {
+            margin-bottom: 0;
         }
 
         .info-icon {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 36px;
-            height: 36px;
-            background-color: rgba(0, 112, 243, 0.1);
-            border-radius: 50%;
-            color: var(--primary);
-            transition: transform var(--transition-speed) ease;
+            width: 40px;
+            height: 40px;
+            background: rgba(249, 250, 251, 0.1);
+            border: 1px solid rgba(75, 85, 99, 0.3);
+            border-radius: 8px;
+            color: #9ca3af;
             font-size: 1rem;
-        }
-
-        .info-item:hover .info-icon {
-            transform: scale(1.1);
+            flex-shrink: 0;
         }
 
         .info-text {
-            color: var(--text-secondary);
+            color: #9ca3af;
+            line-height: 1.6;
+        }
+
+        .info-text strong {
+            display: block;
+            color: #e5e7eb;
+            margin-bottom: 0.25rem;
         }
 
         .info-text a {
-            color: var(--primary);
+            color: #9ca3af;
             text-decoration: none;
-            transition: color var(--transition-speed) ease;
+            transition: color 0.3s ease;
         }
 
         .info-text a:hover {
-            text-decoration: underline;
-            color: #0060df;
+            color: #f9fafb;
         }
 
         .social-links {
@@ -400,59 +365,64 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 36px;
-            height: 36px;
-            background-color: var(--background-secondary);
-            border-radius: 50%;
-            color: var(--primary);
+            width: 40px;
+            height: 40px;
+            background: rgba(249, 250, 251, 0.1);
+            border: 1px solid rgba(75, 85, 99, 0.3);
+            border-radius: 8px;
+            color: #9ca3af;
             text-decoration: none;
-            transition: background-color var(--transition-speed) ease,
-                        transform var(--transition-speed) ease,
-                        color var(--transition-speed) ease;
+            transition: all 0.3s ease;
             font-size: 1rem;
         }
 
         .social-link:hover {
-            background-color: var(--primary);
-            color: white;
-            transform: translateY(-3px) rotate(5deg);
+            background: #f9fafb;
+            color: #111827;
+            transform: translateY(-3px);
         }
 
-        /* Footer */
         footer {
-            padding: 2rem 0;
-            border-top: 1px solid var(--border-color);
-            opacity: 0;
-            animation: fadeIn 1s 1s forwards;
+            padding: 5rem 3rem 3rem;
+            background: rgba(17, 24, 39, 0.5);
+            border-top: 1px solid rgba(55, 65, 81, 0.2);
         }
 
-        .footer-container {
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
             align-items: center;
-            text-align: center;
-            gap: 1rem;
         }
 
         .footer-links {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1rem;
+            gap: 2rem;
         }
 
         .footer-links a {
-            color: var(--text-secondary);
+            color: #9ca3af;
             text-decoration: none;
-            font-size: 0.9rem;
-            transition: color var(--transition-speed) ease;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
         }
 
         .footer-links a:hover {
-            color: var(--primary);
+            color: #d1d5db;
         }
 
-        /* Form Feedback Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
             25% { transform: translateX(-5px); }
@@ -463,243 +433,198 @@
             animation: shake 0.5s;
         }
 
-        @keyframes success {
-            0% { transform: scale(0.8); opacity: 0; }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); opacity: 1; }
+        .reveal {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 0.8s ease;
         }
 
-        .success-message {
-            display: none;
-            padding: 1rem;
-            background-color: #d4edda;
-            color: #155724;
-            border-radius: var(--radius);
-            text-align: center;
-            margin-bottom: 1rem;
-            animation: success 0.5s forwards;
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        /* Medium screens */
-        @media (min-width: 768px) {
-            .container {
-                padding: 0 1.5rem;
+        @media (max-width: 768px) {
+            nav {
+                padding: 0 2rem;
             }
-            
-            .mobile-menu-btn {
-                display: none;
-            }
-            
+
             .nav-links {
-                display: flex;
-                gap: 1.5rem;
-                align-items: center;
-            }
-
-            .nav-links a {
-                color: var(--text-secondary);
-                text-decoration: none;
-                font-size: 0.9rem;
-                font-weight: 500;
-                position: relative;
-                transition: color var(--transition-speed) ease;
-            }
-
-            .nav-links a:hover {
-                color: var(--primary);
-            }
-
-            .nav-links a:not(.btn)::after {
-                content: '';
-                position: absolute;
-                width: 0;
-                height: 2px;
-                bottom: -4px;
-                left: 0;
-                background-color: var(--primary);
-                transition: width var(--transition-speed) ease;
-            }
-
-            .nav-links a:not(.btn):hover::after {
+                position: fixed;
+                top: 80px;
+                right: -100%;
+                flex-direction: column;
+                background: rgba(10, 10, 10, 0.98);
                 width: 100%;
-            }
-            
-            .page-header {
-                padding: 6rem 0 3rem;
-            }
-            
-            .page-header h1 {
-                font-size: 3rem;
-            }
-            
-            .contact-section {
-                padding: 5rem 0;
-            }
-            
-            .contact-intro h2 {
-                font-size: 2.5rem;
-            }
-            
-            .contact-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 4rem;
-            }
-            
-            .contact-form, .info-card {
+                height: calc(100vh - 80px);
                 padding: 2rem;
+                transition: right 0.3s ease;
+                border-top: 1px solid rgba(55, 65, 81, 0.2);
             }
-            
-            .footer-container {
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: center;
-                text-align: left;
-            }
-        }
 
-        /* Large screens */
-        @media (min-width: 1024px) {
-            .nav-links {
+            .nav-links.active {
+                right: 0;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .section {
+                padding: 5rem 2rem;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
                 gap: 2rem;
             }
-            
-            .contact-form {
-                padding: 2.5rem;
+
+            .contact-form,
+            .info-card {
+                padding: 2rem;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .page-header {
+                padding: 10rem 2rem 4rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section {
+                padding: 4rem 1.5rem;
+            }
+
+            nav {
+                padding: 0 1.5rem;
+            }
+
+            .contact-form,
+            .info-card {
+                padding: 1.5rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header & Navigation -->
-    <header id="header">
-        <div class="container nav-container">
+    <div class="bg-texture"></div>
+    <div class="grid-overlay"></div>
+
+    <header>
+        <nav>
             <a href="index.html" class="logo">
                 <img src="CybernovaAsset_3-removebg-preview.png" alt="Cybernova Logo">
             </a>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i class="fas fa-bars"></i>
-            </button>
-            <nav class="nav-links">
-                <a href="index.html">Home</a>
-                <a href="about.html">About Us</a>
-                <a href="projects.html">Projects</a>
-                <a href="contact.html">Contact</a>
-                <a href="contact.html" class="btn">Let's Talk</a>
-            </nav>
-        </div>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="contact.html" class="cta-btn">Let's Talk</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-        <a href="index.html">Home</a>
-        <a href="about.html">About Us</a>
-        <a href="projects.html">Projects</a>
-        <a href="contact.html">Contact</a>
-        <a href="contact.html" class="btn">Let's Talk</a>
-    </div>
-
-    <!-- Page Header -->
     <section class="page-header">
-        <div class="container">
-            <h1>Contact Us</h1>
-            <p>Let's build trust together</p>
-        </div>
+        <h1>Contact Us</h1>
+        <p>Let's build trust together</p>
     </section>
 
-    <!-- Contact Section -->
-    <section class="contact-section">
-        <div class="container">
-            <div class="contact-intro">
-                <h2>Let's Build Trust Together</h2>
-                <p>Whether you're a government body exploring digital reform, an enterprise struggling with siloed systems, or an innovator looking to collaborate—we're ready to talk. We work with institutions that are serious about security, transparency, and scalability. If that's you, let's begin the conversation.</p>
-            </div>
-            <div class="contact-grid">
-                <!-- Contact Form -->
-                <div class="contact-form">
-                    <h3>Send Us a Message</h3>
-                    <div class="success-message" id="successMessage">
-                        Thank you for your message! We will get back to you soon.
+    <section class="section reveal">
+        <div class="contact-intro">
+            <h2>Let's Build Trust Together</h2>
+            <p>Whether you're a government body exploring digital reform, an enterprise struggling with siloed systems, or an innovator looking to collaborate, we're ready to talk. We work with institutions that are serious about security, transparency, and scalability. If that's you, let's begin the conversation.</p>
+        </div>
+
+        <div class="contact-grid">
+            <div class="contact-form">
+                <h3>Send Us a Message</h3>
+                <div class="success-message" id="successMessage">
+                    Thank you for your message! We will get back to you soon.
+                </div>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" class="form-control" required>
                     </div>
-                    <form action="#" method="POST" id="contactForm">
-                        <div class="form-group">
-                            <label for="name">Full Name</label>
-                            <input type="text" id="name" name="name" class="form-control" required>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="organization">Organization</label>
+                        <input type="text" id="organization" name="organization" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Your Message</label>
+                        <textarea id="message" name="message" class="form-control" required></textarea>
+                    </div>
+                    <button type="submit" class="form-submit">Send Message</button>
+                </form>
+            </div>
+
+            <div class="contact-info">
+                <div class="info-card">
+                    <h3>Reach Out</h3>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-envelope"></i>
                         </div>
-                        <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email" name="email" class="form-control" required>
+                        <div class="info-text">
+                            <strong>Email</strong>
+                            <a href="mailto:farooq.ansari14@outlook.com">farooq.ansari14@outlook.com</a>
                         </div>
-                        <div class="form-group">
-                            <label for="organization">Organization</label>
-                            <input type="text" id="organization" name="organization" class="form-control">
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-phone-alt"></i>
                         </div>
-                        <div class="form-group">
-                            <label for="subject">Subject</label>
-                            <input type="text" id="subject" name="subject" class="form-control" required>
+                        <div class="info-text">
+                            <strong>Phone</strong>
+                            <a href="tel:+971501160250">+971 50 116 0250</a>
                         </div>
-                        <div class="form-group">
-                            <label for="message">Your Message</label>
-                            <textarea id="message" name="message" class="form-control" required></textarea>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-map-marker-alt"></i>
                         </div>
-                        <button type="submit" class="form-submit">Send Message</button>
-                    </form>
+                        <div class="info-text">
+                            <strong>Location</strong>
+                            GCC-based | Operating Globally
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    </div>
                 </div>
 
-                <!-- Contact Info -->
-                <div class="contact-info">
-                    <div class="info-card">
-                        <h3>Reach Out</h3>
-                        <div class="info-item">
-                            <div class="info-icon">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div class="info-text">
-                                <strong>Email:</strong><br>
-                                <a href="mailto:farooq.ansari14@outlook.com">farooq.ansari14@outlook.com</a>
-                            </div>
+                <div class="info-card">
+                    <h3>Working Hours</h3>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="far fa-clock"></i>
                         </div>
-                        <div class="info-item">
-                            <div class="info-icon">
-                                <i class="fas fa-phone-alt"></i>
-                            </div>
-                            <div class="info-text">
-                                <strong>Phone:</strong><br>
-                                <a href="tel:+971501160250">+971 50 116 0250</a>
-                            </div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-icon">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
-                            <div class="info-text">
-                                <strong>Location:</strong><br>
-                                GCC-based | Operating Globally
-                            </div>
-                        </div>
-                        <div class="social-links">
-                            <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <div class="info-text">
+                            <strong>Monday - Thursday</strong>
+                            9:00 AM - 6:00 PM (GST)
                         </div>
                     </div>
-                    <div class="info-card">
-                        <h3>Working Hours</h3>
-                        <div class="info-item">
-                            <div class="info-icon">
-                                <i class="far fa-clock"></i>
-                            </div>
-                            <div class="info-text">
-                                <strong>Monday - Thursday:</strong><br>
-                                9:00 AM - 6:00 PM (GST)
-                            </div>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-hourglass-half"></i>
                         </div>
-                        <div class="info-item">
-                            <div class="info-icon">
-                                <i class="fas fa-hourglass-half"></i>
-                            </div>
-                            <div class="info-text">
-                                <strong>Response Time:</strong><br>
-                                We typically respond within 24 hours during business days.
-                            </div>
+                        <div class="info-text">
+                            <strong>Response Time</strong>
+                            We typically respond within 24 hours during business days.
                         </div>
                     </div>
                 </div>
@@ -707,10 +632,9 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
-        <div class="container footer-container">
-            <p>© 2025 Cybernova. All rights reserved.</p>
+        <div class="footer-content">
+            <p style="color: #6b7280;">© 2025 Cybernova. All rights reserved.</p>
             <div class="footer-links">
                 <a href="index.html">Home</a>
                 <a href="about.html">About Us</a>
@@ -721,43 +645,45 @@
     </footer>
 
     <script>
-        // Mobile menu toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navLinks = document.getElementById('navLinks');
         
-        mobileMenuBtn.addEventListener('click', function() {
-            mobileMenu.classList.toggle('active');
-            const icon = this.querySelector('i');
-            if (mobileMenu.classList.contains('active')) {
-                icon.className = 'fas fa-times';
-            } else {
-                icon.className = 'fas fa-bars';
-            }
-        });
-        
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', function(event) {
-            if (!mobileMenuBtn.contains(event.target) && !mobileMenu.contains(event.target)) {
-                mobileMenu.classList.remove('active');
-                mobileMenuBtn.querySelector('i').className = 'fas fa-bars';
-            }
+        mobileMenuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
         });
 
-        // Sticky header on scroll
-        window.addEventListener('scroll', function() {
-            const header = document.getElementById('header');
+        const reveals = document.querySelectorAll('.reveal');
+        
+        const revealOnScroll = () => {
+            reveals.forEach(reveal => {
+                const windowHeight = window.innerHeight;
+                const revealTop = reveal.getBoundingClientRect().top;
+                const revealPoint = 150;
+                
+                if (revealTop < windowHeight - revealPoint) {
+                    reveal.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
             if (window.scrollY > 50) {
-                header.classList.add('scrolled');
+                header.style.background = 'rgba(10, 10, 10, 0.98)';
+                header.style.padding = '1.5rem 0';
             } else {
-                header.classList.remove('scrolled');
+                header.style.background = 'rgba(10, 10, 10, 0.95)';
+                header.style.padding = '2rem 0';
             }
         });
 
-        // Form validation and submission handling with animation
+        document.addEventListener('DOMContentLoaded', revealOnScroll);
+
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Validate form (simple validation example)
             let isValid = true;
             const requiredFields = this.querySelectorAll('[required]');
             
@@ -773,19 +699,15 @@
             
             if (!isValid) return;
             
-            // Show success message with animation
             const successMessage = document.getElementById('successMessage');
             successMessage.style.display = 'block';
             
-            // Hide form and show success message
             const formElements = this.elements;
             for (let i = 0; i < formElements.length; i++) {
                 formElements[i].style.opacity = '0.5';
                 formElements[i].disabled = true;
             }
             
-            // In a real implementation, you would send the form data to your backend
-            // Reset form after delay
             setTimeout(() => {
                 this.reset();
                 successMessage.style.display = 'none';
@@ -795,31 +717,6 @@
                     formElements[i].disabled = false;
                 }
             }, 3000);
-        });
-
-        // Reveal animations on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        // Select elements to animate on scroll
-        const animateElements = document.querySelectorAll('.info-card, .contact-form');
-        animateElements.forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(el);
         });
     </script>
 </body>
