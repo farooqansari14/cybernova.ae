@@ -3,1248 +3,776 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saraya - Digitizing Property Ownership | Cybernova</title>
+    <title>Saraya - AI-Powered Property Platform | Cybernova</title>
     <style>
-        /* Font imports */
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-        
-        /* Reset and base styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.6;
-            color: #333;
-            background-color: #fff;
+            color: #e8e8e8;
+            background: #0a0a0a;
             overflow-x: hidden;
         }
-        
-        /* Dark brown gradient for all headings and titles */
-        h1, h2, h3, .section-title, .gradient-text {
-            background: linear-gradient(90deg, #2A1B0F 0%, #5D3F2C 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            display: inline-block;
-        }
-        
-        .section-title {
-            font-size: clamp(1.8rem, 5vw, 2.5rem);
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            text-align: center;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-        
-        .section-title.appear {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        /* Container and general layout */
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-        
-        section {
-            padding: 4rem 0;
-            position: relative;
-        }
 
-        img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        /* Header & Navigation */
-        header {
-            height: 80px;
-            border-bottom: 1px solid #eaeaea;
-            display: flex;
-            align-items: center;
-            position: sticky;
+        .bg-texture {
+            position: fixed;
             top: 0;
-            background-color: #fff;
-            z-index: 1000;
-            transition: box-shadow 0.3s ease, background-color 0.3s ease;
-        }
-        
-        header.scrolled {
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-            background-color: rgba(255, 255, 255, 0.98);
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(17, 24, 39, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(17, 24, 39, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(17, 24, 39, 0.2) 0%, transparent 50%);
+            z-index: -1;
         }
 
-        .nav-container {
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(55, 65, 81, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(55, 65, 81, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 2rem 0;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(55, 65, 81, 0.2);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 3rem;
         }
 
         .logo {
-            text-decoration: none;
             display: flex;
             align-items: center;
-            transition: transform 0.3s ease;
+            text-decoration: none;
         }
-        
-        .logo:hover {
-            transform: scale(1.05);
-        }
-        
+
         .logo img {
-            height: 40px;
+            height: 45px;
             width: auto;
+            object-fit: contain;
         }
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 3rem;
+            list-style: none;
             align-items: center;
         }
 
-        .mobile-menu-btn {
+        .nav-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #f9fafb;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #6b7280;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cta-btn {
+            background: #f9fafb;
+            color: #111827;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            background: #e5e7eb;
+            transform: translateY(-1px);
+        }
+
+        .cta-btn::after {
+            display: none;
+        }
+
+        .mobile-menu-toggle {
             display: none;
             background: none;
             border: none;
             font-size: 1.5rem;
             cursor: pointer;
-            padding: 0.5rem;
-            z-index: 1010;
-            transition: transform 0.3s ease;
-        }
-        
-        .mobile-menu-btn:hover {
-            transform: rotate(90deg);
+            color: #f9fafb;
         }
 
-        .nav-links a {
-            color: #444;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: color 0.3s ease, transform 0.3s ease;
-            position: relative;
-        }
-
-        .nav-links a:after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -4px;
-            left: 0;
-            background-color: #5D3F2C;
-            transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        .nav-links a:hover:after {
-            width: 100%;
-        }
-
-        .nav-links a:hover {
-            color: #5D3F2C;
-            transform: translateY(-2px);
-        }
-        
-        /* Cybernova button styles - updated to dark brown */
-        .cybernova-button {
-            display: inline-block;
-            padding: 10px 22px;
-            font-weight: 500;
-            font-size: 0.95rem;
-            color: #5D3F2C;
-            background-color: transparent;
-            border: 2px solid #5D3F2C;
-            border-radius: 50px;
-            text-decoration: none;
-            text-align: center;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            margin: 0.5rem;
-            z-index: 1;
-        }
-        
-        .cybernova-button:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0;
-            height: 100%;
-            background-color: #5D3F2C;
-            transition: width 0.4s ease;
-            z-index: -1;
-        }
-
-        .cybernova-button:hover {
-            color: white;
-            transform: translateY(-3px);
-            box-shadow: 0 7px 15px rgba(93, 63, 44, 0.3);
-        }
-        
-        .cybernova-button:hover:before {
-            width: 100%;
-        }
-
-        .cybernova-button:focus {
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(93, 63, 44, 0.4);
-        }
-
-        .cybernova-button:active {
-            transform: translateY(-1px);
-            box-shadow: 0 3px 8px rgba(93, 63, 44, 0.2);
-        }
-        
-        .cybernova-button.filled {
-            background-color: #5D3F2C;
-            color: white;
-        }
-        
-        .cybernova-button.filled:before {
-            background-color: #2A1B0F;
-        }
-        
-        /* Hero section */
         .hero {
-            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('/api/placeholder/1200/600') center/cover no-repeat;
-            min-height: 60vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
+            justify-content: center;
             text-align: center;
-            position: relative;
-            padding: 4rem 0;
-            overflow: hidden;
+            padding: 8rem 3rem 4rem;
         }
-        
-        .hero:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, rgba(93, 63, 44, 0.05) 0%, rgba(255, 255, 255, 0) 70%);
-            transform: translateX(-100%);
-            animation: gradient-slide 8s infinite alternate ease-in-out;
-        }
-        
-        @keyframes gradient-slide {
-            0% {
-                transform: translateX(-100%);
-            }
-            100% {
-                transform: translateX(100%);
-            }
-        }
-        
+
         .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 1rem;
-            position: relative;
-            z-index: 2;
+            max-width: 900px;
+            animation: fadeInUp 1s ease-out;
         }
-        
-        .hero h1 {
-            font-size: clamp(2rem, 7vw, 3.5rem);
-            margin-bottom: 1rem;
-            line-height: 1.2;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fade-in-up 1s forwards 0.2s ease;
-        }
-        
-        .hero p {
-            font-size: clamp(1rem, 3vw, 1.25rem);
+
+        .hero-subtitle {
+            font-size: 0.9rem;
+            color: #6b7280;
+            font-weight: 500;
             margin-bottom: 2rem;
-            color: #555;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fade-in-up 1s forwards 0.6s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
-        
-        @keyframes fade-in-up {
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 300;
+            margin-bottom: 2rem;
+            line-height: 1.1;
+            color: #f9fafb;
+        }
+
+        .hero h1 .accent {
+            font-weight: 600;
+            color: #e5e7eb;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            line-height: 1.8;
+            color: #9ca3af;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-container {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-primary, .cta-secondary {
+            padding: 1rem 2.5rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .cta-primary {
+            background: #f9fafb;
+            color: #111827;
+        }
+
+        .cta-primary:hover {
+            background: #e5e7eb;
+            transform: translateY(-2px);
+        }
+
+        .cta-secondary {
+            background: transparent;
+            color: #e5e7eb;
+            border: 1px solid #374151;
+        }
+
+        .cta-secondary:hover {
+            border-color: #6b7280;
+            background: rgba(55, 65, 81, 0.1);
+        }
+
+        .section {
+            padding: 8rem 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 300;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #f9fafb;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            text-align: center;
+            color: #9ca3af;
+            max-width: 700px;
+            margin: 0 auto 5rem;
+            line-height: 1.8;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .card {
+            background: rgba(17, 24, 39, 0.4);
+            border: 1px solid rgba(55, 65, 81, 0.2);
+            border-radius: 12px;
+            padding: 3rem;
+            transition: all 0.4s ease;
+            text-align: center;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(75, 85, 99, 0.3);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(249, 250, 251, 0.1);
+            border: 1px solid rgba(75, 85, 99, 0.3);
+            border-radius: 8px;
+        }
+
+        .card-icon img {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+            opacity: 0.9;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            color: #f9fafb;
+        }
+
+        .card p {
+            color: #9ca3af;
+            line-height: 1.7;
+        }
+
+        .features-section {
+            background: rgba(17, 24, 39, 0.3);
+            border-top: 1px solid rgba(55, 65, 81, 0.2);
+            border-bottom: 1px solid rgba(55, 65, 81, 0.2);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-top: 4rem;
+        }
+
+        .feature-card {
+            background: rgba(17, 24, 39, 0.5);
+            border: 1px solid rgba(55, 65, 81, 0.3);
+            border-radius: 12px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(75, 85, 99, 0.4);
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            color: #f9fafb;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .feature-card h3 img {
+            width: 32px;
+            height: 32px;
+            filter: brightness(0) invert(1);
+            opacity: 0.9;
+        }
+
+        .feature-card p {
+            color: #9ca3af;
+            line-height: 1.7;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+
+        .feature-list li {
+            padding: 0.75rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: #9ca3af;
+            border-bottom: 1px solid rgba(55, 65, 81, 0.2);
+        }
+
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+
+        .feature-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #6b7280;
+        }
+
+        footer {
+            padding: 5rem 3rem 3rem;
+            background: rgba(17, 24, 39, 0.5);
+            border-top: 1px solid rgba(55, 65, 81, 0.2);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #d1d5db;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-        
-        .cta-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.5rem;
+
+        .reveal {
             opacity: 0;
-            transform: translateY(15px);
-            animation: fade-in-up 1s forwards 1s ease;
+            transform: translateY(60px);
+            transition: all 0.8s ease;
         }
-        
-        /* Cards */
-        .cards-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-top: 3rem;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-        
-        .cards-container.appear {
+
+        .reveal.active {
             opacity: 1;
             transform: translateY(0);
         }
-        
-        .card {
-            background: white;
-            border-radius: 12px;
-            padding: 1.5rem;
-            flex: 1 1 250px;
-            max-width: 350px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            text-align: center;
-            margin-bottom: 1rem;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        
-        .cards-container.appear .card {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .cards-container.appear .card:nth-child(1) {
-            transition-delay: 0.1s;
-        }
-        
-        .cards-container.appear .card:nth-child(2) {
-            transition-delay: 0.3s;
-        }
-        
-        .cards-container.appear .card:nth-child(3) {
-            transition-delay: 0.5s;
-        }
-        
-        .cards-container.appear .card:nth-child(4) {
-            transition-delay: 0.7s;
-        }
-        
-        .card:hover {
-            transform: translateY(-10px) scale(1.03);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
-        }
-        
-        /* Icon styling - Updated to make icons smaller and uniform */
-        .card-icon {
-            transform: translateY(0);
-            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        
-        .card:hover .card-icon {
-            transform: translateY(-8px) scale(1.1);
-        }
-        
-        .card-icon img {
-            width: 48px;
-            height: 48px;
-            object-fit: contain;
-            margin-bottom: 1.5rem;
-            transition: transform 0.5s ease;
-        }
-        
-        .card:hover .card-icon img {
-            transform: rotate(10deg);
-        }
-        
-        .card h3 {
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
-            transition: color 0.3s ease;
-        }
-        
-        /* How it works section */
-        .how-it-works {
-            background-color: #f9f9f9;
-        }
-        
-        .split-content {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-            margin-top: 3rem;
-            flex-direction: column;
-            opacity: 0;
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-        
-        .split-content.appear {
-            opacity: 1;
-        }
-        
-        .visual-content {
-            flex: 1;
-            order: 1;
-            width: 100%;
-            max-width: 500px;
-            transform: translateX(-30px);
-            opacity: 0;
-            transition: transform 0.8s ease 0.3s, opacity 0.8s ease 0.3s;
-        }
-        
-        .split-content.appear .visual-content {
-            transform: translateX(0);
-            opacity: 1;
-        }
-        
-        .text-content {
-            flex: 1;
-            order: 2;
-            transform: translateX(30px);
-            opacity: 0;
-            transition: transform 0.8s ease 0.5s, opacity 0.8s ease 0.5s;
-        }
-        
-        .split-content.appear .text-content {
-            transform: translateX(0);
-            opacity: 1;
-        }
-        
-        .text-content h3 {
-            margin-bottom: 1.5rem;
-            font-size: clamp(1.5rem, 4vw, 2rem);
-        }
-        
-        /* Features list - converted to cards */
-        .feature-card {
-            background: white;
-            border-radius: 12px;
-            padding: 1.5rem;
-            flex: 1 1 250px;
-            max-width: 350px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            text-align: center;
-            margin-bottom: 1.5rem;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        
-        .cards-container.appear .feature-card {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px) scale(1.03);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
-        }
-        
-        /* Feature Icon styling - Updated for uniform size */
-        .feature-icon {
-            transform: translateY(0);
-            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        
-        .feature-card:hover .feature-icon {
-            transform: translateY(-8px);
-        }
-        
-        .feature-icon img {
-            width: 48px;
-            height: 48px;
-            object-fit: contain;
-            margin-bottom: 1.5rem;
-            transition: transform 0.5s ease;
-        }
-        
-        .feature-card:hover .feature-icon img {
-            transform: rotate(10deg);
-        }
-        
-        /* Benefits section - converted to cards */
-        .benefits-cards {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-top: 3rem;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-        
-        .benefits-cards.appear {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .benefit-card {
-            background: white;
-            border-radius: 12px;
-            padding: 1.5rem;
-            flex: 1 1 250px;
-            max-width: 350px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            margin-bottom: 1.5rem;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        
-        .benefits-cards.appear .benefit-card {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .benefits-cards.appear .benefit-card:nth-child(1) {
-            transition-delay: 0.1s;
-        }
-        
-        .benefits-cards.appear .benefit-card:nth-child(2) {
-            transition-delay: 0.3s;
-        }
-        
-        .benefits-cards.appear .benefit-card:nth-child(3) {
-            transition-delay: 0.5s;
-        }
-        
-        .benefit-card:hover {
-            transform: translateY(-10px) scale(1.03);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
-        }
-        
-        .benefit-card h3 {
-            margin-bottom: 1.5rem;
-            font-size: 1.5rem;
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-        
-        .benefit-card:hover h3 {
-            transform: translateY(-5px);
-        }
-        
-        /* Updated styling for benefit icons */
-        .benefit-card h3 img {
-            vertical-align: middle;
-            margin-right: 8px;
-            width: 32px;
-            height: 32px;
-            object-fit: contain;
-            transition: transform 0.5s ease;
-        }
-        
-        .benefit-card:hover h3 img {
-            transform: rotate(15deg);
-        }
-        
-        .benefit-list {
-            list-style-type: none;
-        }
-        
-        .benefit-list li {
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: flex-start;
-            opacity: 0.8;
-            transition: opacity 0.3s ease, transform 0.3s ease;
-        }
-        
-        .benefit-card:hover .benefit-list li {
-            opacity: 1;
-        }
-        
-        .benefit-list li:hover {
-            transform: translateX(5px);
-        }
-        
-        .benefit-list li:before {
-            content: "✓";
-            color: #5D3F2C;
-            font-weight: bold;
-            margin-right: 0.5rem;
-            flex-shrink: 0;
-            transition: transform 0.3s ease;
-        }
-        
-        .benefit-list li:hover:before {
-            transform: scale(1.2);
-        }
-        
-        /* Company section */
-        .company {
-            text-align: center;
-            background-color: #f9f9f9;
-        }
-        
-        .company p {
-            max-width: 700px;
-            margin: 0 auto 2rem;
-            font-size: clamp(1rem, 3vw, 1.1rem);
-            padding: 0 1rem;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-        
-        .company p.appear {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .company img {
-            max-width: 200px;
-            margin: 0 auto;
-            opacity: 0;
-            transform: scale(0.8);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-        
-        .company img.appear {
-            opacity: 1;
-            transform: scale(1);
-        }
-        
-        /* CTA section */
-        .cta {
-            text-align: center;
-            background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)), url('/api/placeholder/1200/600') center/cover no-repeat;
-            padding: 4rem 0;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .cta:before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(93, 63, 44, 0.05) 0%, rgba(255, 255, 255, 0) 70%);
-            animation: pulse 15s infinite ease-in-out;
-        }
-        
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-                opacity: 0.5;
-            }
-            50% {
-                transform: scale(1.2);
-                opacity: 0.3;
-            }
-            100% {
-                transform: scale(1);
-                opacity: 0.5;
-            }
-        }
-        
-        .cta-content {
-            max-width: 700px;
-            margin: 0 auto;
-            padding: 0 1rem;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .cta h2 {
-            margin-bottom: 1rem;
-        }
-        
-        .cta p {
-            margin-bottom: 2rem;
-            font-size: clamp(1rem, 3vw, 1.1rem);
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-        
-        .cta p.appear {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .cta .cta-buttons {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s;
-            animation: none;
-        }
-        
-        .cta .cta-buttons.appear {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        /* Footer */
-        footer {
-            background-color: #2A1B0F;
-            color: white;
-            padding: 2rem 0;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        footer:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.5), transparent);
-        }
-        
-        footer .container {
-            padding: 0 1rem;
-            position: relative;
-            z-index: 2;
-        }
-        
-        footer a {
-            color: white;
-            margin: 0 10px;
-            display: inline-block;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        
-        footer a:after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 1px;
-            bottom: -3px;
-            left: 0;
-            background-color: white;
-            transition: width 0.3s ease;
-        }
-        
-        footer a:hover:after {
-            width: 100%;
-        }
-        
-        footer a:hover {
-            transform: translateY(-3px);
-            text-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
-        }
-        
-        footer .links {
-            margin-top: 1rem;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-        
-        /* Page transition overlay */
-        .page-transition-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #5D3F2C;
-            z-index: 9999;
-            transform: translateY(100%);
-            transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-        }
-        
-        .page-transition-overlay.active {
-            transform: translateY(0);
-        }
-        
-        /* Scroll indicator */
-        .scroll-indicator {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: #5D3F2C;
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-            z-index: 100;
-        }
-        
-        .scroll-indicator.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .scroll-indicator:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .scroll-indicator svg {
-            width: 20px;
-            height: 20px;
-            fill: white;
-        }
-        
-        /* Responsive design */
-        @media (min-width: 768px) {
-            .container {
+
+        @media (max-width: 768px) {
+            nav {
                 padding: 0 2rem;
             }
-            
-            .split-content {
-                flex-direction: row;
-            }
-            
-            .visual-content {
-                order: 0;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            section {
-                padding: 3rem 0;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
+
             .nav-links {
                 position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background-color: white;
+                top: 80px;
+                right: -100%;
                 flex-direction: column;
-                justify-content: center;
-                align-items: center;
+                background: rgba(10, 10, 10, 0.98);
+                width: 100%;
+                height: calc(100vh - 80px);
                 padding: 2rem;
-                gap: 2rem;
-                transform: translateX(100%);
-                transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-                z-index: 1000;
+                transition: right 0.3s ease;
+                border-top: 1px solid rgba(55, 65, 81, 0.2);
             }
-            
+
             .nav-links.active {
-                transform: translateX(0);
+                right: 0;
             }
-            
-            .nav-links a {
-                font-size: 1.2rem;
-                opacity: 0;
-                transform: translateY(20px);
-                transition: opacity 0.4s ease, transform 0.4s ease;
+
+            .mobile-menu-toggle {
+                display: block;
             }
-            
-            .nav-links.active a {
-                opacity: 1;
-                transform: translateY(0);
+
+            .section {
+                padding: 5rem 2rem;
             }
-            
-            .nav-links.active a:nth-child(1) {
-                transition-delay: 0.1s;
+
+            .cards-grid,
+            .features-grid {
+                grid-template-columns: 1fr;
             }
-            
-            .nav-links.active a:nth-child(2) {
-                transition-delay: 0.2s;
+
+            .footer-content {
+                flex-direction: column;
+                gap: 2rem;
             }
-            
-            .nav-links.active a:nth-child(3) {
-                transition-delay: 0.3s;
-            }
-            
-            .nav-links.active a:nth-child(4) {
-                transition-delay: 0.4s;
+
+            .hero {
+                padding: 8rem 2rem 4rem;
             }
         }
-        
+
         @media (max-width: 480px) {
-            .cybernova-button {
-                width: 100%;
-                margin: 0.5rem 0;
+            .section {
+                padding: 4rem 1.5rem;
             }
-            
-            .cta-buttons {
-                flex-direction: column;
-                width: 100%;
-                padding: 0 1rem;
-            }
-            
-            .hero {
-                min-height: 50vh;
-            }
-            
-            .card, .feature-card, .benefit-card {
-                max-width: 100%;
-            }
-            
-            .scroll-indicator {
-                bottom: 20px;
-                right: 20px;
-                width: 40px;
-                height: 40px;
+
+            nav {
+                padding: 0 1.5rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Page transition overlay -->
-    <div class="page-transition-overlay"></div>
-    
-    <!-- Scroll to top indicator -->
-    <div class="scroll-indicator" id="scrollToTop">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <path d="M12 4l-8 8h5v8h6v-8h5z"/>
-        </svg>
-    </div>
-    
-    <!-- Header & Navigation -->
-    <header id="mainHeader">
-        <div class="container nav-container">
+    <div class="bg-texture"></div>
+    <div class="grid-overlay"></div>
+
+    <header>
+        <nav>
             <a href="index.html" class="logo">
                 <img src="CybernovaAsset_3-removebg-preview.png" alt="Cybernova Logo">
             </a>
-            <button class="mobile-menu-btn" aria-label="Toggle menu">☰</button>
-            <nav class="nav-links">
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="contact.html" class="cta-btn">Let's Talk</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-subtitle">AI-Powered Property Platform</div>
+            <h1>Where <span class="accent">intelligent matching</span> meets property ownership</h1>
+            <p class="hero-description">Saraya combines AI-powered property recommendations, virtual tours, hybrid payment processing, and blockchain-verified deeds into one seamless platform that revolutionizes real estate.</p>
+            <div class="cta-container">
+                <a href="#platform" class="cta-primary">Explore Platform</a>
+                <a href="contact.html" class="cta-secondary">Partner With Us</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section reveal" id="platform">
+        <h2 class="section-title">The Complete Property Solution</h2>
+        <p class="section-subtitle">From AI-powered discovery to blockchain-verified ownership, Saraya transforms every step of the property journey.</p>
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-icon">
+                    <img src="buildings.png" alt="AI Icon">
+                </div>
+                <h3>AI Property Matching</h3>
+                <p>Our AI understands your requirements and recommends properties from developer inventories that perfectly match your needs and preferences.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">
+                    <img src="location.png" alt="VR Icon">
+                </div>
+                <h3>Virtual Property Tours</h3>
+                <p>Visit properties virtually before making decisions, ensuring you see exactly what you're getting from anywhere in the world.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">
+                    <img src="rush.png" alt="Payment Icon">
+                </div>
+                <h3>Hybrid Payment Gateway</h3>
+                <p>Seamlessly pay with crypto or fiat currencies with transparent, immutable transaction records stored on blockchain.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">
+                    <img src="offer.png" alt="Deed Icon">
+                </div>
+                <h3>Blockchain Property Deeds</h3>
+                <p>Property ownership recorded on blockchain with tamper-proof records and instant, secure transferability.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section features-section reveal">
+        <h2 class="section-title">Platform Features</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>
+                    <img src="buildings.png" alt="AI Icon">
+                    Intelligent Recommendations
+                </h3>
+                <p style="color: #d1d5db; margin-bottom: 1rem;">AI analyzes your preferences, budget, and requirements to match you with ideal properties.</p>
+                <ul class="feature-list">
+                    <li>Natural language requirement processing</li>
+                    <li>Smart filtering across developer inventories</li>
+                    <li>Personalized property rankings</li>
+                    <li>Predictive preference learning</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>
+                    <img src="location.png" alt="Virtual Icon">
+                    Immersive Virtual Tours
+                </h3>
+                <p style="color: #d1d5db; margin-bottom: 1rem;">Experience properties remotely with detailed virtual walkthroughs and 360° views.</p>
+                <ul class="feature-list">
+                    <li>High-resolution virtual property tours</li>
+                    <li>Interactive floor plan exploration</li>
+                    <li>Neighborhood and amenity visualization</li>
+                    <li>Schedule live virtual consultations</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>
+                    <img src="padlock.png" alt="Payment Icon">
+                    Secure Payment Processing
+                </h3>
+                <p style="color: #d1d5db; margin-bottom: 1rem;">Accept both cryptocurrency and traditional fiat payments with complete transparency.</p>
+                <ul class="feature-list">
+                    <li>Support for major cryptocurrencies</li>
+                    <li>Traditional payment methods integrated</li>
+                    <li>All transactions recorded on blockchain</li>
+                    <li>Instant payment verification</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>
+                    <img src="offer.png" alt="Deed Icon">
+                    Digital Property Deeds
+                </h3>
+                <p style="color: #d1d5db; margin-bottom: 1rem;">Ownership records secured on blockchain with instant transferability.</p>
+                <ul class="feature-list">
+                    <li>Tamper-proof ownership records</li>
+                    <li>Instant deed transfers</li>
+                    <li>Complete transaction history</li>
+                    <li>Multi-party verification support</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>
+                    <img src="user.png" alt="Concierge Icon">
+                    AI Concierge Service
+                </h3>
+                <p style="color: #d1d5db; margin-bottom: 1rem;">Post-purchase AI assistant to help property owners with daily needs and services.</p>
+                <ul class="feature-list">
+                    <li>24/7 AI-powered assistance</li>
+                    <li>Service provider recommendations</li>
+                    <li>Maintenance scheduling and tracking</li>
+                    <li>Local area information and tips</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>
+                    <img src="agreement.png" alt="Developer Icon">
+                    Developer Dashboard
+                </h3>
+                <p style="color: #d1d5db; margin-bottom: 1rem;">Real estate developers can manage inventory, track sales, and connect with qualified buyers.</p>
+                <ul class="feature-list">
+                    <li>Real-time inventory management</li>
+                    <li>Buyer matching analytics</li>
+                    <li>Automated marketing to matched buyers</li>
+                    <li>Transaction transparency and tracking</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="section reveal">
+        <h2 class="section-title">How Saraya Works</h2>
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-icon">
+                    <img src="buildings.png" alt="Step 1">
+                </div>
+                <h3>1. Define Requirements</h3>
+                <p>Tell our AI what you're looking for in natural language or through guided filters.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">
+                    <img src="location.png" alt="Step 2">
+                </div>
+                <h3>2. Get Matched & Tour</h3>
+                <p>Receive personalized recommendations and virtually tour properties that match your criteria.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">
+                    <img src="rush.png" alt="Step 3">
+                </div>
+                <h3>3. Secure Payment</h3>
+                <p>Complete purchase with crypto or fiat payment, all transparently recorded on blockchain.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">
+                    <img src="user.png" alt="Step 4">
+                </div>
+                <h3>4. AI Concierge Support</h3>
+                <p>Access your AI assistant for ongoing property management and lifestyle services.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section features-section reveal">
+        <h2 class="section-title">Benefits for All Stakeholders</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>
+                    <img src="user.png" alt="Buyer Icon">
+                    Property Buyers
+                </h3>
+                <ul class="feature-list">
+                    <li>Find perfect properties with AI assistance</li>
+                    <li>Tour properties virtually from anywhere</li>
+                    <li>Flexible payment options (crypto/fiat)</li>
+                    <li>Verified blockchain ownership</li>
+                    <li>Ongoing AI concierge support</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>
+                    <img src="agreement.png" alt="Developer Icon">
+                    Real Estate Developers
+                </h3>
+                <ul class="feature-list">
+                    <li>AI-powered buyer matching</li>
+                    <li>Manage entire inventory digitally</li>
+                    <li>Accept multiple payment methods</li>
+                    <li>Instant deed transfers</li>
+                    <li>Reduced transaction costs</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>
+                    <img src="city-hall.png" alt="Government Icon">
+                    Government Agencies
+                </h3>
+                <ul class="feature-list">
+                    <li>Transparent property transactions</li>
+                    <li>Reduced paperwork and fraud</li>
+                    <li>Instant ownership verification</li>
+                    <li>Complete audit trails</li>
+                    <li>Streamlined regulatory compliance</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="section reveal">
+        <h2 class="section-title">Ready to Transform Real Estate?</h2>
+        <p class="section-subtitle">Whether you're a buyer looking for your dream property, a developer wanting to modernize sales, or a government agency seeking transparency, Saraya provides the complete solution.</p>
+        <div class="cta-container">
+            <a href="contact.html" class="cta-primary">Request a Demo</a>
+            <a href="contact.html" class="cta-secondary">Become a Partner</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <p style="color: #6b7280;">© 2025 Cybernova. All rights reserved.</p>
+            <div class="footer-links">
                 <a href="index.html">Home</a>
                 <a href="about.html">About Us</a>
                 <a href="projects.html">Projects</a>
-                <a href="contact.html" class="cybernova-button">Let's Talk</a>
-            </nav>
-        </div>
-    </header>
-    
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container hero-content">
-            <h1>Property Records, Reimagined.</h1>
-            <p>A secure, transparent, and owner first property registry platform built on blockchain giving control back to individuals, while streamlining processes for governments and real estate developers alike.</p>
-            <div class="cta-buttons">
-                <a href="contact.html" class="cybernova-button filled">Join Us</a>
-                <a href="#how-it-works" class="cybernova-button">How It Works</a>
-            </div>
-        </div>
-    </section>
-    
-    
-    <!-- Why Saraya Section -->
-    <section class="why-saraya">
-        <div class="container">
-            <h2 class="section-title gradient-text">Why Property Records Need a Smarter Backbone</h2>
-            <div class="cards-container">
-                <div class="card">
-                    <div class="card-icon">
-                        <img src="buildings.png" alt="Building Icon">
-                    </div>
-                    <h3>Eliminate Paper-Based Systems</h3>
-                    <p>Digitize and secure land records with one verifiable source of truth.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">
-                        <img src="padlock.png" alt="Security Icon">
-                    </div>
-                    <h3>No More Fraud or Disputes</h3>
-                    <p>Immutable blockchain registry ensures titles can't be tampered with.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">
-                        <img src="rush.png" alt="Speed Icon">
-                    </div>
-                    <h3>Effortless Ownership Transfers</h3>
-                    <p>Smart contracts streamline buyer-seller transactions, saving time and legal costs.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- How Saraya Works Section -->
-    <section class="how-it-works" id="how-it-works">
-        <div class="container">
-            <h2 class="section-title gradient-text">How Saraya Works</h2>
-            <div class="split-content">
-                <div class="visual-content">
-                    <img src="Saraya.png" alt="Saraya Blockchain Technology Illustration">
-                </div>
-                <div class="text-content">
-                    <h3 class="gradient-text">Blockchain as the New Land Ledger</h3>
-                    <p>Each property on Saraya is linked to a digital token representing its verified ownership record. Governments, developers, and owners can record transfers, mortgages, and other transactions immutably, with timestamped validation and complete auditability.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Core Features Section -->
-    <section class="core-features">
-        <div class="container">
-            <h2 class="section-title gradient-text">Core Features</h2>
-            <div class="cards-container">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <img src="offer.png" alt="Document Icon">
-                    </div>
-                    <h3>Tamper Proof Title Deeds</h3>
-                    <p>Every ownership entry is recorded immutably and verifiably on the blockchain.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <img src="buildings.png" alt="Building Icon">
-                    </div>
-                    <h3>Multi Stakeholder Access</h3>
-                    <p>Land departments, banks, notaries, and buyers all connected to one system.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <img src="smart-contracts.png" alt="Contract Icon">
-                    </div>
-                    <h3>Smart Contract Based Transfers</h3>
-                    <p>Reduce fraud and remove middlemen with programmable ownership changes.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <img src="location.png" alt="Location Icon">
-                    </div>
-                    <h3>Geo Tagging Support</h3>
-                    <p>Link land parcels to government maps, zoning laws, and project metadata.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Benefits Section -->
-    <section class="benefits">
-        <div class="container">
-            <h2 class="section-title gradient-text">Benefits for Everyone</h2>
-            <div class="benefits-cards">
-                <div class="benefit-card">
-                    <h3>
-                        <img src="user.png" alt="User Icon"> 
-                        Individual Owners
-                    </h3>
-                    <ul class="benefit-list">
-                        <li>Verify property ownership with confidence</li>
-                        <li>Simplify buying and selling transactions</li>
-                        <li>Access complete property history in one place</li>
-                    </ul>
-                </div>
-                <div class="benefit-card">
-                    <h3>
-                        <img src="city-hall.png" alt="Government Icon">
-                        Government Agencies
-                    </h3>
-                    <ul class="benefit-list">
-                        <li>Digitize and secure property records</li>
-                        <li>Eliminate disputes and overlapping claims</li>
-                        <li>Enable instant verification for citizens</li>
-                    </ul>
-                </div>
-                <div class="benefit-card">
-                    <h3>
-                        <img src="agreement.png" alt="Real Estate Icon">
-                        Real Estate Developers
-                    </h3>
-                    <ul class="benefit-list">
-                        <li>Manage property inventory transparently</li>
-                        <li>Reduce legal burden and build investor trust</li>
-                        <li>Streamline ownership handovers to buyers</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Company Section -->
-    <section class="company">
-        <div class="container">
-            <h2 class="section-title gradient-text">Built by Cybernova</h2>
-            <p>Saraya is one of <strong>Cybernova's</strong> flagship projects, a blockchain driven platform tackling data fragmentation in property ownership. We're building decentralized infrastructure for smarter, more connected systems.</p>
-            <img src="CybernovaAsset_3-removebg-preview.png" alt="Cybernova Logo">
-        </div>
-    </section>
-    
-    <!-- CTA Section -->
-    <section class="cta">
-        <div class="container cta-content">
-            <h2 class="section-title gradient-text">Join the Future of Real Estate</h2>
-            <p>Whether you're a government agency, property developer, or individual investor, Saraya is your secure gateway to simplified property ownership.</p>
-            <div class="cta-buttons">
-                <a href="contact.html" class="cybernova-button filled">Partner With Us</a>
-                <a href="saraya.pdf" class="cybernova-button" download>View Presentation</a>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Cybernova. All rights reserved.</p>
-            <div class="links">
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
-                <a href="#">Contact Us</a>
+                <a href="contact.html">Contact</a>
             </div>
         </div>
     </footer>
 
-    <!-- JavaScript for mobile menu and page transitions -->
     <script>
-        // Mobile menu toggle
-        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-        const navLinks = document.querySelector('.nav-links');
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navLinks = document.getElementById('navLinks');
         
-        mobileMenuBtn.addEventListener('click', () => {
+        mobileMenuToggle.addEventListener('click', () => {
             navLinks.classList.toggle('active');
-            // Change menu icon based on state
-            mobileMenuBtn.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
         });
+
+        const reveals = document.querySelectorAll('.reveal');
         
-        // Close mobile menu when clicking a link
-        const navLinksList = document.querySelectorAll('.nav-links a');
-        navLinksList.forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-                mobileMenuBtn.textContent = '☰';
+        const revealOnScroll = () => {
+            reveals.forEach(reveal => {
+                const windowHeight = window.innerHeight;
+                const revealTop = reveal.getBoundingClientRect().top;
+                const revealPoint = 150;
+                
+                if (revealTop < windowHeight - revealPoint) {
+                    reveal.classList.add('active');
+                }
             });
-        });
-        
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (navLinks.classList.contains('active') && 
-                !e.target.closest('.nav-links') && 
-                !e.target.closest('.mobile-menu-btn')) {
-                navLinks.classList.remove('active');
-                mobileMenuBtn.textContent = '☰';
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(10, 10, 10, 0.98)';
+                header.style.padding = '1.5rem 0';
+            } else {
+                header.style.background = 'rgba(10, 10, 10, 0.95)';
+                header.style.padding = '2rem 0';
             }
         });
-        
-        // Intersection Observer for scroll animations
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
-        
-        const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
-            entries.forEach(entry => {
-                if (!entry.isIntersecting) {
-                    return;
-                } else {
-                    entry.target.classList.add('appear');
-                    appearOnScroll.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-        
-        // Observe all elements with animations
-        document.addEventListener('DOMContentLoaded', () => {
-            const animatedElements = document.querySelectorAll('.section-title, .cards-container, .split-content, .benefits-cards, .company p, .company img, .cta p, .cta .cta-buttons');
-            
-            animatedElements.forEach(el => {
-                appearOnScroll.observe(el);
-            });
-            
-            // Header scroll effect
-            const header = document.getElementById('mainHeader');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
-                }
-            });
-            
-            // Scroll to top functionality
-            const scrollToTopBtn = document.getElementById('scrollToTop');
-            
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 300) {
-                    scrollToTopBtn.classList.add('visible');
-                } else {
-                    scrollToTopBtn.classList.remove('visible');
-                }
-            });
-            
-            scrollToTopBtn.addEventListener('click', () => {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
-        });
-        
-        // Page transition for internal links
-        const pageTransitionOverlay = document.querySelector('.page-transition-overlay');
-        const internalLinks = document.querySelectorAll('a[href^="index"], a[href^="about"], a[href^="projects"], a[href^="contact"]');
-        
-        internalLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                if (!link.href.includes('#')) {
-                    e.preventDefault();
-                    
-                    pageTransitionOverlay.classList.add('active');
-                    
-                    setTimeout(() => {
-                        window.location.href = link.href;
-                    }, 500);
-                }
-            });
-        });
-        
-        // Fade in on page load
-        window.addEventListener('load', () => {
-            document.body.style.opacity = '1';
-        });
-        
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                // Close mobile menu if open
-                navLinks.classList.remove('active');
-                mobileMenuBtn.textContent = '☰';
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    // Offset for fixed header
-                    const headerHeight = document.querySelector('header').offsetHeight;
-                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-                    
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
+
+        document.addEventListener('DOMContentLoaded', revealOnScroll);
     </script>
 </body>
 </html>
