@@ -5,1185 +5,707 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Raaya - Healthcare Records, Reimagined | Cybernova</title>
     <style>
-        /* Font imports */
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-        
-        /* Reset and base styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.6;
-            color: #333;
-            background-color: #fff;
+            color: #e8e8e8;
+            background: #0a0a0a;
             overflow-x: hidden;
         }
-        
-        /* Green gradients for headings */
-        .gradient-text {
-            background: linear-gradient(90deg, #004d40 0%, #00796b 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            display: inline-block;
-        }
-        
-        .section-title {
-            font-size: clamp(1.8rem, 5vw, 2.5rem);
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            text-align: center;
-            /* Add transition for section titles */
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-        
-        .section-title.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        /* Container and general layout */
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-        
-        section {
-            padding: 4rem 0;
-            /* Add section transitions */
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-        
-        section.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
 
-        img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        /* Header & Navigation */
-        header {
-            height: 80px;
-            border-bottom: 1px solid #eaeaea;
-            display: flex;
-            align-items: center;
-            position: sticky;
+        .bg-texture {
+            position: fixed;
             top: 0;
-            background-color: #fff;
-            z-index: 1000;
-            /* Add header transition */
-            transform: translateY(-100%);
-            animation: slideDown 0.6s forwards;
-        }
-        
-        @keyframes slideDown {
-            to {
-                transform: translateY(0);
-            }
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(17, 24, 39, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(17, 24, 39, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(17, 24, 39, 0.2) 0%, transparent 50%);
+            z-index: -1;
         }
 
-        .nav-container {
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(55, 65, 81, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(55, 65, 81, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 2rem 0;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(55, 65, 81, 0.2);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 3rem;
         }
 
         .logo {
-            text-decoration: none;
             display: flex;
             align-items: center;
-            transition: transform 0.3s ease;
+            text-decoration: none;
         }
-        
-        .logo:hover {
-            transform: scale(1.05);
-        }
-        
+
         .logo img {
-            height: 40px;
+            height: 45px;
             width: auto;
+            object-fit: contain;
         }
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 3rem;
+            list-style: none;
             align-items: center;
         }
 
-        .mobile-menu-btn {
+        .nav-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #f9fafb;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #6b7280;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cta-btn {
+            background: #f9fafb;
+            color: #111827;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            background: #e5e7eb;
+            transform: translateY(-1px);
+        }
+
+        .cta-btn::after {
+            display: none;
+        }
+
+        .mobile-menu-toggle {
             display: none;
             background: none;
             border: none;
             font-size: 1.5rem;
             cursor: pointer;
-            padding: 0.5rem;
-            z-index: 1010;
-            transition: transform 0.3s ease;
-        }
-        
-        .mobile-menu-btn:hover {
-            transform: rotate(90deg);
+            color: #f9fafb;
         }
 
-        .nav-links a {
-            color: #444;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: color 0.3s ease, transform 0.3s ease;
-            position: relative;
-        }
-
-        .nav-links a:after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -4px;
-            left: 0;
-            background-color: #0070f3;
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover:after {
-            width: 100%;
-        }
-
-        .nav-links a:hover {
-            color: #0070f3;
-            transform: translateY(-2px);
-        }
-        
-        /* Cybernova button styles */
-        .cybernova-button {
-            display: inline-block;
-            padding: 10px 22px;
-            font-weight: 500;
-            font-size: 0.95rem;
-            color: #00796b;
-            background-color: transparent;
-            border: 2px solid #00796b;
-            border-radius: 50px;
-            text-decoration: none;
-            text-align: center;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            margin: 0.5rem;
-            z-index: 1;
-        }
-        
-        .cybernova-button:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0;
-            height: 100%;
-            background-color: #00796b;
-            transition: width 0.4s ease;
-            z-index: -1;
-        }
-
-        .cybernova-button:hover {
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 121, 107, 0.3);
-        }
-        
-        .cybernova-button:hover:before {
-            width: 100%;
-        }
-
-        .cybernova-button:focus {
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(0, 121, 107, 0.4);
-        }
-
-        .cybernova-button:active {
-            transform: translateY(0);
-            box-shadow: 0 2px 6px rgba(0, 121, 107, 0.2);
-        }
-        
-        /* Special button */
-        .cybernova-button.filled {
-            background-color: #00796b;
-            color: white;
-        }
-        
-        /* Hero section */
         .hero {
-            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('/api/placeholder/1200/600') center/cover no-repeat;
-            min-height: 60vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
+            justify-content: center;
             text-align: center;
-            position: relative;
-            padding: 4rem 0;
-            /* Hero specific animation */
-            opacity: 0;
-            animation: fadeIn 1s ease forwards;
-            animation-delay: 0.3s;
+            padding: 8rem 3rem 4rem;
         }
-        
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
-        }
-        
+
         .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 1rem;
+            max-width: 900px;
+            animation: fadeInUp 1s ease-out;
         }
-        
+
+        .hero-subtitle {
+            font-size: 0.9rem;
+            color: #6b7280;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
         .hero h1 {
-            font-size: clamp(2rem, 7vw, 3.5rem);
-            margin-bottom: 1rem;
-            line-height: 1.2;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: slideUp 0.8s forwards;
-            animation-delay: 0.6s;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 300;
+            margin-bottom: 2rem;
+            line-height: 1.1;
+            color: #f9fafb;
         }
-        
-        @keyframes slideUp {
+
+        .hero h1 .accent {
+            font-weight: 600;
+            color: #e5e7eb;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            line-height: 1.8;
+            color: #9ca3af;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-container {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-primary, .cta-secondary {
+            padding: 1rem 2.5rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .cta-primary {
+            background: #f9fafb;
+            color: #111827;
+        }
+
+        .cta-primary:hover {
+            background: #e5e7eb;
+            transform: translateY(-2px);
+        }
+
+        .cta-secondary {
+            background: transparent;
+            color: #e5e7eb;
+            border: 1px solid #374151;
+        }
+
+        .cta-secondary:hover {
+            border-color: #6b7280;
+            background: rgba(55, 65, 81, 0.1);
+        }
+
+        .section {
+            padding: 8rem 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 300;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #f9fafb;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            text-align: center;
+            color: #9ca3af;
+            max-width: 700px;
+            margin: 0 auto 5rem;
+            line-height: 1.8;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .card {
+            background: rgba(17, 24, 39, 0.4);
+            border: 1px solid rgba(55, 65, 81, 0.2);
+            border-radius: 12px;
+            padding: 3rem;
+            transition: all 0.4s ease;
+            text-align: center;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(75, 85, 99, 0.3);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(249, 250, 251, 0.1);
+            border: 1px solid rgba(75, 85, 99, 0.3);
+            border-radius: 8px;
+        }
+
+        .card-icon img {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+            opacity: 0.9;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            color: #f9fafb;
+        }
+
+        .card p {
+            color: #9ca3af;
+            line-height: 1.7;
+        }
+
+        .features-section {
+            background: rgba(17, 24, 39, 0.3);
+            border-top: 1px solid rgba(55, 65, 81, 0.2);
+            border-bottom: 1px solid rgba(55, 65, 81, 0.2);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-top: 4rem;
+        }
+
+        .feature-card {
+            background: rgba(17, 24, 39, 0.5);
+            border: 1px solid rgba(55, 65, 81, 0.3);
+            border-radius: 12px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(75, 85, 99, 0.4);
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            color: #f9fafb;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .feature-card h3 img {
+            width: 32px;
+            height: 32px;
+            filter: brightness(0) invert(1);
+            opacity: 0.9;
+        }
+
+        .feature-card p {
+            color: #9ca3af;
+            line-height: 1.7;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+
+        .feature-list li {
+            padding: 0.75rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: #9ca3af;
+            border-bottom: 1px solid rgba(55, 65, 81, 0.2);
+        }
+
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #10b981;
+            font-weight: bold;
+        }
+
+        footer {
+            padding: 5rem 3rem 3rem;
+            background: rgba(17, 24, 39, 0.5);
+            border-top: 1px solid rgba(55, 65, 81, 0.2);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #d1d5db;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-        
-        .hero p {
-            font-size: clamp(1rem, 3vw, 1.25rem);
-            margin-bottom: 2rem;
-            color: #555;
+
+        .reveal {
             opacity: 0;
-            transform: translateY(30px);
-            animation: slideUp 0.8s forwards;
-            animation-delay: 0.8s;
+            transform: translateY(60px);
+            transition: all 0.8s ease;
         }
-        
-        .cta-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.5rem;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: slideUp 0.8s forwards; 
-            animation-delay: 1s;
-        }
-        
-        /* Cards */
-        .cards-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-top: 3rem;
-        }
-        
-        .card {
-            background: white;
-            border-radius: 12px;
-            padding: 1.5rem;
-            flex: 1 1 250px;
-            max-width: 350px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            text-align: center;
-            margin-bottom: 1rem;
-            opacity: 0;
-            transform: translateY(40px);
-        }
-        
-        .card.show {
+
+        .reveal.active {
             opacity: 1;
             transform: translateY(0);
         }
-        
-        .card:hover {
-            transform: translateY(-10px) scale(1.03);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
-        }
-        
-        /* Icon styling - Updated to make icons smaller and uniform */
-        .card-icon img {
-            width: 48px;
-            height: 48px;
-            object-fit: contain;
-            margin-bottom: 1.5rem;
-            transition: transform 0.4s ease;
-        }
-        
-        .card:hover .card-icon img {
-            transform: scale(1.1) rotate(5deg);
-        }
-        
-        .card h3 {
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
-            transition: color 0.3s ease;
-        }
-        
-        .card:hover h3 {
-            color: #00796b;
-        }
-        
-        /* How it works section */
-        .how-it-works {
-            background-color: #f9f9f9;
-        }
-        
-        .split-content {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-            margin-top: 3rem;
-            flex-direction: column;
-        }
-        
-        .visual-content {
-            flex: 1;
-            order: 1;
-            width: 100%;
-            max-width: 500px;
-            opacity: 0;
-            transform: translateX(-50px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-        
-        .visual-content.show {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        
-        .text-content {
-            flex: 1;
-            order: 2;
-            opacity: 0;
-            transform: translateX(50px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-        
-        .text-content.show {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        
-        .text-content h3 {
-            margin-bottom: 1.5rem;
-            font-size: clamp(1.5rem, 4vw, 2rem);
-        }
-        
-        /* Features list - converted to cards */
-        .feature-card {
-            background: white;
-            border-radius: 12px;
-            padding: 1.5rem;
-            flex: 1 1 250px;
-            max-width: 350px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            text-align: center;
-            margin-bottom: 1.5rem;
-            opacity: 0;
-            transform: translateY(40px);
-        }
-        
-        .feature-card.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px) scale(1.03);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
-        }
-        
-        /* Feature Icon styling - Updated for uniform size */
-        .feature-icon img {
-            width: 48px;
-            height: 48px;
-            object-fit: contain;
-            margin-bottom: 1.5rem;
-            transition: transform 0.4s ease;
-        }
-        
-        .feature-card:hover .feature-icon img {
-            transform: rotate(15deg);
-        }
-        
-        /* Benefits section - converted to cards */
-        .benefits-cards {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-top: 3rem;
-        }
-        
-        .benefit-card {
-            background: white;
-            border-radius: 12px;
-            padding: 1.5rem;
-            flex: 1 1 250px;
-            max-width: 350px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            margin-bottom: 1.5rem;
-            opacity: 0;
-            transform: translateY(40px);
-        }
-        
-        .benefit-card.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .benefit-card:hover {
-            transform: translateY(-10px) scale(1.03);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
-        }
-        
-        .benefit-card h3 {
-            color: #00796b;
-            margin-bottom: 1.5rem;
-            font-size: 1.5rem;
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-        
-        .benefit-card:hover h3 {
-            transform: translateY(-5px);
-        }
-        
-        /* Updated styling for benefit icons */
-        .benefit-card h3 img {
-            vertical-align: middle;
-            margin-right: 8px;
-            width: 32px;
-            height: 32px;
-            object-fit: contain;
-            transition: transform 0.4s ease;
-        }
-        
-        .benefit-card:hover h3 img {
-            transform: rotate(10deg);
-        }
-        
-        .benefit-list {
-            list-style-type: none;
-        }
-        
-        .benefit-list li {
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: flex-start;
-            opacity: 0;
-            transform: translateX(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-            transition-delay: 0.1s;
-        }
-        
-        .benefit-card.show .benefit-list li {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        
-        .benefit-card.show .benefit-list li:nth-child(2) {
-            transition-delay: 0.2s;
-        }
-        
-        .benefit-card.show .benefit-list li:nth-child(3) {
-            transition-delay: 0.3s;
-        }
-        
-        .benefit-list li:before {
-            content: "✓";
-            color: #00796b;
-            font-weight: bold;
-            margin-right: 0.5rem;
-            flex-shrink: 0;
-            transform: scale(0);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        
-        .benefit-card.show .benefit-list li:before {
-            transform: scale(1);
-        }
-        
-        /* Company section */
-        .company {
-            text-align: center;
-            background-color: #f9f9f9;
-        }
-        
-        .company p {
-            max-width: 700px;
-            margin: 0 auto 2rem;
-            font-size: clamp(1rem, 3vw, 1.1rem);
-            padding: 0 1rem;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-        
-        .company p.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .company img {
-            max-width: 200px;
-            margin: 0 auto;
-            opacity: 0;
-            transform: scale(0.8);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-        
-        .company img.show {
-            opacity: 1;
-            transform: scale(1);
-        }
-        
-        .company img:hover {
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
-            100% {
-                transform: scale(1);
-            }
-        }
-        
-        /* CTA section */
-        .cta {
-            text-align: center;
-            background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)), url('/api/placeholder/1200/600') center/cover no-repeat;
-            padding: 4rem 0;
-        }
-        
-        .cta-content {
-            max-width: 700px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-        
-        .cta h2 {
-            margin-bottom: 1rem;
-        }
-        
-        .cta p {
-            margin-bottom: 2rem;
-            font-size: clamp(1rem, 3vw, 1.1rem);
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-        
-        .cta p.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        /* Footer */
-        footer {
-            background-color: #004d40;
-            color: white;
-            padding: 2rem 0;
-            text-align: center;
-            transform: translateY(100%);
-            animation: slideUp 0.6s forwards;
-            animation-delay: 0.2s;
-        }
-        
-        footer .container {
-            padding: 0 1rem;
-        }
-        
-        footer a {
-            color: white;
-            margin: 0 10px;
-            display: inline-block;
-            text-decoration: none;
-            transition: transform 0.3s ease, opacity 0.3s ease;
-            opacity: 0.8;
-        }
-        
-        footer a:hover {
-            transform: translateY(-3px);
-            opacity: 1;
-        }
-        
-        footer .links {
-            margin-top: 1rem;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-        
-        /* Responsive design */
-        @media (min-width: 768px) {
-            .container {
+
+        @media (max-width: 768px) {
+            nav {
                 padding: 0 2rem;
             }
-            
-            .split-content {
-                flex-direction: row;
-            }
-            
-            .visual-content {
-                order: 0;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            section {
-                padding: 3rem 0;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
+
             .nav-links {
                 position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background-color: white;
+                top: 80px;
+                right: -100%;
                 flex-direction: column;
-                justify-content: center;
-                align-items: center;
+                background: rgba(10, 10, 10, 0.98);
+                width: 100%;
+                height: calc(100vh - 80px);
                 padding: 2rem;
-                gap: 2rem;
-                transform: translateX(100%);
-                transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
-                z-index: 1000;
+                transition: right 0.3s ease;
+                border-top: 1px solid rgba(55, 65, 81, 0.2);
             }
-            
+
             .nav-links.active {
-                transform: translateX(0);
+                right: 0;
             }
-            
-            .nav-links a {
-                font-size: 1.2rem;
-                opacity: 0;
-                transform: translateX(20px);
-                transition: opacity 0.3s ease, transform 0.3s ease;
+
+            .mobile-menu-toggle {
+                display: block;
             }
-            
-            .nav-links.active a {
-                opacity: 1;
-                transform: translateX(0);
+
+            .section {
+                padding: 5rem 2rem;
             }
-            
-            .nav-links.active a:nth-child(1) {
-                transition-delay: 0.2s;
+
+            .cards-grid,
+            .features-grid {
+                grid-template-columns: 1fr;
             }
-            
-            .nav-links.active a:nth-child(2) {
-                transition-delay: 0.3s;
-            }
-            
-            .nav-links.active a:nth-child(3) {
-                transition-delay: 0.4s;
-            }
-            
-            .nav-links.active a:nth-child(4) {
-                transition-delay: 0.5s;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .cybernova-button {
-                width: 100%;
-                margin: 0.5rem 0;
-            }
-            
-            .cta-buttons {
+
+            .footer-content {
                 flex-direction: column;
-                width: 100%;
-                padding: 0 1rem;
+                gap: 2rem;
             }
-            
+
             .hero {
-                min-height: 50vh;
-            }
-            
-            .card, .feature-card, .benefit-card {
-                max-width: 100%;
+                padding: 8rem 2rem 4rem;
             }
         }
-        
-        /* Animation for page transitions */
-        .page-transition {
-            transition: opacity 0.3s ease;
-        }
-        
-        /* Page load animation */
-        .fade-in {
-            animation: fadeIn 0.6s ease forwards;
-        }
-        
-        /* Sequential reveal animation */
-        .reveal-sequential {
-            transition-delay: calc(var(--order) * 0.1s);
+
+        @media (max-width: 480px) {
+            .section {
+                padding: 4rem 1.5rem;
+            }
+
+            nav {
+                padding: 0 1.5rem;
+            }
         }
     </style>
 </head>
-<body class="fade-in">
-    <!-- Header & Navigation -->
+<body>
+    <div class="bg-texture"></div>
+    <div class="grid-overlay"></div>
+
     <header>
-        <div class="container nav-container">
+        <nav>
             <a href="index.html" class="logo">
                 <img src="CybernovaAsset_3-removebg-preview.png" alt="Cybernova Logo">
             </a>
-            <button class="mobile-menu-btn" aria-label="Toggle menu">☰</button>
-            <nav class="nav-links">
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="contact.html" class="cta-btn">Let's Talk</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-subtitle">Patient-Centric Healthcare Records</div>
+            <h1>Healthcare records, <span class="accent">reimagined</span></h1>
+            <p class="hero-description">A secure, interoperable, and patient-first healthcare data platform built on blockchain, giving control back to the people while streamlining operations for hospitals and insurers alike.</p>
+            <div class="cta-container">
+                <a href="#platform" class="cta-primary">Explore Platform</a>
+                <a href="contact.html" class="cta-secondary">Partner With Us</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section reveal" id="platform">
+        <h2 class="section-title">Why Healthcare Needs a Smarter Backbone</h2>
+        <p class="section-subtitle">Unified health records across hospitals, labs, and clinics with patient-centric privacy and blockchain integrity.</p>
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-icon">
+                    <img src="hospital.png" alt="Hospital Icon">
+                </div>
+                <h3>No More Data Silos</h3>
+                <p>Unified health records across hospitals, labs, and clinics, accessible securely from anywhere.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">
+                    <img src="padlock.png" alt="Security Icon">
+                </div>
+                <h3>Patient-Centric Privacy</h3>
+                <p>Consent-driven data sharing with encryption and blockchain integrity. Patients control who sees their data.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">
+                    <img src="rush.png" alt="Speed Icon">
+                </div>
+                <h3>Fast, Secure Access</h3>
+                <p>Eliminate delays, reduce errors, and ensure continuity of care across providers.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section features-section reveal">
+        <h2 class="section-title">How Raaya Works</h2>
+        <p class="section-subtitle">Raaya links every patient's medical record to their national ID. Data from multiple providers is stored immutably and accessed only through patient-approved permissions.</p>
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>
+                    <img src="interoperability.png" alt="Interoperability Icon">
+                    Interoperability Across Systems
+                </h3>
+                <p style="color: #d1d5db; margin-bottom: 1rem;">Connect public, private, and rural health institutions seamlessly.</p>
+                <ul class="feature-list">
+                    <li>Unified records across all providers</li>
+                    <li>Real-time data synchronization</li>
+                    <li>Cross-institutional accessibility</li>
+                    <li>Standardized data formats</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>
+                    <img src="medical-prescription.png" alt="Records Icon">
+                    Tamper-Proof Medical Records
+                </h3>
+                <p style="color: #d1d5db; margin-bottom: 1rem;">Every edit is logged and timestamped. Nothing is lost, nothing is fake.</p>
+                <ul class="feature-list">
+                    <li>Immutable blockchain storage</li>
+                    <li>Complete audit trail</li>
+                    <li>Version history tracking</li>
+                    <li>Cryptographic verification</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>
+                    <img src="easy-access.png" alt="Access Icon">
+                    Consent-Driven Data Access
+                </h3>
+                <p style="color: #d1d5db; margin-bottom: 1rem;">Patients approve who sees what, and when. Complete control over your health data.</p>
+                <ul class="feature-list">
+                    <li>Granular permission controls</li>
+                    <li>Temporary access grants</li>
+                    <li>Emergency override protocols</li>
+                    <li>Access logging and notifications</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>
+                    <img src="location.png" alt="Location Icon">
+                    Location-Based Integration
+                </h3>
+                <p style="color: #d1d5db; margin-bottom: 1rem;">Share records securely across geographies with localized access.</p>
+                <ul class="feature-list">
+                    <li>Regional hospital networks</li>
+                    <li>Cross-border medical tourism</li>
+                    <li>Emergency care coordination</li>
+                    <li>Telemedicine integration</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="section reveal">
+        <h2 class="section-title">Benefits for Everyone</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>
+                    <img src="medical.png" alt="Patient Icon">
+                    Patients
+                </h3>
+                <ul class="feature-list">
+                    <li>View, control, and share your complete medical history</li>
+                    <li>Avoid repeat tests and paperwork</li>
+                    <li>Get better, faster, more personalized care</li>
+                    <li>Access records from anywhere, anytime</li>
+                    <li>Emergency medical information readily available</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>
+                    <img src="medical-professional.png" alt="Provider Icon">
+                    Healthcare Providers
+                </h3>
+                <ul class="feature-list">
+                    <li>Access accurate patient records instantly</li>
+                    <li>Save time and reduce medical errors</li>
+                    <li>Focus on care, not administration</li>
+                    <li>Seamless patient transfers</li>
+                    <li>Improved treatment outcomes</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>
+                    <img src="offer.png" alt="Insurance Icon">
+                    Insurance Providers
+                </h3>
+                <ul class="feature-list">
+                    <li>Verify claims instantly with immutable health data</li>
+                    <li>Prevent fraud with real-time audit trails</li>
+                    <li>Automate approvals and reduce disbursement delays</li>
+                    <li>Risk assessment with comprehensive data</li>
+                    <li>Streamlined claims processing</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="section features-section reveal">
+        <h2 class="section-title">Ready to Transform Healthcare?</h2>
+        <p class="section-subtitle">Whether you're a government body, hospital, or insurer, Raaya is your secure gateway to seamless medical records.</p>
+        <div class="cta-container">
+            <a href="contact.html" class="cta-primary">Become a Partner</a>
+            <a href="contact.html" class="cta-secondary">Request a Demo</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <p style="color: #6b7280;">© 2025 Cybernova. All rights reserved.</p>
+            <div class="footer-links">
                 <a href="index.html">Home</a>
                 <a href="about.html">About Us</a>
                 <a href="projects.html">Projects</a>
-                <a href="contact.html" class="cybernova-button">Let's Talk</a>
-            </nav>
-        </div>
-    </header>
-    
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container hero-content">
-            <h1 class="gradient-text">Healthcare Records, Reimagined.</h1>
-            <p>A secure, interoperable, and patient first healthcare data platform built on blockchain giving control back to the people, while streamlining operations for hospitals and insurers alike.</p>
-            <div class="cta-buttons">
-                <a href="contact.html" class="cybernova-button filled">Join Us</a>
-                <a href="#how-it-works" class="cybernova-button">How It Works</a>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Why Raaya Section -->
-    <section class="why-raaya" id="why-raaya">
-        <div class="container">
-            <h2 class="section-title gradient-text">Why Healthcare Needs a Smarter Backbone</h2>
-            <div class="cards-container">
-                <div class="card" style="--order: 1">
-                    <div class="card-icon">
-                        <img src="hospital.png" alt="Hospital Icon">
-                    </div>
-                    <h3>No More Data Silos</h3>
-                    <p>Unified health records across hospitals, labs, and clinics.</p>
-                </div>
-                <div class="card" style="--order: 2">
-                    <div class="card-icon">
-                        <img src="padlock.png" alt="Security Icon">
-                    </div>
-                    <h3>Patient-Centric Privacy</h3>
-                    <p>Consent-driven data sharing with encryption and blockchain integrity.</p>
-                </div>
-                <div class="card" style="--order: 3">
-                    <div class="card-icon">
-                        <img src="rush.png" alt="Speed Icon">
-                    </div>
-                    <h3>Fast, Secure Access</h3>
-                    <p>Eliminate delays, reduce errors, and ensure continuity of care.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- How Raaya Works Section -->
-    <section class="how-it-works" id="how-it-works">
-        <div class="container">
-            <h2 class="section-title gradient-text">How Raaya Works</h2>
-            <div class="split-content">
-                <div class="visual-content">
-                    <img src="Raaya Logo" alt="Raaya Blockchain Technology Illustration">
-                </div>
-                <div class="text-content">
-                    <h3 class="gradient-text">Blockchain Meets Medical Infrastructure</h3>
-                    <p>Raaya links every patient's medical record to the national ID. Data from multiple providers is stored immutably and accessed only through patient approved permissions. Every transaction is logged, traceable, and secure ensuring trust from first check-up to emergency surgery.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Core Features Section -->
-    <section class="core-features" id="core-features">
-        <div class="container">
-            <h2 class="section-title gradient-text">Core Features</h2>
-            <div class="cards-container">
-                <div class="feature-card" style="--order: 1">
-                    <div class="feature-icon">
-                        <img src="interoperability.png" alt="Interoperability Icon">
-                    </div>
-                    <h3>Interoperability Across Systems</h3>
-                    <p>Connect public, private, and rural health institutions.</p>
-                </div>
-                <div class="feature-card" style="--order: 2">
-                    <div class="feature-icon">
-                        <img src="medical-prescription.png" alt="Medical Records Icon">
-                    </div>
-                    <h3>Tamper-Proof Medical Records</h3>
-                    <p>Every edit is logged and timestamped nothing is lost, nothing is fake.</p>
-                </div>
-                <div class="feature-card" style="--order: 3">
-                    <div class="feature-icon">
-                        <img src="location.png" alt="Location Icon">
-                    </div>
-                    <h3>Location-Based Hospital Integration</h3>
-                    <p>Share records securely across geographies with localized access.</p>
-                </div>
-                <div class="feature-card" style="--order: 4">
-                    <div class="feature-icon">
-                        <img src="easy-access.png" alt="Data Access Icon">
-                    </div>
-                    <h3>Consent-Driven Data Access</h3>
-                    <p>Patients approve who sees what, and when.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Benefits Section -->
-    <section class="benefits" id="benefits">
-        <div class="container">
-            <h2 class="section-title gradient-text">Benefits for Everyone</h2>
-            <div class="benefits-cards">
-                <div class="benefit-card" style="--order: 1">
-                    <h3>
-                        <img src="medical.png" alt="Patient Icon"> 
-                        Patients
-                    </h3>
-                    <ul class="benefit-list">
-                        <li>View, control, and share your complete medical history</li>
-                        <li>Avoid repeat tests and paperwork</li>
-                        <li>Get better, faster, more personalized care</li>
-                    </ul>
-                </div>
-                <div class="benefit-card" style="--order: 2">
-                    <h3>
-                        <img src="medical-professional.png" alt="Healthcare Provider Icon">
-                        Healthcare Providers
-                    </h3>
-                    <ul class="benefit-list">
-                        <li>Access accurate patient records instantly</li>
-                        <li>Save time and reduce medical errors</li>
-                        <li>Focus on care, not administration</li>
-                    </ul>
-                </div>
-                <div class="benefit-card" style="--order: 3">
-                    <h3>
-                        <img src="offer.png" alt="Insurance Icon">
-                        Insurance Providers
-                    </h3>
-                    <ul class="benefit-list">
-                        <li>Verify claims instantly with immutable health data</li>
-                        <li>Prevent fraud with real time audit trails</li>
-                        <li>Automate approvals and reduce disbursement delays</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Company Section -->
-    <section class="company" id="company">
-        <div class="container">
-            <h2 class="section-title gradient-text">Built by Cybernova</h2>
-            <p>Raaya is a flagship module of <strong>Cybernova</strong>, a blockchain driven platform tackling data fragmentation in healthcare. We're building decentralized infrastructure for smarter, more connected systems.</p>
-            <img src="CybernovaAsset_3-removebg-preview.png" alt="Cybernova Logo">
-        </div>
-    </section>
-    
-    <!-- CTA Section -->
-    <section class="cta" id="cta">
-        <div class="container cta-content">
-            <h2 class="section-title gradient-text">Join the Future of Healthcare</h2>
-            <p>Whether you're a government, hospital, or insurer Raaya is your secure gateway to seamless medical records.</p>
-            <div class="cta-buttons">
-                <a href="contact.html" class="cybernova-button filled">Partner With Us</a>
-                <a href="raaya.pdf" class="cybernova-button" download>View Presentation</a>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Cybernova. All rights reserved.</p>
-            <div class="links">
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
-                <a href="#">Contact Us</a>
+                <a href="contact.html">Contact</a>
             </div>
         </div>
     </footer>
 
-    <!-- JavaScript for mobile menu, page transitions, and animations -->
     <script>
-        // Mobile menu toggle
-        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-        const navLinks = document.querySelector('.nav-links');
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navLinks = document.getElementById('navLinks');
         
-        mobileMenuBtn.addEventListener('click', () => {
+        mobileMenuToggle.addEventListener('click', () => {
             navLinks.classList.toggle('active');
-            // Change menu icon based on state
-            mobileMenuBtn.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
         });
+
+        const reveals = document.querySelectorAll('.reveal');
         
-        // Close mobile menu when clicking a link
-        const navLinksList = document.querySelectorAll('.nav-links a');
-        navLinksList.forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-                mobileMenuBtn.textContent = '☰';
+        const revealOnScroll = () => {
+            reveals.forEach(reveal => {
+                const windowHeight = window.innerHeight;
+                const revealTop = reveal.getBoundingClientRect().top;
+                const revealPoint = 150;
+                
+                if (revealTop < windowHeight - revealPoint) {
+                    reveal.classList.add('active');
+                }
             });
-        });
-        
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (navLinks.classList.contains('active') && 
-                !e.target.closest('.nav-links') && 
-                !e.target.closest('.mobile-menu-btn')) {
-                navLinks.classList.remove('active');
-                mobileMenuBtn.textContent = '☰';
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(10, 10, 10, 0.98)';
+                header.style.padding = '1.5rem 0';
+            } else {
+                header.style.background = 'rgba(10, 10, 10, 0.95)';
+                header.style.padding = '2rem 0';
             }
         });
-        
-        // Page transition for internal links
-        document.addEventListener('DOMContentLoaded', () => {
-            const internalLinks = document.querySelectorAll('a[href^="index"], a[href^="about"], a[href^="projects"], a[href^="contact"]');
-            
-            internalLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    if (!link.href.includes('#')) {
-                        e.preventDefault();
-                        document.body.classList.add('page-transition');
-                        document.body.style.opacity = 0;
-                        
-                        setTimeout(() => {
-                            window.location.href = link.href;
-                        }, 300);
-                    }
-                });
-            });
-            
-            // Add animation to section titles and cards on page load
-            setTimeout(() => {
-                animateOnScroll();
-            }, 100);
-        });
-        
-        // Smooth scrolling for anchor links with improved animation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                // Close mobile menu if open
-                navLinks.classList.remove('active');
-                mobileMenuBtn.textContent = '☰';
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    // Offset for fixed header
-                    const headerHeight = document.querySelector('header').offsetHeight;
-                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-                    
-                    // Smooth scroll with easing function
-                    const startPosition = window.pageYOffset;
-                    const distance = targetPosition - startPosition;
-                    const duration = 800;
-                    let start = null;
-                    
-                    function step(timestamp) {
-                        if (!start) start = timestamp;
-                        const progress = timestamp - start;
-                        const percentage = Math.min(progress / duration, 1);
-                        
-                        // Easing function: easeInOutCubic
-                        const easing = percentage < 0.5
-                            ? 4 * percentage * percentage * percentage
-                            : 1 - Math.pow(-2 * percentage + 2, 3) / 2;
-                        
-                        window.scrollTo(0, startPosition + distance * easing);
-                        
-                        if (progress < duration) {
-                            window.requestAnimationFrame(step);
-                        }
-                    }
-                    
-                    window.requestAnimationFrame(step);
-                }
-            });
-        });
-        
-        // Intersection Observer for scroll animations
-        function animateOnScroll() {
-            const sections = document.querySelectorAll('section');
-            const titles = document.querySelectorAll('.section-title');
-            const cards = document.querySelectorAll('.card, .feature-card, .benefit-card');
-            const visualContent = document.querySelector('.visual-content');
-            const textContent = document.querySelector('.text-content');
-            const companyElements = document.querySelectorAll('.company p, .company img');
-            const ctaElements = document.querySelectorAll('.cta p');
-            
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.1
-            };
-            
-            // Observer for sections
-            const sectionObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('show');
-                    }
-                });
-            }, observerOptions);
-            
-            sections.forEach(section => {
-                sectionObserver.observe(section);
-            });
-            
-            // Observer for titles
-            const titleObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('show');
-                    }
-                });
-            }, observerOptions);
-            
-            titles.forEach(title => {
-                titleObserver.observe(title);
-            });
-            
-            // Observer for cards with staggered animation
-            const cardObserver = new IntersectionObserver((entries) => {
-                entries.forEach((entry, index) => {
-                    if (entry.isIntersecting) {
-                        // Stagger the animations
-                        setTimeout(() => {
-                            entry.target.classList.add('show');
-                        }, index * 100);
-                    }
-                });
-            }, observerOptions);
-            
-            cards.forEach(card => {
-                cardObserver.observe(card);
-            });
-            
-            // Observer for split content sections
-            const contentObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        if (visualContent) visualContent.classList.add('show');
-                        if (textContent) textContent.classList.add('show');
-                    }
-                });
-            }, observerOptions);
-            
-            if (visualContent && textContent) {
-                const splitContentSection = document.querySelector('.split-content');
-                if (splitContentSection) {
-                    contentObserver.observe(splitContentSection);
-                }
-            }
-            
-            // Observer for company section elements
-            const companyObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('show');
-                    }
-                });
-            }, observerOptions);
-            
-            companyElements.forEach(element => {
-                companyObserver.observe(element);
-            });
-            
-            // Observer for CTA section elements
-            const ctaObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('show');
-                    }
-                });
-            }, observerOptions);
-            
-            ctaElements.forEach(element => {
-                ctaObserver.observe(element);
-            });
-        }
-        
-        // Run animations when scrolling
-        window.addEventListener('scroll', debounce(checkAnimation, 50));
-        
-        // Initial check for animations
-        checkAnimation();
-        
-        // Helper function for debouncing
-        function debounce(func, wait, immediate) {
-            let timeout;
-            return function() {
-                const context = this, args = arguments;
-                const later = function() {
-                    timeout = null;
-                    if (!immediate) func.apply(context, args);
-                };
-                const callNow = immediate && !timeout;
-                clearTimeout(timeout);
-                timeout = setTimeout(later, wait);
-                if (callNow) func.apply(context, args);
-            };
-        }
-        
-        // Check which animations should trigger
-        function checkAnimation() {
-            const elementsToAnimate = document.querySelectorAll('.card, .feature-card, .benefit-card, .section-title, .visual-content, .text-content, .company p, .company img, .cta p');
-            const windowHeight = window.innerHeight;
-            
-            elementsToAnimate.forEach((element) => {
-                const elementPosition = element.getBoundingClientRect();
-                
-                // If element is in viewport
-                if (elementPosition.top < windowHeight * 0.9) {
-                    element.classList.add('show');
-                }
-            });
-        }
+
+        document.addEventListener('DOMContentLoaded', revealOnScroll);
     </script>
 </body>
 </html>
