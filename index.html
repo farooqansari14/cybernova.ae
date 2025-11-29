@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cybernova - Unifying Fragmented Systems with Blockchain</title>
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
+     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-    
     <style>
         * {
             margin: 0;
@@ -482,39 +481,13 @@
             transform: translateY(0);
         }
 
-        .mobile-menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #f9fafb;
-        }
-
         @media (max-width: 768px) {
             nav {
                 padding: 0 2rem;
             }
 
             .nav-links {
-                position: fixed;
-                top: 80px;
-                right: -100%;
-                flex-direction: column;
-                background: rgba(10, 10, 10, 0.98);
-                width: 100%;
-                height: calc(100vh - 80px);
-                padding: 2rem;
-                transition: right 0.3s ease;
-                border-top: 1px solid rgba(55, 65, 81, 0.2);
-            }
-
-            .nav-links.active {
-                right: 0;
-            }
-
-            .mobile-menu-toggle {
-                display: block;
+                display: none;
             }
 
             .section {
@@ -534,19 +507,6 @@
             .hero {
                 padding: 0 2rem;
             }
-
-            .solutions-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .features-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
         }
 
         @media (max-width: 480px) {
@@ -556,18 +516,6 @@
 
             nav {
                 padding: 0 1.5rem;
-            }
-
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .hero-description {
-                font-size: 1rem;
             }
         }
     </style>
@@ -585,7 +533,7 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About Us</a></li>
                 <li><a href="projects.html">Projects</a></li>
-                <li><a href="contact.html">Lets talk</a></li>
+                <li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
     </header>
@@ -715,22 +663,15 @@
                 <p><a href="credel.html">Education</a></p>
                 <p><a href="saraya.html">Real Estate</a></p>
                 <p><a href="sarapay.html">Finance</a></p>
-            
             </div>
-            
+           
+        </div>
         <div class="footer-bottom">
             <p>&copy; 2024 Cybernova. Intelligent blockchain infrastructure.</p>
         </div>
     </footer>
 
     <script>
-        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-        const navLinks = document.getElementById('navLinks');
-        
-        mobileMenuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-
         const reveals = document.querySelectorAll('.reveal');
         
         const revealOnScroll = () => {
